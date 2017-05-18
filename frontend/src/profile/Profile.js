@@ -5,7 +5,7 @@ import * as actions from './Profile.actions';
 class Profile extends React.Component {
   render() {
     return (
-        <div>TEST</div>
+        <div>PROFILE TEST</div>
       );
   }
 }

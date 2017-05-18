@@ -5,7 +5,7 @@ import * as actions from './Drinks.actions';
 class Drinks extends React.Component {
   render() {
     return (
-        <div>TEST</div>
+        <div>Drinks TEST</div>
       );
   }
 }

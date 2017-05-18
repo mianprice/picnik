@@ -5,7 +5,7 @@ import * as actions from './Login.actions';
 class Login extends React.Component {
   render() {
     return (
-        <div>TEST</div>
+        <div>LOGIN TEST</div>
       );
   }
 }
