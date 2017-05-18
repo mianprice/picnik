@@ -46,11 +46,15 @@ class AppLayout extends React.Component {
     render() {
         return(
             <div>
-                picnik
-                <Link to="/login">Login</Link>
-                <Link to="/profile">Profile</Link>
-                <Link to="/signup">Signup</Link>
-                <Link to="/planning">Planning</Link>
+                <div className="navbar">
+                    <IndexLink to="/" className="app_title">picnik</IndexLink>
+                    <div className="link_set">
+                        <Link className="nav_link" to="/profile">Profile</Link>
+                        <Link className="nav_link" to="/login">Login</Link>
+                        <Link className="nav_link" to="/signup">Signup</Link>
+                        <Link className="nav_link" to="/planning">Planning</Link>
+                    </div>
+                </div>
                 <div>
                     {this.props.children}
                 </div>

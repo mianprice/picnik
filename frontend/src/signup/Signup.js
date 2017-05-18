@@ -5,7 +5,7 @@ import * as actions from './Signup.actions';
 class Signup extends React.Component {
   render() {
     return (
-        <div>SIGNUP TEST</div>
+        <div className="signup">SIGNUP TEST</div>
       );
   }
 }

@@ -5,7 +5,7 @@ import * as actions from './Map.actions';
 class Map extends React.Component {
   render() {
     return (
-        <div>MAP TEST</div>
+        <div className="plan_part">MAP TEST</div>
       );
   }
 }

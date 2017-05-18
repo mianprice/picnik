@@ -5,7 +5,7 @@ import * as actions from './Home.actions';
 class Home extends React.Component {
   render() {
     return (
-        <div>HOME TEST</div>
+        <div className="home">HOME TEST</div>
       );
   }
 }

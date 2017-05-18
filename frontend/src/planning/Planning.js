@@ -8,8 +8,8 @@ import FoodContainer from '../food/Food.js';
 class Planning extends React.Component {
   render() {
     return (
-        <div>
-            PLANNING TEST
+        <div className="planning">
+            <div className="plan_info">PLANNING TEST</div>
             <FoodContainer />
             <DrinksContainer />
             <MapContainer />

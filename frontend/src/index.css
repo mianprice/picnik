@@ -2,4 +2,87 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+.navbar {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.app_title, .nav_link {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+}
+
+.app_title {
+    font-size: 2em;
+    width: 20vw;
+    text-align: center;
+}
+
+.link_set {
+    width: 60vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.nav_link:hover {
+    background-color: rgb(150,150,150);
+}
+
+.planning {
+    width: 100%;
+    background-color: rgb(225,225,225);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.plan_info {
+    width: 100vw;
+    font-size: 2em;
+    background-color: green;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.plan_part {
+    width: 30vw;
+    padding: 25px 0;
+    margin: 15px 0;
+    background-color: darkblue;
+    color: white;
+    text-align: center;
+}
+
+.signup {
+    background-color: lightblue;
+    text-align: center;
+}
+
+.login {
+    background-color: lightgreen;
+    text-align: center;
+}
+
+.home {
+    background-color: pink;
+    text-align: center;
+}
+
+.profile {
+    background-color: lavender;
+    text-align: center;
 }
