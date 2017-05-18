@@ -16,7 +16,7 @@ app.use(cors());
 // <-----  SETUP ENDS HERE  ----->
 
 
-// POST /api/user/signup
+// <---- POST /api/user/signup ----->
 // Creates new user accounts, returns standard login response
 app.post('/api/user/signup', (req,res,next) => {
   let new_account = req.body.signup;
@@ -34,7 +34,7 @@ app.post('/api/user/signup', (req,res,next) => {
     .catch(next);
 });
 
-// POST /api/user/login
+// <----- POST /api/user/login ----->
 // Logs in users, returns standard login response
 app.post('/api/user/login', (req,res,next) => {
   let login = req.body.login;
@@ -46,7 +46,7 @@ app.post('/api/user/login', (req,res,next) => {
     .catch(next);
 });
 
-// AUTHENTICATION MIDDLEWARE
+// <----- AUTHENTICATION MIDDLEWARE ----->
 // Authenticate the token provided as part of the request
 app.use(function authenticate(req,res,next) {
   db.one('select * from sessions where token=$1', [req.body.token])
