@@ -10,9 +10,9 @@ class Planning extends React.Component {
     return (
         <div className="planning">
             <div className="plan_info">PLANNING TEST</div>
+            <MapContainer />
             <FoodContainer />
             <DrinksContainer />
-            <MapContainer />
         </div>
       );
   }
