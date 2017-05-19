@@ -15,7 +15,7 @@ class Food extends React.Component {
                     <div>
                         {item.recipeName}
                     </div>
-                    <img src={item.smallImageUrls[0]} />
+                    <img src={item.smallImageUrls[0]} alt={item.recipeName}/>
                     <button onClick={() => this.props.selectRecipe(item.id)}>Select</button>
                 </div>
             );

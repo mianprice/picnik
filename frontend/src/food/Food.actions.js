@@ -19,7 +19,6 @@ export const getRecipe = (search_params) => {
 };
 
 export const getTestRecipes = () => {
-    console.log(testResponse.testResponse);
     let asyncAction = function(dispatch) {
         dispatch(displayRecipes(testResponse.testResponse));
     };
