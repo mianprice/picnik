@@ -38,7 +38,8 @@ let INITIAL_STATE = {
     porter: true,
     doppelbock: true,
     gose: true,
-    sour: true
+    sour: true,
+    editing: false
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -62,6 +63,12 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             [action.id]: action.value
         });
+    } else if (action.type === "logout") {
+        return INITIAL_STATE;
+    } else if (action.type === "edit-profile") {
+        return Object.assign({}, state, {
+            editing: true
+        });;
     }
     return state;
 };

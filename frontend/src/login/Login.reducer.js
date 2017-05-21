@@ -16,6 +16,8 @@ export default function reducer(state = INITIAL_STATE, action) {
             last: action.payload.last,
             user_id: action.payload.id,
         });
+    } else if (action.type === "logout") {
+        return INITIAL_STATE;
     }
     return state;
 };

@@ -121,6 +121,13 @@ class Signup extends React.Component {
       ];
     return (
         <div className="signup">
+            <div className="signup_progress">
+                <div className={this.props.signup.current_section > 0 ? "sec_done progress_section" : (this.props.signup.current_section === 0 ? "sec_now progress_section" : "sec_future progress_section")}>Basic Info</div>
+                <div className={this.props.signup.current_section > 1 ? "sec_done progress_section" : (this.props.signup.current_section === 1 ? "sec_now progress_section" : "sec_future progress_section")}>Tastes</div>
+                <div className={this.props.signup.current_section > 2 ? "sec_done progress_section" : (this.props.signup.current_section === 2 ? "sec_now progress_section" : "sec_future progress_section")}>Cuisines</div>
+                <div className={this.props.signup.current_section > 3 ? "sec_done progress_section" : (this.props.signup.current_section === 3 ? "sec_now progress_section" : "sec_future progress_section")}>Wines</div>
+                <div className={this.props.signup.current_section > 4 ? "sec_done progress_section" : (this.props.signup.current_section === 4 ? "sec_now progress_section" : "sec_future progress_section")}>Beers</div>
+            </div>
             {displayArray[this.props.signup.current_section]}
         </div>
       );

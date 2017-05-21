@@ -137,3 +137,30 @@ body {
     background-color: darkorange;
     color: white;
 }
+
+.signup_progress {
+    width: 80%;
+    margin: 0 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress_section {
+    padding: 5px;
+}
+
+.sec_done {
+    background-color: rgb(10, 59, 0);
+    color: white;
+}
+
+.sec_now {
+    background-color: transparent;
+    color: black;
+}
+
+.sec_future {
+    background-color: rgb(0, 85, 91);
+    color: white;
+}

@@ -43,17 +43,30 @@ persistStore(store, { storage: new CookieStorage() });
 
 
 class AppLayout extends React.Component {
+    logout() {
+        store.dispatch({
+          type: 'logout'
+        });
+      }
     render() {
+        let nav_options = this.props.state.login.token ? (
+            <div className="link_set">
+                <Link className="nav_link" to="/profile">Profile</Link>
+                <div className="nav_link" onClick={(event) => {this.logout()}}>Logout</div>
+                <Link className="nav_link" to="/planning">Planning</Link>
+            </div>
+        ) : (
+            <div className="link_set">
+                <Link className="nav_link" to="/login">Login</Link>
+                <Link className="nav_link" to="/signup">Signup</Link>
+                <Link className="nav_link" to="/planning">Planning</Link>
+            </div>
+        );
         return(
             <div>
                 <div className="navbar">
                     <IndexLink to="/" className="app_title">picnik</IndexLink>
-                    <div className="link_set">
-                        <Link className="nav_link" to="/profile">Profile</Link>
-                        <Link className="nav_link" to="/login">Login</Link>
-                        <Link className="nav_link" to="/signup">Signup</Link>
-                        <Link className="nav_link" to="/planning">Planning</Link>
-                    </div>
+                    {nav_options}
                 </div>
                 <div>
                     {this.props.children}
@@ -64,7 +77,8 @@ class AppLayout extends React.Component {
 }
 
 const AppLayoutContainer = ReactRedux.connect(
-    state => ({state})
+    state => ({state}),
+
 )(AppLayout);
 
 
