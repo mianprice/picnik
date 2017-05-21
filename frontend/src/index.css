@@ -94,3 +94,46 @@ body {
 .wines {
     background-color: coral;
 }
+
+.signup_button {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+}
+
+.signup_section_title {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 1.25em;
+    background-color: white;
+    width: 90%;
+    color: black;
+}
+
+.signup_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.signup_submit_button {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 90%;
+    background-color: darkgreen;
+    color: white;
+}
+
+.signup_skip_button {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 90%;
+    background-color: darkorange;
+    color: white;
+}

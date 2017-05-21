@@ -19,8 +19,22 @@ export function sendLogin(login) {
                 login
             })
         })
-        .then(data => {console.log(data);})
-        .catch(error => {throw error});
+        .then(data => dispatch(loginComplete(data)))
+        .catch(error => dispatch(pageError(error)));
     };
     return asyncAction;
+};
+
+const loginComplete = (data) => {
+    return {
+        type: 'login-complete',
+        payload: data
+    };
+};
+
+const pageError = (err) => {
+    return {
+        type: 'page-error',
+        payload: err
+    };
 };

@@ -20,12 +20,16 @@ app.use(cors());
 // Creates new user accounts, returns standard login response
 app.post('/api/user/signup', (req,res,next) => {
   let new_account = req.body.signup;
+  let new_tastes = [new_account.piquant.toString(),new_account.meaty.toString(),new_account.sweet.toString(),new_account.salty.toString(),new_account.bitter.toString(),new_account.sour_taste.toString()].join(",");
+  let new_cuisines = [new_account.mexican.toString(),new_account.italian.toString(),new_account.greek.toString(),new_account.hungarian.toString(),new_account.swedish.toString(),new_account.american.toString(),new_account.japanese.toString(),new_account.chinese.toString()].join(",");
+  let new_wines = [new_account.chardonnay.toString(),new_account.cabernet.toString(),new_account.malbec.toString(),new_account.pinot_noir.toString(),new_account.champagne.toString(),new_account.riesling.toString(),new_account.rose.toString(),new_account.barbera.toString()].join(",");
+  let new_beers = [new_account.ipa.toString(),new_account.pale_ale.toString(),new_account.lager.toString(),new_account.tripel.toString(),new_account.lambic.toString(),new_account.stout.toString(),new_account.porter.toString(),new_account.doppelbock.toString(),new_account.gose.toString(),new_account.sour.toString()].join(",");
   db.none('select * from users where user_name = $1 or email = $2', [new_account.user_name,new_account.email])
     .then(() => {
       return bcrypt.hash(new_account.password, 10);
     })
     .then((hash) => {
-      return Promise.all([new_account, db.one('insert into users values(default,$1,$2,$3,$4,$5) returning *', [new_account.first_name,new_account.last_name,new_account.user_name,hash,new_account.email,new_account.of_age])]);
+      return Promise.all([new_account, db.one('insert into users values(default,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10) returning *', [new_account.first_name,new_account.last_name,new_account.user_name,hash,new_account.email,new_account.of_age,new_tastes,new_cuisines,new_wines,new_beers])]);
     })
     .then(validate_login)
     .then((result) => {

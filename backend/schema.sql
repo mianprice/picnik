@@ -18,7 +18,11 @@ CREATE TABLE users (
     user_name varchar,
     password varchar,
     email varchar,
-    of_age boolean
+    of_age boolean,
+    taste_profile varchar,
+    cuisine_profile varchar,
+    wine_profile varchar,
+    beer_profile varchar
 );
 
 CREATE TABLE sessions(
@@ -29,11 +33,21 @@ CREATE TABLE sessions(
     user_id INTEGER REFERENCES users(id)
 );
 
+CREATE TABLE beer_saves (
+    api_id varchar,
+    user_id int references users(id)
+);
+
 CREATE TABLE beer (
     id SERIAL PRIMARY KEY,
     name varchar,
     style varchar,
     image varchar
+);
+
+CREATE TABLE wine_saves (
+    api_id varchar,
+    user_id int references users(id)
 );
 
 CREATE TABLE wine (
@@ -43,10 +57,20 @@ CREATE TABLE wine (
     image varchar
 );
 
+CREATE TABLE parks_saves (
+    api_id varchar,
+    user_id int references users(id)
+);
+
 CREATE TABLE parks (
     id SERIAL PRIMARY KEY,
     name varchar,
     address varchar
+);
+
+CREATE TABLE recipes_saves (
+    api_id varchar,
+    user_id int references users(id)
 );
 
 CREATE TABLE recipes (
@@ -59,11 +83,6 @@ CREATE TABLE saved_items (
     id SERIAL PRIMARY KEY,
     item_name varchar,
     image varchar,
-    user_id int REFERENCES users (id)
-);
-
-CREATE TABLE taste_profile (
-    id SERIAL PRIMARY KEY,
     user_id int REFERENCES users (id)
 );
 
