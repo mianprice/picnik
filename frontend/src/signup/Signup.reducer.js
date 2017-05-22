@@ -32,13 +32,13 @@ let INITIAL_STATE = {
     ipa: true,
     pale_ale: true,
     lager: true,
-    tripel: true,
-    lambic: true,
+    belgian: true,
+    wheat: true,
     stout: true,
     porter: true,
-    doppelbock: true,
-    gose: true,
-    sour: true,
+    pilsner: true,
+    saison: true,
+    sours: true,
     editing: false
 };
 

@@ -75,7 +75,7 @@ class Signup extends React.Component {
               <div className="signup_section"><div className="signup_section_title">Cuisine</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('mexican')}>Mexican</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('italian')}>Italian</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('greek')}>Greek</div>
+                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('mediterranean')}>Mediterranean</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('thai')}>Thai</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('barbeque')}>Barbeque</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('american')}>American</div>
@@ -92,7 +92,7 @@ class Signup extends React.Component {
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('cabernet')}>Cabernet</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('malbec')}>Malbec</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('pinot_noir')}>Pinot Noir</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('champagne')}>Champagne</div>
+                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('pinot_grigio')}>Pinot Grigio</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('riesling')}>Riesling</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('rose')}>Rose</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('sauvignon_blanc')}>Sauvignon Blanc</div>
@@ -106,11 +106,11 @@ class Signup extends React.Component {
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('ipa')}>IPA</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('pale_ale')}>Pale Ale</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('stout')}>Stout</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('doppelbock')}>Doppelbock</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('gose')}>Gose</div>
+                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('wheat')}>Wheat</div>
+                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('pilsner')}>Pilsner</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('saison')}>Saison</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('tripel')}>Tripel</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('lambic')}>Lambic</div>
+                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('belgian')}>Belgian</div>
+                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('sours')}>Sours</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('porter')}>Porter</div>
                 <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('lager')}>Lager</div>
 
