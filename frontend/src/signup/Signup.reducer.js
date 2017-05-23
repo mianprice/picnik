@@ -7,49 +7,77 @@ let INITIAL_STATE = {
     first_name: "",
     last_name: "",
     of_age: false,
-    piquant: 3,
-    meaty: 3,
-    sweet: 3,
-    salty: 3,
-    bitter: 3,
-    sour_taste: 3,
-    mexican: true,
-    italian: true,
-    greek: true,
-    hungarian: true,
-    swedish: true,
-    american: true,
-    japanese: true,
-    chinese: true,
-    chardonnay: true,
-    cabernet: true,
-    malbec: true,
-    pinot_noir: true,
-    champagne: true,
-    riesling: true,
-    rose: true,
-    barbera: true,
-    ipa: true,
-    pale_ale: true,
-    lager: true,
-    belgian: true,
-    wheat: true,
-    stout: true,
-    porter: true,
-    pilsner: true,
-    saison: true,
-    sours: true,
+    taste_profile: {
+        piquant: 3,
+        meaty: 3,
+        sweet: 3,
+        salty: 3,
+        bitter: 3,
+        sour_taste: 3
+    },
+    cuisine_profile: {
+        mexican: true,
+        italian: true,
+        greek: true,
+        hungarian: true,
+        swedish: true,
+        american: true,
+        japanese: true,
+        chinese: true
+    },
+    wine_profile: {
+        chardonnay: true,
+        cabernet: true,
+        malbec: true,
+        pinot_noir: true,
+        champagne: true,
+        riesling: true,
+        rose: true,
+        barbera: true
+    },
+    beer_profile: {
+        ipa: false, //changed these for testing, need to be changed back to TRUE!!!!!
+        pale_ale: false,
+        lager: true,
+        belgian: true,
+        wheat: true,
+        stout: true,
+        porter: true,
+        pilsner: true,
+        saison: true,
+        sours: true
+    },
     editing: false
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
     if (action.type === 'set-taste') {
-        return Object.assign({}, state, {
+        let taste_profile = Object.assign({}, state.taste_profile, {
             [action.flavor]: action.level
         });
-    } else if (action.type === 'set-cuisine-and-drinks') {
         return Object.assign({}, state, {
-            [action.cuisine]: !state[action.cuisine]
+            taste_profile
+        });
+    } else if (action.type === 'set-cuisine') {
+        let cuisine_profile = Object.assign({}, state.cuisine_profile, {
+            [action.cuisine]: !state.cuisine_profile[action.cuisine]
+        });
+        return Object.assign({}, state, {
+            cuisine_profile
+        });
+    } else if (action.type === 'set-wine') {
+        let wine_profile = Object.assign({}, state.wine_profile, {
+            [action.wine]: !state.wine_profile[action.wine]
+        });
+        return Object.assign({}, state, {
+            wine_profile
+        });
+    } else if (action.type === 'set-beer') {
+        let beer_profile = Object.assign({}, state.beer_profile, {
+            [action.beer]: !state.beer_profile[action.beer]
+        });
+        return Object.assign({}, state, {
+            beer_profile
         });
     } else if (action.type === 'next-signup') {
         return Object.assign({}, state, {
