@@ -14,10 +14,11 @@ class Drinks extends React.Component {
             return (
                 <div key={item.id}>
                     <div className={item.class}>
-                        {item.name}
+                        {item.name}<br/>
+                        {item.breweries[0].name}
                     </div>
                     {label}
-                    <button onClick={() => this.props.selectBeer(item.id)}>Select</button>
+                    <div className="drink-buttons" onClick={() => this.props.selectBeer(item.id)}>Select</div>
                 </div>
             );
         });
@@ -28,7 +29,7 @@ class Drinks extends React.Component {
                         {item.name}
                     </div>
                     <img src={item.image} alt={item.name} />
-                    <button onClick={() => this.props.selectWine(item.code)}>Select</button>
+                    <div className="drink-buttons" onClick={() => this.props.selectWine(item.code)}>Select</div>
                 </div>
             );
         });

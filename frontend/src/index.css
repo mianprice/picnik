@@ -169,7 +169,7 @@ body {
     background-color: green;
 }
 
-.view-recipe {
+.recipe-buttons {
     padding: 5px;
     margin: 5px;
     border-radius: 5px;
@@ -177,4 +177,24 @@ body {
     text-decoration: none;
     background-color: grey;
     display: inline-block;
+}
+
+.recipe-buttons:hover {
+    background-color: darkgrey;
+    cursor: pointer;
+}
+
+.drink-buttons {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+    background-color: lightgreen;
+    display: inline-block;
+}
+
+.drink-buttons:hover {
+    background-color: green;
+    cursor: pointer;
 }
