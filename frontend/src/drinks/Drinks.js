@@ -13,7 +13,7 @@ class Drinks extends React.Component {
             ) : "";
             return (
                 <div key={item.id}>
-                    <div>
+                    <div className={item.class}>
                         {item.name}
                     </div>
                     {label}

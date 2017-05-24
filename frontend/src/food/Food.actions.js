@@ -53,9 +53,14 @@ export const beerPairingMegaFunction = (beer_prefs_from_signup_state, selected_r
             dataType: 'JSON'
         })
         .then((api_beer_data) => {
-            let disliked_beers = userPreferenceBeerFilter(beer_prefs_from_signup_state);
+            let disliked_beers_checker = userPreferenceBeerFilter(beer_prefs_from_signup_state);
             let beers_filtered_based_on_prefs = api_beer_data.data.filter(beer => { // uses disliked_beers array to compare against the returned array of objects from the api call, and returns only the beers that don't match the disliked beers array
-                return (!disliked_beers.includes(beer.styleId));
+                if (disliked_beers_checker.length > 0) {
+                    return (!disliked_beers_checker.includes(beer.styleId));
+                }
+                else {
+                    return beer;
+                }
             });
             return beers_filtered_based_on_prefs;
         })
@@ -63,14 +68,14 @@ export const beerPairingMegaFunction = (beer_prefs_from_signup_state, selected_r
             let final_beer_set = beers_filtered_based_on_prefs.map(beer => { //adds paired-beer class to beers that matched the recommended pairings for the selected dish
                 let classes = "beer";
                 let smart_pairings = beerPairingEngine(selected_recipe);
-                console.log('smart', smart_pairings);
-                if (smart_pairings.includes(beer.styleId)) {
+                if (smart_pairings!== "No matches") {
+                    if (smart_pairings.includes(beer.styleId)) {
                     classes += " paired-beer";
+                    }
                 }
                 beer.class = classes;
                 return beer;
             });
-            console.log(final_beer_set);
             return final_beer_set;
         })
         .then((final_beer_set) => dispatch(displayBeers(final_beer_set)))
@@ -117,7 +122,7 @@ const beerPairingEngine = (selected_recipe) => {
     if (flavor_profile.piquant > .7) { //spicy food
         return [2, 26, 29, 30, 31, 25, 73, 74, 164, 27, 1, 65, 48, 49, 50, 51, 52, 53, 112, 113, 114, 115, 116]; //IPA, pale ale, hefeweizen
 
-    } else if (course.includes("dessert")) {
+    } else if (course.includes("Desserts")) {
         return [13, 16, 20, 21, 42, 43, 17, 34, 68, 119, 121, 122, 167]; //stout, barleywine, old ale, fruit lambic, fruit beer, pumpkin beer, chocolate beer
 
     } else if (cuisine_final.includes("barbecue") && !ingredient_list_final.includes('chicken') && ingredient_list_final.includes('beef') || ingredient_list_final.includes('pork') && flavor_profile.piquant < .7) { //non-poultry bbq
