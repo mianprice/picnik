@@ -47,7 +47,7 @@ export const getTestRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from
                 classes += " user-preferred-recipe";
             } else if ((recipe.flavors.piquant <= (taste.piquant / 3)) && (recipe.flavors.piquant >= ((taste.piquant / 3) - 0.33))) {
                 classes += " user-preferred-recipe";
-            } if (recipe.attributes.cuisine) { //cuisine test (adds picnic basket icon if cuisine of recipe is a user favorite)
+            } if (recipe.attributes.cuisine) { //cuisine test (adds picnic basket icon if cuisine of recipe is a user )
                 if (recipe.attributes.cuisine) {
                     if (cuisine.mexican && (recipe.attributes.cuisine[0] === "Mexican") || (recipe.attributes.cuisine[1] === "Mexican") || (recipe.attributes.cuisine[2] === "Mexican")) {
                     cuisine_class += "cuisine-matched-recipe";

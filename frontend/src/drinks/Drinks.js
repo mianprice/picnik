@@ -1,6 +1,7 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as actions from './Drinks.actions';
+import beer_pint from './pint.svg';
 
 class Drinks extends React.Component {
     componentDidMount() {
@@ -12,13 +13,14 @@ class Drinks extends React.Component {
                 <img src={item.labels.icon} alt={item.name} />
             ) : "";
             return (
-                <div key={item.id} className={item.class}>
+                <div key={item.id} >
                     <div >
                         {item.name}<br/>
                         {item.breweries[0].name}
                     </div>
                     {label}
                     <div className="drink-buttons" onClick={() => this.props.selectBeer(item.id)}>Select</div>
+                    <div className="check_mark"><img className="check_mark" src={item.class === "beer paired-beer" ? beer_pint : null}/></div>
                 </div>
             );
         });
