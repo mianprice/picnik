@@ -67,6 +67,10 @@ body {
     text-align: center;
 }
 
+.plan_part div {
+    margin-bottom: 10px;
+}
+
 .signup {
     background-color: lightblue;
     text-align: center;
@@ -177,6 +181,7 @@ body {
     text-decoration: none;
     background-color: grey;
     display: inline-block;
+    font-size: 12px;
 }
 
 .recipe-buttons:hover {
@@ -197,4 +202,14 @@ body {
 .drink-buttons:hover {
     background-color: green;
     cursor: pointer;
+}
+
+.check_mark {
+    width: 20px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.cuisine-matched-recipe {
+    color: yellow;
 }

@@ -24,12 +24,56 @@ export const getRecipe = (search_params) => {
     return asyncAction;
 };
 
-export const getTestRecipes = () => {
+export const getTestRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from_signup_state) => {
+    let taste = taste_prefs_from_signup_state;
+    let cuisine = cuisine_prefs_from_signup_state;
     let asyncAction = function(dispatch) {
         let t = testResponse.testResponse.matches.filter((recipe) => {
-            return (recipe.flavors !== null) && (recipe.smallImageUrls !== undefined);
+            return (recipe.flavors !== null)
+            && (recipe.smallImageUrls !== undefined);
         });
-        testResponse.testResponse.matches = t;
+        let t2 = t.map(recipe => { //adds user preferred class to beers that matched the recommended pairings for the selected dish
+            let classes = "recipe";
+            let cuisine_class = "";
+            if ((recipe.flavors.sweet <= (taste.sweet / 3)) && (recipe.flavors.sweet >= ((taste.sweet / 3) - 0.33))) {
+                classes += " user-preferred-recipe";
+            } else if ((recipe.flavors.salty <= (taste.salty / 3)) && (recipe.flavors.salty >= ((taste.salty / 3) - 0.33))) {
+                classes += " user-preferred-recipe";
+            } else if ((recipe.flavors.meaty <= (taste.meaty / 3)) && (recipe.flavors.meaty >= ((taste.meaty / 3) - 0.33))) {
+                classes += " user-preferred-recipe";
+            } else if ((recipe.flavors.bitter <= (taste.bitter / 3)) && (recipe.flavors.bitter >= ((taste.bitter / 3) - 0.33))) {
+                classes += " user-preferred-recipe";
+            } else if ((recipe.flavors.sour_taste <= (taste.sour_taste / 3)) && (recipe.flavors.sour_taste >= ((taste.sour_taste / 3) - 0.33))) {
+                classes += " user-preferred-recipe";
+            } else if ((recipe.flavors.piquant <= (taste.piquant / 3)) && (recipe.flavors.piquant >= ((taste.piquant / 3) - 0.33))) {
+                classes += " user-preferred-recipe";
+            } if (recipe.attributes.cuisine) { //cuisine test (adds picnic basket icon if cuisine of recipe is a user favorite)
+                if (recipe.attributes.cuisine) {
+                    if (cuisine.mexican && (recipe.attributes.cuisine[0] === "Mexican") || (recipe.attributes.cuisine[1] === "Mexican") || (recipe.attributes.cuisine[2] === "Mexican")) {
+                    cuisine_class += "cuisine-matched-recipe";
+                    } else if (cuisine.italian && (recipe.attributes.cuisine[0] === "Italian") || (recipe.attributes.cuisine[1] === "Italian") || (recipe.attributes.cuisine[2] === "Italian")) {
+                    cuisine_class += "cuisine-matched-recipe";
+                    } else if (cuisine.mediterranean && (recipe.attributes.cuisine[0] === "Mediterranean") || (recipe.attributes.cuisine[1] === "Mediterranean") || (recipe.attributes.cuisine[2] === "Mediterranean")) {
+                    cuisine_class += "cuisine-matched-recipe";
+                    } else if (cuisine.thai && (recipe.attributes.cuisine[0] === "Thai") || (recipe.attributes.cuisine[1] === "Thai") || (recipe.attributes.cuisine[2] === "Thai")) {
+                    cuisine_class += "cuisine-matched-recipe";
+                    } else if (cuisine.barbecue && (recipe.attributes.cuisine[0] === "Barbecue") || (recipe.attributes.cuisine[1] === "Barbecue") || (recipe.attributes.cuisine[2] === "Barbecue")) {
+                    cuisine_class += "cuisine-matched-recipe";
+                    } else if (cuisine.american && (recipe.attributes.cuisine[0] === "American") || (recipe.attributes.cuisine[1] === "American") || (recipe.attributes.cuisine[2] === "American")) {
+                    cuisine_class += "cuisine-matched-recipe";
+                    } else if (cuisine.japanese && (recipe.attributes.cuisine[0] === "Japanese") || (recipe.attributes.cuisine[1] === "Japanese") || (recipe.attributes.cuisine[2] === "Japanese")) {
+                    cuisine_class += "cuisine-matched-recipe";
+                    } else if (cuisine.chinese && (recipe.attributes.cuisine[0] === "Chinese") || (recipe.attributes.cuisine[1] === "Chinese") || (recipe.attributes.cuisine[2] === "Chinese")) {
+                    cuisine_class += "cuisine-matched-recipe";
+                    }
+                }
+            }
+            recipe.class = classes;
+            recipe.cuisine_class = cuisine_class;
+            return recipe;
+        });
+        testResponse.testResponse.matches = t2;
+        console.log(testResponse.testResponse);
         dispatch(displayRecipes(testResponse.testResponse));
     };
     return asyncAction;
@@ -120,12 +164,21 @@ const beerPairingEngine = (selected_recipe) => {
     let ingredient_list_final = ingredient_list.join();
 
     if (flavor_profile.piquant > .7) { //spicy food
-        return [2, 26, 29, 30, 31, 25, 73, 74, 164, 27, 1, 65, 48, 49, 50, 51, 52, 53, 112, 113, 114, 115, 116]; //IPA, pale ale, hefeweizen
+        return [2, 26, 29, 30, 31, 25, 72, 73, 74, 164, 27, 1, 65, 48, 49, 50, 51, 52, 53, 112, 113, 114, 115, 116]; //IPA, pale ale, hefeweizen, saison
 
     } else if (course.includes("Desserts")) {
         return [13, 16, 20, 21, 42, 43, 17, 34, 68, 119, 121, 122, 167]; //stout, barleywine, old ale, fruit lambic, fruit beer, pumpkin beer, chocolate beer
 
+    } else if (flavor_profile.piquant < .2 && flavor_profile.sweet > .7) { //sweet non-spicy food
+        return [13, 16, 20, 21, 42, 43, 17, 34, 68, 119, 121, 122, 167]; //stout, barleywine, old ale, fruit lambic, fruit beer, pumpkin beer, chocolate beer
+
+    } else if (flavor_profile.piquant < .2 && flavor_profile.salty > .7) { //salty non-spicy food
+        return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 25, 73, 74, 164, 27, 1, 40, 46, 47, 66, 67, 68, 136, 165]; //lager, "pale_ale", "sours"
+
     } else if (cuisine_final.includes("barbecue") && !ingredient_list_final.includes('chicken') && ingredient_list_final.includes('beef') || ingredient_list_final.includes('pork') && flavor_profile.piquant < .7) { //non-poultry bbq
+        return [16, 20, 21, 42, 43, 18, 19, 158, 90]; //"stout", "porter", "doppelbock"
+
+    } else if (ingredient_list_final.includes('roast') &&  ingredient_list_final.includes('pot') && flavor_profile.piquant < .7) { //heavy pot roasts
         return [16, 20, 21, 42, 43, 18, 19, 158, 90]; //"stout", "porter", "doppelbock"
 
     } else if (cuisine_final.includes("barbecue") && ingredient_list_final.includes('chicken') && !ingredient_list_final.includes('beef') && !ingredient_list_final.includes('pork') && flavor_profile.piquant < .7) { //poultry bbq

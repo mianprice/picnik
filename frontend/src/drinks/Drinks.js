@@ -4,7 +4,7 @@ import * as actions from './Drinks.actions';
 
 class Drinks extends React.Component {
     componentDidMount() {
-        this.props.getWine();
+        // this.props.getWine();
     }
     render() {
         let beer_view = this.props.drinks.beer_set.map((item) => {
@@ -12,8 +12,8 @@ class Drinks extends React.Component {
                 <img src={item.labels.icon} alt={item.name} />
             ) : "";
             return (
-                <div key={item.id}>
-                    <div className={item.class}>
+                <div key={item.id} className={item.class}>
+                    <div >
                         {item.name}<br/>
                         {item.breweries[0].name}
                     </div>

@@ -18,9 +18,9 @@ let INITIAL_STATE = {
     cuisine_profile: {
         mexican: true,
         italian: true,
-        greek: true,
-        hungarian: true,
-        swedish: true,
+        mediterranean: true,
+        thai: true,
+        barbecue: true,
         american: true,
         japanese: true,
         chinese: true
