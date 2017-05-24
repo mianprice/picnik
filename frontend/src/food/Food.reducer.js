@@ -1,7 +1,7 @@
 let INITIAL_STATE = {
     recipe_set: [],
     search_criteria: {},
-    recipe_id: []
+    select_recipes: []
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -11,10 +11,10 @@ export default function reducer(state = INITIAL_STATE, action) {
             search_criteria: action.payload.criteria
         });
     } else if (action.type === 'select-recipe') {
-        let arr = state.recipe_id;
-        arr.push(action.recipe_id);
+        let select_recipes_array = state.select_recipes;
+        select_recipes_array.push(action.item);
         return Object.assign({}, state, {
-            recipe_id: arr
+            select_recipes: select_recipes_array
         });
     } else {
         return state;

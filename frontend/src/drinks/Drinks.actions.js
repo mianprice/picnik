@@ -1,22 +1,9 @@
 import $ from 'jquery';
 
-// Beer
+// Beer ------------------------------->
 
 const displayBeers = (results) => {
     return {type: 'display-beer-options', payload: results};
-};
-
-export const getBeer = (search_params) => {
-    let asyncAction = function(dispatch) {
-        $.ajax({
-            url: "http://api.brewerydb.com/v2/beers?key=30fae795a155ea7f3a8401417c570efe&styleId=1",
-            method: "GET",
-            dataType: 'JSON'
-        })
-        .then((results) => dispatch(displayBeers(results)))
-        .catch(error =>  {throw error});
-    };
-    return asyncAction;
 };
 
 // export const getTestBeers = () => {
@@ -31,7 +18,7 @@ export const selectBeer = (beer_id) => {
     return {type: 'select-beer', beer_id};
 };
 
-// Wine
+// Wine ------------------------------->
 
 const displayWines = (results) => {
     return {type: 'display-wine-options', payload: results};

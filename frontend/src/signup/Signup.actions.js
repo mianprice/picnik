@@ -8,10 +8,24 @@ export const setTaste = (flavor, level) => {
   };
 };
 
-export const setCuisineAndDrinks = (cuisine) => {
+export const setCuisine = (cuisine) => {
   return {
-    type: 'set-cuisine-and-drinks',
+    type: 'set-cuisine',
     cuisine
+  };
+};
+
+export const setWine = (wine) => {
+  return {
+    type: 'set-wine',
+    wine
+  };
+};
+
+export const setBeer = (beer) => {
+  return {
+    type: 'set-beer',
+    beer
   };
 };
 

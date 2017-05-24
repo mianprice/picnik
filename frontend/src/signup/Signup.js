@@ -73,14 +73,14 @@ class Signup extends React.Component {
           ),
           (
               <div className="signup_section"><div className="signup_section_title">Cuisine</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('mexican')}>Mexican</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('italian')}>Italian</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('mediterranean')}>Mediterranean</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('thai')}>Thai</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('barbeque')}>Barbeque</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('american')}>American</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('japanese')}>Japanese</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('chinese')}>Chinese</div>
+                <div className="signup_button" onClick={() => this.props.setCuisine('mexican')}>Mexican</div>
+                <div className="signup_button" onClick={() => this.props.setCuisine('italian')}>Italian</div>
+                <div className="signup_button" onClick={() => this.props.setCuisine('mediterranean')}>Mediterranean</div>
+                <div className="signup_button" onClick={() => this.props.setCuisine('thai')}>Thai</div>
+                <div className="signup_button" onClick={() => this.props.setCuisine('barbeque')}>Barbeque</div>
+                <div className="signup_button" onClick={() => this.props.setCuisine('american')}>American</div>
+                <div className="signup_button" onClick={() => this.props.setCuisine('japanese')}>Japanese</div>
+                <div className="signup_button" onClick={() => this.props.setCuisine('chinese')}>Chinese</div>
 
                 <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
 
@@ -88,14 +88,14 @@ class Signup extends React.Component {
           ),
           (
               <div className="signup_section"><div className="signup_section_title">Wine</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('chardonnay')}>Chardonnay</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('cabernet')}>Cabernet</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('malbec')}>Malbec</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('pinot_noir')}>Pinot Noir</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('pinot_grigio')}>Pinot Grigio</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('riesling')}>Riesling</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('rose')}>Rose</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('sauvignon_blanc')}>Sauvignon Blanc</div>
+                <div className="signup_button" onClick={() => this.props.setWine('chardonnay')}>Chardonnay</div>
+                <div className="signup_button" onClick={() => this.props.setWine('cabernet')}>Cabernet</div>
+                <div className="signup_button" onClick={() => this.props.setWine('malbec')}>Malbec</div>
+                <div className="signup_button" onClick={() => this.props.setWine('pinot_noir')}>Pinot Noir</div>
+                <div className="signup_button" onClick={() => this.props.setWine('pinot_grigio')}>Pinot Grigio</div>
+                <div className="signup_button" onClick={() => this.props.setWine('riesling')}>Riesling</div>
+                <div className="signup_button" onClick={() => this.props.setWine('rose')}>Rose</div>
+                <div className="signup_button" onClick={() => this.props.setWine('sauvignon_blanc')}>Sauvignon Blanc</div>
 
                 <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
 
@@ -103,16 +103,16 @@ class Signup extends React.Component {
           ),
           (
               <div className="signup_section"><div className="signup_section_title">Beer</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('ipa')}>IPA</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('pale_ale')}>Pale Ale</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('stout')}>Stout</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('wheat')}>Wheat</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('pilsner')}>Pilsner</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('saison')}>Saison</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('belgian')}>Belgian</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('sours')}>Sours</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('porter')}>Porter</div>
-                <div className="signup_button" onClick={() => this.props.setCuisineAndDrinks('lager')}>Lager</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('ipa')}>IPA</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('pale_ale')}>Pale Ale</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('stout')}>Stout</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('wheat')}>Wheat</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('pilsner')}>Pilsner</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('saison')}>Saison</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('belgian')}>Belgian</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('sours')}>Sours</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('porter')}>Porter</div>
+                <div className="signup_button" onClick={() => this.props.setBeer('lager')}>Lager</div>
 
                 <div className="signup_submit_button" onClick={(event) => {this.props.completeSignup(this.props.signup)}}>Submit</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
 

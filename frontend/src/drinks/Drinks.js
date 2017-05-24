@@ -4,7 +4,6 @@ import * as actions from './Drinks.actions';
 
 class Drinks extends React.Component {
     componentDidMount() {
-        this.props.getBeer();
         this.props.getWine();
     }
     render() {
@@ -14,7 +13,7 @@ class Drinks extends React.Component {
             ) : "";
             return (
                 <div key={item.id}>
-                    <div>
+                    <div className={item.class}>
                         {item.name}
                     </div>
                     {label}
@@ -48,7 +47,7 @@ class Drinks extends React.Component {
 }
 
 const DrinksContainer = ReactRedux.connect(
-  state => ({ drinks: state.drinks }),
+  state => ({ drinks: state.drinks, signup: state.signup, food: state.food }),
   actions
 )(Drinks);
 

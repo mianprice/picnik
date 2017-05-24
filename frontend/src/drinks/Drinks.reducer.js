@@ -10,7 +10,7 @@ let INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action) {
     if (action.type === 'display-beer-options') {
         return Object.assign({}, state, {
-            beer_set: action.payload.data
+            beer_set: action.payload
             /*search_criteria: action.payload.criteria*/
         });
     } else if (action.type === 'select-beer') {
