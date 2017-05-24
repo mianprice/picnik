@@ -46,19 +46,35 @@ CREATE TABLE beers(
     name VARCHAR
 );
 
+CREATE TABLE breweries(
+    id SERIAL PRIMARY KEY,
+    brewery_db_breweryID VARCHAR,
+    name VARCHAR,
+    link VARCHAR,
+    icon_image_link VARCHAR,
+    medium_image_link VARCHAR,
+    description VARCHAR,
+    zip VARCHAR
+);
+
 CREATE TABLE styles(
     id SERIAL PRIMARY KEY,
-    brewery_db_styleID INTEGER,
+    brewery_db_styleID VARCHAR,
     name VARCHAR
 );
 
 CREATE TABLE categories(
     id SERIAL PRIMARY KEY,
-    brewery_db_categoryID INTEGER,
+    brewery_db_categoryID VARCHAR,
     name VARCHAR
 );
 
-CREATE TABLE beers_styles(
+CREATE TABLE breweries_beers(
+    brewery_id INTEGER REFERENCES breweries(id),
+    beer_id INTEGER REFERENCES beers(id)
+);
+
+CREATE TABLE categories_styles(
     category_id INTEGER REFERENCES categories(id),
     style_id INTEGER REFERENCES styles(id)
 );
@@ -74,7 +90,8 @@ CREATE TABLE beer_links(
     abv VARCHAR,
     ibu VARCHAR,
     isOrganic BOOLEAN,
-    label_image_link VARCHAR
+    label_image_link_medium VARCHAR,
+    label_image_link_icon VARCHAR
 );
 
 -- SNOOTH API MIRROR DB SCHEMA
