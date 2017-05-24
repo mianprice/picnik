@@ -48,7 +48,7 @@ const displayBeers = (results) => {
 export const beerPairingMegaFunction = (beer_prefs_from_signup_state, selected_recipe) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://api.brewerydb.com/v2/beers?key=30fae795a155ea7f3a8401417c570efe&availableId=1",
+            url: "http://api.brewerydb.com/v2/beers?key=30fae795a155ea7f3a8401417c570efe&availableId=1&hasLabels=Y&withBreweries=Y",
             method: "GET",
             dataType: 'JSON'
         })
@@ -108,7 +108,7 @@ const userPreferenceBeerFilter = (beer_prefs_from_signup_state) => { //filters o
 
 const beerPairingEngine = (selected_recipe) => {
     let flavor_profile = selected_recipe.flavors === null ? {
-
+        //return empty object if flavor profile doesn't exist for recipe
     } : selected_recipe.flavors;
     let course = selected_recipe.attributes.course;
     let cuisine_final = selected_recipe.cuisine ? selected_recipe.cuisine.map(item => {

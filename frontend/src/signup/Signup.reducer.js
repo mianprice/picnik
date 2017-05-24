@@ -36,7 +36,7 @@ let INITIAL_STATE = {
         barbera: true
     },
     beer_profile: {
-        ipa: true, //changed these for testing, need to be changed back to TRUE!!!!!
+        ipa: true,
         pale_ale: true,
         lager: true,
         belgian: true,
