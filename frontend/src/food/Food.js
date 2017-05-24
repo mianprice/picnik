@@ -17,6 +17,7 @@ class Food extends React.Component {
                     </div>
                     <img src={item.smallImageUrls[0]} alt={item.recipeName}/>
                     <button onClick={() => {this.props.selectRecipe(item); this.props.beerPairingMegaFunction(this.props.signup.beer_profile, item)}}>Select</button>
+                    <a href={"http://www.yummly.co/recipe/" + item.id} target="_blank"><div className="view-recipe">View Recipe</div></a>
                 </div>
             );
         });
