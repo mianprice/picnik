@@ -1,4 +1,5 @@
 import $ from 'jquery';
+let google;
 
 export const changeZip = (value) => {
     return {
@@ -7,7 +8,21 @@ export const changeZip = (value) => {
     };
 };
 
-export const showMap = () => {
+export const showMap = (zip) => {
+    var pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
+
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center: pyrmont,
+      zoom: 15
+    });
+    let service = new google.maps.places.PlacesService(map);
+    let request = {
+        query: `parks near ${zip}`
+    };
+    service.textSearch(request, (results, status) => {
+        console.log(results);
+        console.log(status);
+    });
     return {
         type: "show-map"
     };
@@ -18,6 +33,13 @@ export const resetZip = () => {
         type: 'reset-zip'
     };
 }
+
+const showWeather = (data) => {
+    return {
+        type: 'show-weather',
+        payload: data
+    };
+};
 
 export const getWeather = (zip) => {
     let asyncAction = function(dispatch) {
@@ -30,11 +52,4 @@ export const getWeather = (zip) => {
         .catch((error) =>  {throw error});
     };
     return asyncAction;
-};
-
-const showWeather = (data) => {
-    return {
-        type: 'show-weather',
-        payload: data
-    };
 };
