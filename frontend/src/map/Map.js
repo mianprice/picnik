@@ -5,9 +5,9 @@ import * as actions from './Map.actions';
 class Map extends React.Component {
   render() {
       let mapFrame = this.props.map.link_complete ? (
-          <iframe style={{border:0,width:200,height:200,frameborder:0}}
-src={`https://www.google.com/maps/embed/v1/search?q=parks+near+${this.props.map.search_zip}&key=AIzaSyDv9Qh_jkxeOTNk0V85c3PZl8axCNxENAg`} ></iframe>
+          <iframe style={{border:0,width:80+'%',height:200,frameborder:0}} src={`https://www.google.com/maps/embed/v1/search?q=parks+near+${this.props.map.search_zip}&key=AIzaSyDv9Qh_jkxeOTNk0V85c3PZl8axCNxENAg`} ></iframe>
       ) : "";
+      let parkList = "";
       let weatherFrame = this.props.map.weather_ready ? (
           <div className="signup_section">
             {this.props.map.weather_data.list.map((element, idx) => (
@@ -31,7 +31,9 @@ src={`https://www.google.com/maps/embed/v1/search?q=parks+near+${this.props.map.
             <div className="plan_part">
                 {zipEntry}
                 {mapFrame}
+                {parkList}
                 {weatherFrame}
+                <div id="map"></div>
             </div>
       );
   }
