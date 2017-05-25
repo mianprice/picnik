@@ -1,3 +1,9 @@
+/***********************************/
+/***********************************/
+/*<-----  SETUP STARTS HERE  ----->*/
+/***********************************/
+/***********************************/
+
 const Promise = require ('bluebird');
 const bcrypt = require ('bcrypt');
 const bodyParser = require ('body-parser');
@@ -13,10 +19,119 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// <-----  SETUP ENDS HERE  ----->
 
 
-// <---- POST /api/user/signup ----->
+/******************************************/
+/******************************************/
+/* <-----  API MIRRORS START HERE  -----> */
+/******************************************/
+/******************************************/
+
+
+/******************************************/
+/* <-----  RECIPE API STARTS HERE  -----> */
+/******************************************/
+
+// GET /api/recipe
+// Retrieve a set of recipes
+app.get('/api/recipe', (req,res,next) => {
+
+});
+
+// GET /api/recipe/specific/:id
+// Retrieve a specific recipe (denoted by id, which refers to recipeID)
+app.get('/api/recipe/specific/:id', (req,res,next) => {
+    let recipe_id = req.params.id;
+});
+
+// POST /api/recipe/criteriaSearch
+// Retrieve a set of recipes that match the provided criteria
+// CRITERIA    => ?Comma?-separated property names
+// CONSTRAINTS => ?Comma?-separated property values
+app.post('/api/recipe/criteriaSearch', (req,res,next) => {
+    let criteria = req.body.criteria;
+    let constraints = req.body.contraints;
+});
+
+// GET /api/recipe/saved/:userID
+// Retrieve the set of recipes saved by a specific user (denoted by userID)
+app.get('/api/recipe/saved/:userID', (req,res,next) => {
+    let user_id = req.params.userID;
+});
+
+
+/****************************************/
+/* <-----  BEER API STARTS HERE  -----> */
+/****************************************/
+
+// GET /api/beer
+// Retrieve a set of beers
+app.get('/api/beer', (req,res,next) => {
+
+});
+
+// GET /api/beer/specific/:id
+// Retrieve a specific beer (denoted by id, which refers to beerID)
+app.get('/api/beer/specific/:id', (req,res,next) => {
+    let beer_id = req.params.id;
+});
+
+// POST /api/beer/criteriaSearch
+// Retrieve a set of beers that match the provided criteria
+// CRITERIA    => ?Comma?-separated property names
+// CONSTRAINTS => ?Comma?-separated property values
+app.post('/api/beer/criteriaSearch', (req,res,next) => {
+    let criteria = req.body.criteria;
+    let constraints = req.body.contraints;
+});
+
+// GET /api/beer/saved/:userID
+// Retrieve the set of beers saved by a specific user (denoted by userID)
+app.get('/api/beer/saved/:userID', (req,res,next) => {
+    let user_id = req.params.userID;
+});
+
+
+/****************************************/
+/* <-----  WINE API STARTS HERE  -----> */
+/****************************************/
+
+// GET /api/wine
+// Retrieve a set of wines
+app.get('/api/wine', (req,res,next) => {
+
+});
+
+// GET /api/wine/specific/:id
+// Retrieve a specific wine (denoted by id, which refers to wineID)
+app.get('/api/wine/specific/:id', (req,res,next) => {
+    let wine_id = req.params.id;
+});
+
+// POST /api/wine/criteriaSearch
+// Retrieve a set of wines that match the provided criteria
+// CRITERIA    => ?Comma?-separated property names
+// CONSTRAINTS => ?Comma?-separated property values
+app.post('/api/wine/criteriaSearch', (req,res,next) => {
+    let criteria = req.body.criteria;
+    let constraints = req.body.contraints;
+});
+
+// GET /api/wine/saved/:userID
+// Retrieve the set of wines saved by a specific user (denoted by userID)
+app.get('/api/wine/saved/:userID', (req,res,next) => {
+    let user_id = req.params.userID;
+});
+
+
+
+/****************************************/
+/****************************************/
+/* <-----  USER API STARTS HERE  -----> */
+/****************************************/
+/****************************************/
+
+// POST /api/user/signup
 // Creates new user accounts, returns standard login response
 app.post('/api/user/signup', (req,res,next) => {
   let new_account = req.body.signup;
@@ -38,7 +153,7 @@ app.post('/api/user/signup', (req,res,next) => {
     .catch(next);
 });
 
-// <----- POST /api/user/login ----->
+// POST /api/user/login
 // Logs in users, returns standard login response
 app.post('/api/user/login', (req,res,next) => {
   let login = req.body.login;
@@ -50,7 +165,7 @@ app.post('/api/user/login', (req,res,next) => {
     .catch(next);
 });
 
-// <----- AUTHENTICATION MIDDLEWARE ----->
+// AUTHENTICATION MIDDLEWARE
 // Authenticate the token provided as part of the request
 app.use(function authenticate(req,res,next) {
   db.one('select * from sessions where token=$1', [req.body.token])
@@ -68,21 +183,31 @@ app.use(function authenticate(req,res,next) {
 
 
 
+/************************************/
+/************************************/
+/* <-----  API LISTEN BELOW  -----> */
+/************************************/
+/************************************/
 
-// <-----  APP LISTEN BELOW  ----->
 app.listen(4000, () => {
     console.log('Listening on port 4000');
 });
 
 
-//////////////////////
-// HELPER FUNCTIONS //
-//////////////////////
 
+/********************/
+/********************/
+/* HELPER FUNCTIONS */
+/********************/
+/********************/
+
+// VALIDATE LOGIN
 // Verify that login attempt is valid
 function validate_login(attempted) {
   let data = attempted[1];
   let attempt = attempted[0];
+  // GET /api/something
+
   return bcrypt.compare(attempt.password, data.password)
     .then((res) => {
       if (res) {

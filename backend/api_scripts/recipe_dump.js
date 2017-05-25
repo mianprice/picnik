@@ -15,10 +15,6 @@ let api_returned_record_count = 0;
 let api_result_number = 680500;
 let api_url = 'http://api.yummly.com/v1/api/recipes?_app_id=cf10df74&_app_key=aaf39aafaee8cecc801ecd6f94b60b57&maxResult=500&flavor.piquant.min=0&flavor.piquant.max=1&flaver.sweet.min=0&flavor.sweet.max=1&flavor.meaty.min=0&flavor.meaty.max=1&flavor.sour.min=0&flavor.sour.max=1&flavor.bitter.min=0&flavor.bitter.max=1&flavor.salty.min=0&flavor.salty.max=1&requirePictures=true&start=';
 
-///////////////////////
-//CONVERT TO RECIPES //
-///////////////////////
-
 script_health_check();
 
 function get_api_data() {
