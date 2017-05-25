@@ -3,17 +3,25 @@
 CREATE TABLE recipes(
     id SERIAL PRIMARY KEY,
     name VARCHAR,
-    total_time INTEGER,
-    f_piquant DECIMAL, -- could make it base 6 and cut out the decimal
-    f_meaty DECIMAL,
-    f_bitter DECIMAL,
-    f_sweet DECIMAL,
-    f_sour DECIMAL,
-    f_salty DECIMAL,
-    rating NUMERIC
+    f_piquant VARCHAR,
+    f_meaty VARCHAR,
+    f_bitter VARCHAR,
+    f_sweet VARCHAR,
+    f_sour VARCHAR,
+    f_salty VARCHAR
 );
 
 CREATE TABLE cuisines(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR
+);
+
+CREATE TABLE courses(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR
+);
+
+CREATE TABLE ingredients(
     id SERIAL PRIMARY KEY,
     name VARCHAR
 );
@@ -23,20 +31,23 @@ CREATE TABLE recipes_cuisines(
     cuisine_id INTEGER REFERENCES cuisines(id)
 );
 
-CREATE TABLE courses(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR
-);
-
 CREATE TABLE recipes_courses(
     recipe_id INTEGER REFERENCES recipes(id),
     course_id INTEGER REFERENCES courses(id)
 );
 
+CREATE TABLE recipes_ingredients(
+    recipe_id INTEGER REFERENCES recipes(id),
+    ingredient_id INTEGER REFERENCES ingredients(id)
+);
+
 CREATE TABLE recipe_links(
     recipe_id INTEGER REFERENCES recipes(id),
     yummly_id VARCHAR,
-    image_url VARCHAR
+    image_url VARCHAR,
+    source VARCHAR,
+    total_time_seconds INTEGER,
+    rating NUMERIC
 );
 
 -- BREWERYDB API MIRROR DB SCHEMA
@@ -106,17 +117,26 @@ CREATE TABLE varietals(
     name VARCHAR
 );
 
+CREATE TABLE wineries(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR,
+    winery_snooth_id VARCHAR
+);
+
 CREATE TABLE wines_varietals(
     wine_id INTEGER REFERENCES wines(id),
     varietal_id INTEGER REFERENCES varietals(id)
+);
+
+CREATE TABLE wines_wineries(
+    wine_id INTEGER REFERENCES wines(id),
+    winery_id INTEGER REFERENCES wineries(id)
 );
 
 CREATE TABLE wine_links(
     wine_id INTEGER REFERENCES wines(id),
     snooth_code VARCHAR,
     region VARCHAR,
-    winery VARCHAR,
-    winery_id VARCHAR,
     price VARCHAR,
     vintage VARCHAR,
     type VARCHAR,

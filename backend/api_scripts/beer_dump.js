@@ -9,16 +9,6 @@ const pgp = require('pg-promise')({
 const config = require('../config');
 const db = pgp(config.db);
 
-// TESTING QUERY
-// db.oneOrNone("select count(*) from breweries where brewery_db_breweryID = 'AyomgM'")
-//     .then((result) => {
-//         console.log(result);
-//         console.log(result === null);
-//         console.log(result.count === 0);
-//         console.log(result.count === '0');
-//     })
-//     .catch(err => console.log(err));
-
 let db_record_count = 0;
 let api_total_record_count = 0;
 let api_returned_record_count = 0;
