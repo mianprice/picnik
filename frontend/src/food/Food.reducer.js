@@ -7,8 +7,7 @@ let INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action) {
     if (action.type === 'display-recipe-options') {
         return Object.assign({}, state, {
-            recipe_set: action.payload.matches,
-            search_criteria: action.payload.criteria
+            recipe_set: action.payload
         });
     } else if (action.type === 'select-recipe') {
         let select_recipes_array = state.select_recipes;

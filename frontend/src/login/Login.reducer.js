@@ -10,7 +10,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         });
     } else if (action.type === "login-complete") {
         return Object.assign({}, state, {
-            user_name: action.payload.user_name,
+            user_name: action.payload.username,
             token: action.payload.token,
             first: action.payload.first,
             last: action.payload.last,

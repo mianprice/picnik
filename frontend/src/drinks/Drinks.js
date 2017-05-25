@@ -9,17 +9,17 @@ class Drinks extends React.Component {
     }
     render() {
         let beer_view = this.props.drinks.beer_set.map((item) => {
-            let label = item.labels ? (
-                <img src={item.labels.icon} alt={item.name} />
+            let label = item.label_image_link_icon ? (
+                <img src={item.label_image_link_icon} alt={item.beer_name} />
             ) : "";
             return (
-                <div key={item.id} >
+                <div key={item.beer_id} >
                     <div >
-                        {item.name}<br/>
-                        {item.breweries[0].name}
+                        {item.beer_name}<br/>
+                        {item.brewery_name}
                     </div>
                     {label}
-                    <div className="drink-buttons" onClick={() => this.props.selectBeer(item.id)}>Select</div>
+                    <div className="drink-buttons" onClick={() => this.props.selectBeer(item.beer_id)}>Select</div>
                     <div className="check_mark"><img className="check_mark" src={item.class === "beer paired-beer" ? beer_pint : null}/></div>
                 </div>
             );
