@@ -4,7 +4,6 @@ import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import {Router, Route, hashHistory, Link, IndexLink, IndexRoute} from 'react-router';
-import $ from 'jquery';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import CookieStorage from 'redux-persist-cookie-storage';
 import HomeContainer from './home/Home.js';

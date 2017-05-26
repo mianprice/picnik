@@ -2,18 +2,6 @@ import $ from 'jquery';
 
 // Beer ------------------------------->
 
-const displayBeers = (results) => {
-    return {type: 'display-beer-options', payload: results};
-};
-
-// export const getTestBeers = () => {
-//     console.log(testResponse.testResponse);
-//     let asyncAction = function(dispatch) {
-//         dispatch(displayBeers(testResponse.testResponse));
-//     };
-//     return asyncAction;
-// }
-
 export const selectBeer = (beer_id) => {
     return {type: 'select-beer', beer_id};
 };
@@ -37,13 +25,6 @@ export const getWine = (search_params) => {
     return asyncAction;
 };
 
-// export const getTestWines = () => {
-//     console.log(testResponse.testResponse);
-//     let asyncAction = function(dispatch) {
-//         dispatch(displayWines(testResponse.testResponse));
-//     };
-//     return asyncAction;
-// }
 
 export const selectWine = (wine_id) => {
     return {type: 'select-wine', wine_id};

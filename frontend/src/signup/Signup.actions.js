@@ -49,6 +49,20 @@ export const lastSignupSection = () => {
     };
 };
 
+const loginComplete = (data) => {
+    return {
+        type: 'login-complete',
+        payload: data
+    };
+};
+
+const pageError = (err) => {
+    return {
+        type: 'page-error',
+        payload: err
+    };
+};
+
 export const completeSignup = (signup) => {
     let asyncAction = function(dispatch) {
         $.ajax({
@@ -64,18 +78,4 @@ export const completeSignup = (signup) => {
         .catch((err) => dispatch(pageError(err)));
     };
     return asyncAction;
-};
-
-const loginComplete = (data) => {
-    return {
-        type: 'login-complete',
-        payload: data
-    };
-};
-
-const pageError = (err) => {
-    return {
-        type: 'page-error',
-        payload: err
-    };
 };

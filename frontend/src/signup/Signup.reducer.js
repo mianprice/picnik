@@ -96,7 +96,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     } else if (action.type === "edit-profile") {
         return Object.assign({}, state, {
             editing: true
-        });;
+        });
     }
     return state;
 };

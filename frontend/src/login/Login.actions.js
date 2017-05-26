@@ -8,6 +8,20 @@ export function updateValue(id, value) {
     };
 };
 
+const loginComplete = (data) => {
+    return {
+        type: 'login-complete',
+        payload: data
+    };
+};
+
+const pageError = (err) => {
+    return {
+        type: 'page-error',
+        payload: err
+    };
+};
+
 export function sendLogin(login) {
     let asyncAction = function(dispatch) {
         $.ajax({
@@ -23,18 +37,4 @@ export function sendLogin(login) {
         .catch(error => dispatch(pageError(error)));
     };
     return asyncAction;
-};
-
-const loginComplete = (data) => {
-    return {
-        type: 'login-complete',
-        payload: data
-    };
-};
-
-const pageError = (err) => {
-    return {
-        type: 'page-error',
-        payload: err
-    };
 };
