@@ -9,7 +9,7 @@ CREATE DATABASE picnik_db;
 \c picnik_db;
 
 -----------------------
--- Create API Tables --
+-- Create Tables --
 -----------------------
 -- YUMMLY API MIRROR DB SCHEMA --
 
@@ -157,9 +157,8 @@ CREATE TABLE wine_links(
     image_link VARCHAR
 );
 
--------------------
--- Create Tables --
--------------------
+-- User Profiles and Picnics --
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     first_name varchar,
@@ -184,32 +183,45 @@ CREATE TABLE sessions(
 
 CREATE TABLE beer_saves (
     beer_id INTEGER REFERENCES beers(id),
-    user_id int references users(id)
+    user_id int references users(id),
+    type int
+    -- type 1 => selected in front end
+    -- type 2 => saved as part of picnik
 );
 
 CREATE TABLE wine_saves (
     wine_id INTEGER REFERENCES wines(id),
-    user_id int references users(id)
+    user_id int references users(id),
+    type int
+    -- type 1 => selected in front end
+    -- type 2 => saved as part of picnik
 );
 
 CREATE TABLE parks_saves (
     api_id varchar,
-    user_id int references users(id)
+    user_id int references users(id),
+    type int
+    -- type 1 => selected in front end
+    -- type 2 => saved as part of picnik
+);
+
+CREATE TABLE recipes_saves (
+    recipe_id INTEGER REFERENCES recipes(id),
+    user_id int references users(id),
+    type int
+    -- type 1 => selected in front end
+    -- type 2 => saved as part of picnik
 );
 
 CREATE TABLE parks (
     id SERIAL PRIMARY KEY,
     name varchar,
-    address varchar
-);
-
-CREATE TABLE recipes_saves (
-    recipe_id INTEGER REFERENCES recipes(id),
-    user_id int references users(id)
+    address varchar,
+    api_id varchar
 );
 
 CREATE TABLE weather (
-    zip SERIAL PRIMARY KEY,
+    zip int,
     forecast json,
     date_of varchar
 );
@@ -218,8 +230,8 @@ CREATE TABLE user_picks (
     id SERIAL PRIMARY KEY,
     favorites boolean,
     date_of varchar,
+    zip int,
     user_id int REFERENCES users (id),
-    weather_zip int REFERENCES weather (zip),
     beer_id int REFERENCES beers (id),
     wine_id int REFERENCES wines (id),
     recipe_id int REFERENCES recipes (id),
