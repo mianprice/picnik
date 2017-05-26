@@ -47,10 +47,10 @@ class Signup extends React.Component {
                     </div>
 
                     <div className="signup_section"><div className="signup_section_title">Sour</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('sour_taste', 0)}>None</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('sour_taste', 1)}>Little</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('sour_taste', 2)}>Some</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('sour_taste', 3)}>Lots</div>
+                      <div className={this.props.signup.taste_profile.sour_taste === 0 ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', 0)}>None</div>
+                      <div className={this.props.signup.taste_profile.sour_taste === 1 ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', 1)}>Little</div>
+                      <div className={this.props.signup.taste_profile.sour_taste === 2 ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', 2)}>Some</div>
+                      <div className={this.props.signup.taste_profile.sour_taste === 3 ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', 3)}>Lots</div>
                     </div>
 
                     <div className="signup_section"><div className="signup_section_title">Salty</div>

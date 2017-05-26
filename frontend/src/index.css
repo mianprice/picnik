@@ -107,6 +107,18 @@ body {
     color: white;
 }
 
+.signup_button:hover {
+    cursor: pointer;
+}
+
+.signup_button_selected {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: darkgrey;
+    color: white;
+}
+
 .signup_section_title {
     padding: 5px;
     margin: 5px;
@@ -133,6 +145,11 @@ body {
     color: white;
 }
 
+.signup_submit_button:hover {
+    background-color: lightgreen;
+    cursor: pointer;
+}
+
 .signup_skip_button {
     padding: 10px;
     margin: 5px 0;
@@ -148,6 +165,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.signup_progress div:hover {
+    background-color: yellow;
+    cursor: pointer;
 }
 
 .progress_section {

@@ -112,22 +112,22 @@ const beerPairingEngine = (selected_recipe) => {
         return [2, 26, 29, 30, 31, 25, 72, 73, 74, 164, 27, 1, 65, 48, 49, 50, 51, 52, 53, 112, 113, 114, 115, 116]; //IPA, pale ale, hefeweizen, saison
 
     } else if (course.includes("Desserts")) {
-        return [13, 16, 20, 21, 42, 43, 17, 34, 68, 119, 121, 122, 167]; //stout, barleywine, old ale, fruit lambic, fruit beer, pumpkin beer, chocolate beer
+        return [13, 16, 20, 21, 42, 43, 17, 34, 68, 119, 121, 122, 167, 18, 19, 90, 64]; //porter, stout, barleywine, old ale, fruit lambic, fruit beer, pumpkin beer, chocolate beer, doppelbock, strong dark belgian ale, 
 
     } else if (flavor_profile.piquant < 0.2 && flavor_profile.salty > 0.8) { //salty non-spicy food
         return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 25, 73, 74, 164, 27, 1, 40, 46, 47, 66, 67, 68, 136, 165]; //lager, "pale_ale", "sours"
 
-    } else if ((cuisine_final.includes("barbecue") && !ingredient_list_final.includes('chicken') && (ingredient_list_final.includes('beef') || ingredient_list_final.includes('pork'))) && flavor_profile.piquant < 0.8) { //non-poultry bbq
-        return [16, 20, 21, 42, 43, 18, 19, 158, 90]; //"stout", "porter", "doppelbock"
+    } else if (((cuisine_final.includes("barbecue") && !ingredient_list_final.includes('chicken')) && (ingredient_list_final.includes('beef') || ingredient_list_final.includes('chuck') || ingredient_list_final.includes('pork')) && flavor_profile.piquant < 0.8)) { //non-poultry bbq
+        return [16, 20, 21, 42, 43, 18, 19, 158, 90, 77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 25, 73, 74, 164, 27, 1]; //"stout", "porter", "doppelbock", "lager", "ipa"
 
     } else if (ingredient_list_final.includes('roast') &&  ingredient_list_final.includes('pot') && flavor_profile.piquant < 0.8) { //heavy pot roasts
         return [16, 20, 21, 42, 43, 18, 19, 158, 90]; //"stout", "porter", "doppelbock"
 
-    } else if (cuisine_final.includes("barbecue") && ingredient_list_final.includes('chicken') && !ingredient_list_final.includes('beef') && !ingredient_list_final.includes('pork') && flavor_profile.piquant < 0.8) { //poultry bbq
-        return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 25, 73, 74, 164, 27, 1, 40, 46, 47, 66, 67, 68, 136, 165]; //lager, "pale_ale", "sours"
+    } else if ((cuisine_final.includes("barbecue") && ingredient_list_final.includes('chicken')) && (!ingredient_list_final.includes('beef') && !ingredient_list_final.includes('pork') && flavor_profile.piquant < 0.8)) { //poultry bbq
+        return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 106, 25, 73, 74, 164, 27, 1, 40, 46, 47, 66, 67, 68, 136, 165]; //lager, "pale_ale", "sours"
 
     } else if ((cuisine_final.includes("asian") || cuisine_final.includes("japanese") || cuisine_final.includes("chinese") || cuisine_final.includes("thai")) && flavor_profile.piquant < 0.8) { //non-spicy asian
-        return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 65, 48, 49, 50, 51, 52, 53, 112, 113, 114, 115, 116, 40, 46, 47, 66, 67, 68, 136, 165]; //"lager", "hefeweizen", "gose"
+        return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 106, 65, 48, 49, 50, 51, 52, 53, 112, 113, 114, 115, 116, 40, 46, 47, 66, 67, 68, 136, 165]; //"lager", "hefeweizen", "gose"
 
     } else if (cuisine_final.includes("italian") && flavor_profile.piquant < 0.8) { //italian food
         return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 25, 73, 74, 164, 27, 1]; //"lager", "pale_ale"
@@ -135,12 +135,14 @@ const beerPairingEngine = (selected_recipe) => {
     } else if (cuisine_final.includes("mediterranean") && flavor_profile.piquant < 0.8) { //mediterranean food
         return [59, 77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 25, 73, 74, 164, 27, 1]; //lager, pale ale, tripel
 
-    } else if (cuisine_final.includes("american") && (ingredient_list_final.includes("salmon") || ingredient_list_final.includes("fish") || ingredient_list_final.includes("tilapia") || ingredient_list_final.includes("lobster") || ingredient_list_final.includes("shrimp") || ingredient_list_final.includes("crab"))) { //american seafood
-        return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 65, 48, 49, 50, 51, 52, 53, 112, 113, 114, 115, 116, 72, 45]; //'lager', 'hefeweizen', 'saison', 'kolsch'
+    } else if (cuisine_final.includes("american") && ((ingredient_list_final.includes("salmon") || ingredient_list_final.includes("fish") || ingredient_list_final.includes("tilapia") || ingredient_list_final.includes("lobster") || ingredient_list_final.includes("shrimp") || ingredient_list_final.includes("crab")))) { //american seafood
+        return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 106, 65, 48, 49, 50, 51, 52, 53, 112, 113, 114, 115, 116, 72, 45]; //'lager', 'hefeweizen', 'saison', 'kolsch'
+    } else if (ingredient_list_final.includes('chicken')) {
+        return [72, 58, 71, 3, 4, 5, 52]; //saison, dubbel, biere de garde, english bitter, dunkelweizen
     } else {
         return "No matches";
     }
-}
+};
 
 const displayBeers = (results) => {
     return {type: 'display-beer-options', payload: results};

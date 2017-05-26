@@ -20,7 +20,7 @@ class Drinks extends React.Component {
                     </div>
                     {label}
                     <div className="drink-buttons" onClick={() => this.props.selectBeer(item.beer_id)}>Select</div>
-                    <div className="check_mark"><img className="check_mark" src={item.class === "beer paired-beer" ? beer_pint : null}/></div>
+                    <div className="check_mark">{item.class === "beer paired-beer" ? <img className="check_mark" alt="beer pint" src={beer_pint} /> : null}</div>
                 </div>
             );
         });
