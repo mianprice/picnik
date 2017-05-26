@@ -9,8 +9,8 @@ class Planning extends React.Component {
   render() {
     return (
         <div className="planning">
-            <div className="plan_info">Picnic Planning
-                <div className="plan-submit-buttons">Save Your Picnic</div>
+            <div className="plan_info">Picnik Planning
+                <div className="plan-submit-buttons" onClick={(event) => this.props.savePicnik(this.props.state.food.select_recipes, this.props.state.drinks.beer_id, this.props.state.drinks.wine_id, [], this.props.state.login)}>Save Your Picnic</div>
             </div>
             <MapContainer />
             <FoodContainer />
