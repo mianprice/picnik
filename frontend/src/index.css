@@ -58,6 +58,22 @@ body {
     text-align: center;
 }
 
+.plan-submit-buttons {
+    padding: 5px;
+    margin: 5px 535px;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+    background-color: lightcoral;
+    display: block;
+    font-size: 12px;
+}
+
+.plan-submit-buttons:hover {
+    background-color: darkgrey;
+    cursor: pointer;
+}
+
 .plan_part {
     width: 30vw;
     padding: 25px 0;
