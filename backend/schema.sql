@@ -226,14 +226,30 @@ CREATE TABLE weather (
     date_of varchar
 );
 
-CREATE TABLE user_picks (
+CREATE TABLE picniks (
     id SERIAL PRIMARY KEY,
     favorites boolean,
     date_of varchar,
     zip int,
-    user_id int REFERENCES users (id),
-    beer_id int REFERENCES beers (id),
-    wine_id int REFERENCES wines (id),
-    recipe_id int REFERENCES recipes (id),
+    user_id int REFERENCES users (id)
+);
+
+CREATE TABLE picniks_parks (
+    picnik_id int REFERENCES picniks(id),
     park_id int REFERENCES parks (id)
+);
+
+CREATE TABLE picniks_beers (
+    picnik_id int REFERENCES picniks(id),
+    beer_id int REFERENCES beers (id)
+);
+
+CREATE TABLE picniks_wines (
+    picnik_id int REFERENCES picniks(id),
+    wine_id int REFERENCES wines (id)
+);
+
+CREATE TABLE picniks_recipes (
+    picnik_id int REFERENCES picniks(id),
+    recipe_id int REFERENCES recipes (id)
 );
