@@ -37,55 +37,13 @@ app.use(cors());
 app.get('/api/recipe', (req,res,next) => {
     db.any('select * from recipes r inner join recipe_links rl on(r.id=rl.recipe_id) order by id limit 100')
         .then((results) => {
-            let all_recipes = results.map((recipe) => {
-                return Promise.all([
-                    recipe,
-                    db.any('select ingredient_id from recipes_ingredients where recipe_id = $1', [recipe.id]),
-                    db.any('select course_id from recipes_courses where recipe_id = $1', [recipe.id]),
-                    db.any('select cuisine_id from recipes_cuisines where recipe_id = $1', [recipe.id])
-                ]);
-            });
-            return Promise.all(all_recipes);
+            return Promise.all(results.map(get_recipe_step_1));
         })
         .then((results) => {
-            let recipes_with_other_ids = results.map((recipe_info) => {
-                let recipe = recipe_info[0];
-                recipe.f_sweet = parseFloat(recipe.f_sweet);
-                recipe.f_meaty = parseFloat(recipe.f_meaty);
-                recipe.f_salty = parseFloat(recipe.f_salty);
-                recipe.f_piquant = parseFloat(recipe.f_piquant);
-                recipe.f_bitter = parseFloat(recipe.f_bitter);
-                recipe.f_sour = parseFloat(recipe.f_sour);
-                let ingredient_set = recipe_info[1].map((ingredient) => {
-                    return db.one('select * from ingredients where id = $1', [ingredient.ingredient_id]);
-                });
-                let course_set = recipe_info[2].map((course) => {
-                    return db.one('select * from courses where id = $1', [course.course_id]);
-                });
-                let cuisine_set = recipe_info[3].map((cuisine) => {
-                    return db.one('select * from cuisines where id = $1', [cuisine.cuisine_id]);
-                });
-                return Promise.all([
-                    recipe,
-                    Promise.all(ingredient_set),
-                    Promise.all(course_set),
-                    Promise.all(cuisine_set)
-                ]);
-            });
-            return Promise.all(recipes_with_other_ids);
+            return Promise.all(results.map(get_recipe_step_2));
         })
         .then((results) => {
-            let recipes = results.map((recipe) => {
-                let r = recipe[0];
-                r.ingredients = recipe[1];
-                r.courses = recipe[2];
-                r.cuisines = recipe[3];
-                return r;
-            });
-            return recipes;
-        })
-        .then((results) => {
-            res.json(results);
+            res.json(results.map(create_recipe_object));
         })
         .catch(next);
 });
@@ -94,6 +52,12 @@ app.get('/api/recipe', (req,res,next) => {
 // Retrieve a specific recipe (denoted by id, which refers to recipeID)
 app.get('/api/recipe/specific/:id', (req,res,next) => {
     let recipe_id = req.params.id;
+    db.one('select * from recipes r inner join recipe_links rl on(r.id=rl.recipe_id) where r.id = $1', [recipe_id])
+        .then(get_recipe_step_1)
+        .then(get_recipe_step_2)
+        .then(create_recipe_object)
+        .then(result => res.json(result))
+        .catch(next);
 });
 
 // POST /api/recipe/criteriaSearch
@@ -130,6 +94,11 @@ app.get('/api/beer', (req,res,next) => {
 // Retrieve a specific beer (denoted by id, which refers to beerID)
 app.get('/api/beer/specific/:id', (req,res,next) => {
     let beer_id = req.params.id;
+    db.one('select b.id as beer_id, b.name as beer_name, brewery_db_id, abv, ibu, label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where b.id = $1', [beer_id])
+        .then((result) => {
+            res.json(result);
+        })
+        .catch(next);
 });
 
 // POST /api/beer/criteriaSearch
@@ -155,13 +124,22 @@ app.get('/api/beer/saved/:userID', (req,res,next) => {
 // GET /api/wine
 // Retrieve a set of wines
 app.get('/api/wine', (req,res,next) => {
-
+    db.any('select w.id as id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wines w inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) order by w.id limit 100')
+        .then((results) => {
+            res.json(results);
+        })
+        .catch(next);
 });
 
 // GET /api/wine/specific/:id
 // Retrieve a specific wine (denoted by id, which refers to wineID)
 app.get('/api/wine/specific/:id', (req,res,next) => {
     let wine_id = req.params.id;
+    db.one('select w.id as id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wines w inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) where w.id = $1', [wine_id])
+        .then((result) => {
+            res.json(result);
+        })
+        .catch(next);
 });
 
 // POST /api/wine/criteriaSearch
@@ -284,4 +262,47 @@ function validate_login(attempted) {
       };
     })
     .catch((err) => {throw err});
+}
+
+function get_recipe_step_1(recipe) {
+    return Promise.all([
+        recipe,
+        db.any('select ingredient_id from recipes_ingredients where recipe_id = $1', [recipe.id]),
+        db.any('select course_id from recipes_courses where recipe_id = $1', [recipe.id]),
+        db.any('select cuisine_id from recipes_cuisines where recipe_id = $1', [recipe.id])
+    ]);
+}
+
+function get_recipe_step_2(recipe_info) {
+    let recipe = recipe_info[0];
+    recipe.f_sweet = parseFloat(recipe.f_sweet);
+    recipe.f_meaty = parseFloat(recipe.f_meaty);
+    recipe.f_salty = parseFloat(recipe.f_salty);
+    recipe.f_piquant = parseFloat(recipe.f_piquant);
+    recipe.f_bitter = parseFloat(recipe.f_bitter);
+    recipe.f_sour = parseFloat(recipe.f_sour);
+    recipe.rating = parseInt(recipe.rating);
+    let ingredient_set = recipe_info[1].map((ingredient) => {
+        return db.one('select * from ingredients where id = $1', [ingredient.ingredient_id]);
+    });
+    let course_set = recipe_info[2].map((course) => {
+        return db.one('select * from courses where id = $1', [course.course_id]);
+    });
+    let cuisine_set = recipe_info[3].map((cuisine) => {
+        return db.one('select * from cuisines where id = $1', [cuisine.cuisine_id]);
+    });
+    return Promise.all([
+        recipe,
+        Promise.all(ingredient_set),
+        Promise.all(course_set),
+        Promise.all(cuisine_set)
+    ]);
+}
+
+function create_recipe_object(recipe) {
+    let r = recipe[0];
+    r.ingredients = recipe[1];
+    r.courses = recipe[2];
+    r.cuisines = recipe[3];
+    return r;
 }
