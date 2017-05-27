@@ -35,7 +35,7 @@ app.use(cors());
 // GET /api/recipe
 // Retrieve a set of recipes
 app.get('/api/recipe', (req,res,next) => {
-    db.any('select * from recipes r inner join recipe_links rl on(r.id=rl.recipe_id) order by id limit 100')
+    db.any('select * from recipes r inner join recipe_links rl on(r.id=rl.recipe_id) order by id limit 100 offset 100')
         .then((results) => {
             return Promise.all(results.map(get_recipe_step_1));
         })
@@ -83,7 +83,7 @@ app.get('/api/recipe/saved/:userID', (req,res,next) => {
 // GET /api/beer
 // Retrieve a set of beers
 app.get('/api/beer', (req,res,next) => {
-    db.any('select b.id as beer_id, b.name as beer_name, brewery_db_id, abv, ibu, label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) order by b.id limit 100')
+    db.any('select b.id as beer_id, b.name as beer_name, brewery_db_id, abv, ibu, label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) order by b.id limit 100 offset 100')
         .then((results) => {
             res.json(results);
         })
@@ -169,11 +169,12 @@ app.get('/api/wine/saved/:userID', (req,res,next) => {
 // Creates new user accounts, returns standard login response
 app.post('/api/user/signup', (req,res,next) => {
   let new_account = req.body.signup;
-  let new_tastes = [new_account.piquant.toString(),new_account.meaty.toString(),new_account.sweet.toString(),new_account.salty.toString(),new_account.bitter.toString(),new_account.sour_taste.toString()].join(",");
-  let new_cuisines = [new_account.mexican.toString(),new_account.italian.toString(),new_account.greek.toString(),new_account.hungarian.toString(),new_account.swedish.toString(),new_account.american.toString(),new_account.japanese.toString(),new_account.chinese.toString()].join(",");
-  let new_wines = [new_account.chardonnay.toString(),new_account.cabernet.toString(),new_account.malbec.toString(),new_account.pinot_noir.toString(),new_account.champagne.toString(),new_account.riesling.toString(),new_account.rose.toString(),new_account.barbera.toString()].join(",");
-  let new_beers = [new_account.ipa.toString(),new_account.pale_ale.toString(),new_account.lager.toString(),new_account.tripel.toString(),new_account.lambic.toString(),new_account.stout.toString(),new_account.porter.toString(),new_account.doppelbock.toString(),new_account.gose.toString(),new_account.sour.toString()].join(",");
-  db.none('select * from users where user_name = $1 or email = $2', [new_account.user_name,new_account.email])
+  let new_tastes = [new_account.taste_profile.piquant.toString(),new_account.taste_profile.meaty.toString(),new_account.taste_profile.sweet.toString(),new_account.taste_profile.salty.toString(),new_account.taste_profile.bitter.toString(),new_account.taste_profile.sour_taste.toString()].join(",");
+  let new_cuisines = [new_account.cuisine_profile.mexican.toString(),new_account.cuisine_profile.italian.toString(),new_account.cuisine_profile.mediterranean.toString(),new_account.cuisine_profile.thai.toString(),new_account.cuisine_profile.barbecue.toString(),new_account.cuisine_profile.american.toString(),new_account.cuisine_profile.japanese.toString(),new_account.cuisine_profile.chinese.toString()].join(",");
+  let new_wines = [new_account.wine_profile.chardonnay.toString(),new_account.wine_profile.cabernet.toString(),new_account.wine_profile.malbec.toString(),new_account.wine_profile.pinot_noir.toString(),new_account.wine_profile.champagne.toString(),new_account.wine_profile.riesling.toString(),new_account.wine_profile.rose.toString(),new_account.wine_profile.barbera.toString()].join(",");
+  let new_beers = [new_account.beer_profile.ipa.toString(),new_account.beer_profile.pale_ale.toString(),
+  new_account.beer_profile.lager.toString(),new_account.beer_profile.belgian.toString(),new_account.beer_profile.wheat.toString(),new_account.beer_profile.stout.toString(),new_account.beer_profile.porter.toString(),new_account.beer_profile.pilsner.toString(),new_account.beer_profile.saison.toString(),new_account.beer_profile.sours.toString()].join(",");
+  db.none('select * from users where user_name = $1 or email = $2', [new_account.user_name, new_account.email])
     .then(() => {
       return bcrypt.hash(new_account.password, 10);
     })
@@ -202,9 +203,9 @@ app.post('/api/user/login', (req,res,next) => {
 // AUTHENTICATION MIDDLEWARE
 // Authenticate the token provided as part of the request
 app.use(function authenticate(req,res,next) {
-  db.one('select * from sessions where token=$1', [req.body.token])
+  db.one('select * from sessions where token=$1', [req.body.login.token])
     .then((data) => {
-      return db.one('select id,first_name,last_name,email,user_name from users where id=$1', [data.u_id])
+      return db.one('select id,first_name,last_name,email,user_name from users where id=$1', [data.user_id]);
     })
     .then((data) => {
       req.user = data;
@@ -215,7 +216,35 @@ app.use(function authenticate(req,res,next) {
     });
 });
 
-
+app.post('/api/picnik/save', (req, res, next) => {
+    db.one('insert into picniks values (default, $1, $2, $3, $4) returning id', [false, "07/04/2017", 30324, req.body.login.user_id])
+    .then(result => {
+        let beer_promises = req.body.beers.map(beer_id => {
+            return db.none('insert into picniks_beers values ($1, $2)', [result.id, beer_id])
+        });
+        let wine_promises = req.body.wines.map(wine_id => {
+            return db.none('insert into picniks_wines values ($1, $2)', [result.id, wine_id])
+        });
+        let recipe_promises = req.body.recipes.map(recipe => {
+            return db.none('insert into picniks_recipes values ($1, $2)', [result.id, recipe.id])
+        });
+        let park_promises = req.body.parks.map(park_id => {
+            return db.none('insert into picniks_parks values ($1, $2)', [result.id, park_id])
+        });
+        return Promise.all([
+            Promise.all(beer_promises),
+            Promise.all(wine_promises),
+            Promise.all(recipe_promises),
+            Promise.all(park_promises),
+        ]);
+    })
+    .then(result => {
+        res.json({
+            success: true
+        });
+    })
+    .catch(next);
+})
 
 /************************************/
 /************************************/
