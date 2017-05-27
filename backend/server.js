@@ -75,6 +75,28 @@ app.get('/api/recipe/saved/:userID', (req,res,next) => {
     let user_id = req.params.userID;
 });
 
+//save recipe for later
+app.post('/api/save_recipe', (req, res, next) => {
+    db.one('insert into recipes_saves values ($1, $2, $3) returning user_id', [req.body.recipe_id, req.body.user_id, req.body.type])
+    .then(results => {
+        res.json({
+            success: true
+        });
+    })
+    .catch(next);
+});
+
+//save beer or wine for later
+app.post('/api/save_drink', (req, res, next) => {
+    var query = req.body.drink = 'beer' ? 'insert into beer_saves values ($1, $2, $3) returning user_id' : 'insert into wine_saves values ($1, $2, $3) returning user_id'
+    db.one(query, [req.body.drink_id, req.body.user_id, req.body.type])
+    .then(results => {
+        res.json({
+            success: true
+        });
+    })
+    .catch(next);
+});
 
 /****************************************/
 /* <-----  BEER API STARTS HERE  -----> */
@@ -83,7 +105,7 @@ app.get('/api/recipe/saved/:userID', (req,res,next) => {
 // GET /api/beer
 // Retrieve a set of beers
 app.get('/api/beer', (req,res,next) => {
-    db.any('select b.id as beer_id, b.name as beer_name, brewery_db_id, abv, ibu, label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) order by b.id limit 100 offset 100')
+    db.any('select b.id as beer_id, b.name as beer_name, brewery_db_id, cast(abv as float), cast(ibu as float), label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) order by b.id limit 100 offset 100')
         .then((results) => {
             res.json(results);
         })
@@ -94,13 +116,12 @@ app.get('/api/beer', (req,res,next) => {
 // Retrieve a specific beer (denoted by id, which refers to beerID)
 app.get('/api/beer/specific/:id', (req,res,next) => {
     let beer_id = req.params.id;
-    db.one('select b.id as beer_id, b.name as beer_name, brewery_db_id, abv, ibu, label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where b.id = $1', [beer_id])
+    db.one('select b.id as beer_id, b.name as beer_name, brewery_db_id, cast(abv as float), cast(ibu as float), label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where b.id = $1', [beer_id])
         .then((result) => {
             res.json(result);
         })
         .catch(next);
 });
-
 // POST /api/beer/criteriaSearch
 // Retrieve a set of beers that match the provided criteria
 // CRITERIA    => ?Comma?-separated property names
@@ -244,7 +265,8 @@ app.post('/api/picnik/save', (req, res, next) => {
         });
     })
     .catch(next);
-})
+});
+
 
 /************************************/
 /************************************/
