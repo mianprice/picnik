@@ -21,6 +21,7 @@ class Drinks extends React.Component {
                     {label}
                     <div className="drink-buttons" onClick={() => this.props.selectBeer(item.beer_id)}>Select</div>
                     <div className="check_mark">{item.class === "beer paired-beer" ? <img className="check_mark" alt="beer pint" src={beer_pint} /> : null}</div>
+                    <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>
             );
         });
@@ -32,6 +33,7 @@ class Drinks extends React.Component {
                     </div>
                     <img src={item.image} alt={item.name} />
                     <div className="drink-buttons" onClick={() => this.props.selectWine(item.code)}>Select</div>
+                    <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>
             );
         });
@@ -50,7 +52,7 @@ class Drinks extends React.Component {
 }
 
 const DrinksContainer = ReactRedux.connect(
-  state => ({ drinks: state.drinks, signup: state.signup, food: state.food }),
+  state => ({ drinks: state.drinks, signup: state.signup, food: state.food, login: state.login }),
   actions
 )(Drinks);
 
