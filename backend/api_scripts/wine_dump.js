@@ -9,9 +9,6 @@ const pgp = require('pg-promise')({
 const config = require('../config');
 const db = pgp(config.db);
 
-let db_record_count = 0;
-let api_total_record_count = 0;
-let api_returned_record_count = 0;
 let api_result_number = -99;
 let api_url = 'http://api.snooth.com/wines/?akey=k55ur744ocfnnnh63q52bvh26eaqg9oekf7er3tp5mbj09a1&n=100&q=wine&a=1&f=';
 

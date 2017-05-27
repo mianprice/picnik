@@ -11,7 +11,6 @@ export default function reducer(state = INITIAL_STATE, action) {
     if (action.type === 'display-beer-options') {
         return Object.assign({}, state, {
             beer_set: action.payload
-            /*search_criteria: action.payload.criteria*/
         });
     } else if (action.type === 'select-beer') {
         let arr = state.beer_id;
@@ -21,8 +20,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         });
     } else if (action.type === 'display-wine-options') {
         return Object.assign({}, state, {
-            wine_set: action.payload.wines
-            /*search_criteria: action.payload.criteria*/
+            wine_set: action.payload
         });
     } else if (action.type === 'select-wine') {
         let arr = state.wine_id;

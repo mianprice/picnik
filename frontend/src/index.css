@@ -76,6 +76,8 @@ body {
 
 .plan_part {
     width: 30vw;
+    height: 65vh;
+    overflow: scroll;
     padding: 25px 0;
     margin: 15px 0;
     background-color: darkblue;
@@ -109,10 +111,14 @@ body {
 
 .beers {
     background-color: tan;
+    height: 50%;
+    overflow: scroll;
 }
 
 .wines {
     background-color: coral;
+    height: 50%;
+    overflow: scroll;
 }
 
 .signup_button {

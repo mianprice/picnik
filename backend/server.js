@@ -10,6 +10,7 @@ const bodyParser = require ('body-parser');
 const cors = require ('cors');
 const express = require ('express');
 const uuid = require ('uuid');
+const rp = require ('request-promise');
 const pgp = require('pg-promise')({
   promiseLib: Promise
 });
@@ -35,7 +36,7 @@ app.use(cors());
 // GET /api/recipe
 // Retrieve a set of recipes
 app.get('/api/recipe', (req,res,next) => {
-    db.any('select * from recipes r inner join recipe_links rl on(r.id=rl.recipe_id) order by id limit 100 offset 100')
+    db.any('select * from recipes r inner join recipe_links rl on(r.id=rl.recipe_id) where r.seed = 0')
         .then((results) => {
             return Promise.all(results.map(get_recipe_step_1));
         })
@@ -83,7 +84,7 @@ app.get('/api/recipe/saved/:userID', (req,res,next) => {
 // GET /api/beer
 // Retrieve a set of beers
 app.get('/api/beer', (req,res,next) => {
-    db.any('select b.id as beer_id, b.name as beer_name, brewery_db_id, abv, ibu, label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) order by b.id limit 100 offset 100')
+    db.any('select b.id as beer_id, b.name as beer_name, brewery_db_id, cast(abv as float), cast(ibu as float), label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where b.seed = 0')
         .then((results) => {
             res.json(results);
         })
@@ -94,7 +95,7 @@ app.get('/api/beer', (req,res,next) => {
 // Retrieve a specific beer (denoted by id, which refers to beerID)
 app.get('/api/beer/specific/:id', (req,res,next) => {
     let beer_id = req.params.id;
-    db.one('select b.id as beer_id, b.name as beer_name, brewery_db_id, abv, ibu, label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where b.id = $1', [beer_id])
+    db.one('select b.id as beer_id, b.name as beer_name, brewery_db_id, cast(abv as float), cast(ibu as float), label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where b.id = $1', [beer_id])
         .then((result) => {
             res.json(result);
         })
@@ -124,7 +125,7 @@ app.get('/api/beer/saved/:userID', (req,res,next) => {
 // GET /api/wine
 // Retrieve a set of wines
 app.get('/api/wine', (req,res,next) => {
-    db.any('select w.id as id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wines w inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) order by w.id limit 100')
+    db.any('select w.id as id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wines w inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) where w.seed = 0')
         .then((results) => {
             res.json(results);
         })
@@ -155,6 +156,36 @@ app.post('/api/wine/criteriaSearch', (req,res,next) => {
 // Retrieve the set of wines saved by a specific user (denoted by userID)
 app.get('/api/wine/saved/:userID', (req,res,next) => {
     let user_id = req.params.userID;
+});
+
+/*************************************************/
+/* <-----  PARKS/WEATHER API STARTS HERE  -----> */
+/*************************************************/
+
+// GET /api/parks_and_weather/:zip
+// Retrieve a the forecast and parks for a given zip code
+app.get('/api/parks_and_weather/:zip', (req,res,next) => {
+    let zip = req.params.zip;
+    let parks_url = `https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyApxzwzxHelwZIV4JIkWmcOjqA9ISieZm4&type=park&query=${zip}`;
+    let weather_url = `http://api.openweathermap.org/data/2.5/forecast/daily?zip=${zip},us&APPID=3569484daaaf0e9db08bd8a0189f6692`;
+    let calls = [
+        rp({
+            uri: parks_url,
+            json: true
+        }),
+        rp({
+            uri: weather_url,
+            json: true
+        })
+    ];
+    Promise.all(calls)
+        .then(result => {
+            res.json({
+                weather: result[1],
+                parks: result[0].results
+            });
+        })
+        .catch(next);
 });
 
 

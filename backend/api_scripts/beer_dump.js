@@ -9,9 +9,6 @@ const pgp = require('pg-promise')({
 const config = require('../config');
 const db = pgp(config.db);
 
-let db_record_count = 0;
-let api_total_record_count = 0;
-let api_returned_record_count = 0;
 let api_page_number = 0;
 let api_url = 'http://api.brewerydb.com/v2/beers?key=30fae795a155ea7f3a8401417c570efe&availableId=4&hasLabels=Y&withBreweries=Y&p=';
 

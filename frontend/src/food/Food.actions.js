@@ -112,7 +112,7 @@ const beerPairingEngine = (selected_recipe) => {
         return [2, 26, 29, 30, 31, 25, 72, 73, 74, 164, 27, 1, 65, 48, 49, 50, 51, 52, 53, 112, 113, 114, 115, 116]; //IPA, pale ale, hefeweizen, saison
 
     } else if (course.includes("Desserts")) {
-        return [13, 16, 20, 21, 42, 43, 17, 34, 68, 119, 121, 122, 167, 18, 19, 90, 64]; //porter, stout, barleywine, old ale, fruit lambic, fruit beer, pumpkin beer, chocolate beer, doppelbock, strong dark belgian ale, 
+        return [13, 16, 20, 21, 42, 43, 17, 34, 68, 119, 121, 122, 167, 18, 19, 90, 64]; //porter, stout, barleywine, old ale, fruit lambic, fruit beer, pumpkin beer, chocolate beer, doppelbock, strong dark belgian ale,
 
     } else if (flavor_profile.piquant < 0.2 && flavor_profile.salty > 0.8) { //salty non-spicy food
         return [77, 78, 79, 80, 81, 82, 83, 92, 93, 94, 95, 96, 97, 99, 100, 101, 102, 103, 25, 73, 74, 164, 27, 1, 40, 46, 47, 66, 67, 68, 136, 165]; //lager, "pale_ale", "sours"
@@ -185,4 +185,22 @@ export const beerPairingMegaFunction = (beer_prefs_from_signup_state, selected_r
         .catch(error =>  {throw error});
     };
     return asyncAction;
-}
+};
+
+
+const displayWines = (results) => {
+    return {type: 'display-wine-options', payload: results};
+};
+
+export const getWines = () => {
+    let asyncAction = function(dispatch) {
+        $.ajax({
+            url: "http://localhost:4000/api/wine",
+            method: "GET",
+            dataType: 'JSON'
+        })
+        .then((results) => dispatch(displayWines(results)))
+        .catch(error =>  {throw error});
+    };
+    return asyncAction;
+};

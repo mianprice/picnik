@@ -28,6 +28,26 @@ export const showMap = (zip) => {
     };
 };
 
+const showParksAndWeather = (data) => {
+    return {
+        type: 'show-parks-and-weather',
+        payload: data
+    };
+};
+
+export const getParksAndWeather = (zip) => {
+    let asyncAction = function(dispatch) {
+        $.ajax({
+            method: 'GET',
+            url: 'http://localhost:4000/api/parks_and_weather/' + zip.toString(),
+            dataType: 'json'
+        })
+        .then(result => dispatch(showParksAndWeather(result)))
+        .catch(err => console.log(err));
+    };
+    return asyncAction;
+}
+
 export const resetZip = () => {
     return {
         type: 'reset-zip'

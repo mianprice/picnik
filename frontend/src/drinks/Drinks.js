@@ -24,20 +24,19 @@ class Drinks extends React.Component {
                 </div>
             );
         });
-        let wine_view = this.props.drinks.wine_set.map((item) => {
+        let wine_view = this.props.drinks.wine_set.map((item, idx) => {
             return (
-                <div key={item.code}>
+                <div key={idx}>
                     <div>
                         {item.name}
                     </div>
-                    <img src={item.image} alt={item.name} />
-                    <div className="drink-buttons" onClick={() => this.props.selectWine(item.code)}>Select</div>
+                    <img src={item.image_link} alt={item.name} />
+                    <div className="drink-buttons" onClick={() => this.props.selectWine(item.id)}>Select</div>
                 </div>
             );
         });
         return (
             <div className="plan_part">
-                Drinks TEST
                 <div className="beers">
                     {beer_view}
                 </div>
