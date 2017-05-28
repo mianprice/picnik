@@ -42,7 +42,7 @@ class Invitations extends React.Component {
                                             <div className='invitation-clear-button' onClick={() => this.props.removeFromGuestList(index)}>Remove</div>
                                        </div>
                             }) : ""}
-                            <div className='invitation-submit-button'>Send Invitations</div>
+                            <div className='invitation-submit-button' onClick={event => this.props.sendInvites(1, this.props.login)}>Send Invitations</div>
                         </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@ class Invitations extends React.Component {
 }
 
 const InvitationsContainer = ReactRedux.connect(
-    state => ({invitations: state.invitations, food: state.food, drinks: state.drinks, map: state.map, login: state.login}),
+    state => ({invitations: state.invitations, food: state.food, drinks: state.drinks, map: state.map, login: state.login, planning: state.planning}),
     actions
 )(Invitations);
 

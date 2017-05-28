@@ -20,11 +20,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const nodemailer = require ('nodemailer');
-let transporter = nodemailer.createTransport({
-    service: 'yahoo',
-    auth: config.email
-})
+const mailer = require ('nodemailer-promise');
+let sendEmail = mailer.config(config.email);
 
 /******************************************/
 /******************************************/
@@ -193,7 +190,6 @@ app.get('/api/parks_and_weather/:zip', (req,res,next) => {
     let zip = req.params.zip;
     Promise.all([get_parks(zip), get_weather(zip)])
         .then(result => {
-            console.log(result[1]);
             res.json({
                 weather: result[1],
                 parks: result[0]
@@ -277,6 +273,7 @@ app.post('/api/picnik/save', (req, res, next) => {
             return db.none('insert into picniks_parks values ($1, $2)', [result.id, park_id])
         });
         return Promise.all([
+            result.id,
             Promise.all(beer_promises),
             Promise.all(wine_promises),
             Promise.all(recipe_promises),
@@ -285,7 +282,8 @@ app.post('/api/picnik/save', (req, res, next) => {
     })
     .then(result => {
         res.json({
-            success: true
+            success: true,
+            id: result[0]
         });
     })
     .catch(next);
@@ -326,28 +324,18 @@ app.post('/api/send_invites', (req,res,next) => {
             emails = emails.join(', ');
             names = names.join(' and ');
             let mailOptions = {
-                // /*headers: {
-                //     'User-Agent': ''
-                // },*/
-                // server: 'smtp.mail.yahoo.com',
-                from: '"Fred Foo 👻" <foo@blurdybloop.com>', // sender address
-                to: emails, // list of receivers
-                subject: 'Hello ✔', // Subject line
-                text: `Hello ${names} world ?`, // plain text body
-                html: '<b>Hello world ?</b>' // html body
+                senderName: 'Picnik',
+                receiver: ['michael.ian.price@gmail.com', 'aaronawhite1@gmail.com'],
+                subject: 'Picnik Invite Test',
+                text: 'Welcome to the picnik invite test',
             };
-            return new Promise((resolve, reject) => {
-                transporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    resolve('Message was sent.');
-                });
-            });
+            return sendEmail(mailOptions);
         })
         .then((result) => {
+            console.log(result);
             res.json({
-                success: true
+                success: true,
+                info: result
             });
         })
         .catch(next);
@@ -496,7 +484,6 @@ function get_weather(zip) {
     };
     let today = new Date();
     let date_of = [today.getMonth().toString(), today.getDate().toString(), today.getFullYear().toString()].join(",");
-    console.log(date_of);
     return db.one('select count(*)::int from weather where (zip, date_of) = ($1,$2)', [zip, date_of])
         .then(result => {
             if (result.count === 0) {
