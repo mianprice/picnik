@@ -88,7 +88,7 @@ app.post('/api/save_recipe', (req, res, next) => {
 
 //save beer or wine for later
 app.post('/api/save_drink', (req, res, next) => {
-    var query = req.body.drink = 'beer' ? 'insert into beer_saves values ($1, $2, $3) returning user_id' : 'insert into wine_saves values ($1, $2, $3) returning user_id'
+    var query = req.body.drink = 'beer' ? 'insert into beer_saves values ($1, $2, $3) returning user_id' : 'insert into wine_saves values ($1, $2, $3) returning user_id';
     db.one(query, [req.body.drink_id, req.body.user_id, req.body.type])
     .then(results => {
         res.json({
