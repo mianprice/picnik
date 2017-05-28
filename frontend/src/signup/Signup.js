@@ -4,6 +4,11 @@ import * as actions from './Signup.actions';
 
 class Signup extends React.Component {
   render() {
+      let taste_profile_array = ["None", "Little", "Some", "Lots"];
+      let cuisine_profile_array = [
+          "Mexican", "Italian", "Mediterranean", "Thai", "Barbeque", "American", "Japanese", "Chinese"];
+      let wine_profile_array = ["Chardonnay", "Cabernet", "Malbec", "Riesling", "Rose"];
+      let beer_profile_array = ["IPA", "Stout", "Wheat", "Pilsner","Saison",  "Belgian", "Sours", "Porter", "Lager"];
       let displayArray = [
           (
               <div className="signup_section">
@@ -25,77 +30,65 @@ class Signup extends React.Component {
           (
               <div className="signup_section"><div className="signup_section_title">TASTE</div>
                 <div className="signup_group">
-                    <div className="signup_section"><div className="signup_section_title">Spicy</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('piquant', 0)}>None</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('piquant', 1)}>Little</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('piquant', 2)}>Some</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('piquant', 3)}>Lots</div>
+                    <div className="signup_section">
+                        <div className="signup_section_title">Spicy</div>
+                            {taste_profile_array.map((item, index) =>
+                                <div key={index} className={this.props.signup.taste_profile.piquant === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('piquant', index)}>{item}</div>
+                            )}
                     </div>
-
                     <div className="signup_section"><div className="signup_section_title">Sweet</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('sweet', 0)}>None</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('sweet', 1)}>Little</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('sweet', 2)}>Some</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('sweet', 3)}>Lots</div>
+                        {taste_profile_array.map((item, index) =>
+                            <div key={index} className={this.props.signup.taste_profile.sweet === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sweet', index)}>{item}</div>
+                        )}
                     </div>
-
                     <div className="signup_section"><div className="signup_section_title">Savory</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('meaty', 0)}>None</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('meaty', 1)}>Little</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('meaty', 2)}>Some</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('meaty', 3)}>Lots</div>
+                        {taste_profile_array.map((item, index) =>
+                            <div key={index} className={this.props.signup.taste_profile.meaty === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('meaty', index)}>{item}</div>
+                        )}
                     </div>
-
-                    <div className="signup_section"><div className="signup_section_title">Sour</div>
-                      <div className={this.props.signup.taste_profile.sour_taste === 0 ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', 0)}>None</div>
-                      <div className={this.props.signup.taste_profile.sour_taste === 1 ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', 1)}>Little</div>
-                      <div className={this.props.signup.taste_profile.sour_taste === 2 ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', 2)}>Some</div>
-                      <div className={this.props.signup.taste_profile.sour_taste === 3 ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', 3)}>Lots</div>
-                    </div>
-
+                    <div className="signup_section">
+                        <div className="signup_section_title">Sour</div>
+                            {taste_profile_array.map((item, index) =>
+                                <div key={index} className={this.props.signup.taste_profile.sour_taste === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', index)}>{item}</div>
+                            )}
+                        </div>
                     <div className="signup_section"><div className="signup_section_title">Salty</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('salty', 0)}>None</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('salty', 1)}>Little</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('salty', 2)}>Some</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('salty', 3)}>Lots</div>
+                        {taste_profile_array.map((item, index) =>
+                            <div key={index} className={this.props.signup.taste_profile.salty === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('salty', index)}>{item}</div>
+                        )}
                     </div>
-
                     <div className="signup_section"><div className="signup_section_title">Bitter</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('bitter', 0)}>None</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('bitter', 1)}>Little</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('bitter', 2)}>Some</div>
-                      <div className="signup_button" onClick={() => this.props.setTaste('bitter', 3)}>Lots</div>
+                        {taste_profile_array.map((item, index) =>
+                            <div key={index} className={this.props.signup.taste_profile.bitter === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('bitter', index)}>{item}</div>
+                        )}
                     </div>
                 </div>
-                <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
+                <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
+                <div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
 
               </div>
           ),
           (
-              <div className="signup_section"><div className="signup_section_title">Cuisine</div>
-                <div className="signup_button" onClick={() => this.props.setCuisine('mexican')}>Mexican</div>
-                <div className="signup_button" onClick={() => this.props.setCuisine('italian')}>Italian</div>
-                <div className="signup_button" onClick={() => this.props.setCuisine('mediterranean')}>Mediterranean</div>
-                <div className="signup_button" onClick={() => this.props.setCuisine('thai')}>Thai</div>
-                <div className="signup_button" onClick={() => this.props.setCuisine('barbeque')}>Barbeque</div>
-                <div className="signup_button" onClick={() => this.props.setCuisine('american')}>American</div>
-                <div className="signup_button" onClick={() => this.props.setCuisine('japanese')}>Japanese</div>
-                <div className="signup_button" onClick={() => this.props.setCuisine('chinese')}>Chinese</div>
+              <div className="signup_section">
+                  <div className="signup_section_title">Cuisine</div>
+                      {cuisine_profile_array.map((item, index) =>
+                          <div key={index} className={this.props.signup.cuisine_profile[item.toLowerCase()] === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setCuisine(item.toLowerCase())}>{item}</div>
+                      )}
 
-                <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
+                    <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
+                    <div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
 
               </div>
           ),
           (
               <div className="signup_section"><div className="signup_section_title">Wine</div>
-                <div className="signup_button" onClick={() => this.props.setWine('chardonnay')}>Chardonnay</div>
-                <div className="signup_button" onClick={() => this.props.setWine('cabernet')}>Cabernet</div>
-                <div className="signup_button" onClick={() => this.props.setWine('malbec')}>Malbec</div>
-                <div className="signup_button" onClick={() => this.props.setWine('pinot_noir')}>Pinot Noir</div>
-                <div className="signup_button" onClick={() => this.props.setWine('pinot_grigio')}>Pinot Grigio</div>
-                <div className="signup_button" onClick={() => this.props.setWine('riesling')}>Riesling</div>
-                <div className="signup_button" onClick={() => this.props.setWine('rose')}>Rose</div>
-                <div className="signup_button" onClick={() => this.props.setWine('sauvignon_blanc')}>Sauvignon Blanc</div>
+                  {wine_profile_array.map((item, index) =>
+                      <div key={index} className={this.props.signup.wine_profile[item.toLowerCase()] === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine(item.toLowerCase())}>{item}</div>
+                  )}
+                  {/* CAN'T MAP OVER THE WINES BELOW BECAUSE THEIR NAMES IN THE STATE ARE DIFFERENT THAN THEY APPEAR IN THE VIEW */}
+                <div className={this.props.signup.wine_profile.pinot_noir === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('pinot_noir')}>Pinot Noir</div>
+                <div className={this.props.signup.wine_profile.pinot_grigio === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('pinot_grigio')}>Pinot Grigio</div>
+                <div className={this.props.signup.wine_profile.sauvignon_blanc === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('sauvignon_blanc')}>Sauvignon Blanc</div>
 
                 <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
 
@@ -103,16 +96,11 @@ class Signup extends React.Component {
           ),
           (
               <div className="signup_section"><div className="signup_section_title">Beer</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('ipa')}>IPA</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('pale_ale')}>Pale Ale</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('stout')}>Stout</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('wheat')}>Wheat</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('pilsner')}>Pilsner</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('saison')}>Saison</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('belgian')}>Belgian</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('sours')}>Sours</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('porter')}>Porter</div>
-                <div className="signup_button" onClick={() => this.props.setBeer('lager')}>Lager</div>
+                  {beer_profile_array.map((item, index) =>
+                      <div key={index} className={this.props.signup.beer_profile[item.toLowerCase()] === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setBeer(item.toLowerCase())}>{item}</div>
+                  )}
+                  {/* CAN'T MAP OVER THE BEER BELOW BECAUSE ITS NAME IN THE STATE IS DIFFERENT THAN IT APPEARS IN THE VIEW */}
+                <div className={this.props.signup.beer_profile.pale_ale === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setBeer('pale_ale')}>Pale Ale</div>
 
                 <div className="signup_submit_button" onClick={(event) => {this.props.completeSignup(this.props.signup)}}>Submit</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
 
