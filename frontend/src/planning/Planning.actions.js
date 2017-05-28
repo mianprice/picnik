@@ -1,5 +1,12 @@
 import $ from 'jquery';
 
+const addPicnikID = (id) => {
+    return {
+        type: 'add-picnik-id',
+        id
+    };
+};
+
 export const savePicnik = (recipes, beers, wines, parks, login) => {
     let asyncAction = function(dispatch) {
         $.ajax({
@@ -16,7 +23,7 @@ export const savePicnik = (recipes, beers, wines, parks, login) => {
             })
         })
         .then(result => {
-            console.log(result);
+            dispatch(addPicnikID(result.id));
         })
         .catch(error => {
             console.log(error);
