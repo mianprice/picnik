@@ -31,7 +31,7 @@ class Invitations extends React.Component {
 
                             <div>Email: <input type='text' value={this.props.invitations.invites[0].email} onChange={(event) => this.props.enterInvites(this.props.invitations.invites[0].name, event.target.value, 0)}/></div>
 
-                            <div className='add-to-guest-list-button' onClick={() => this.props.addToGuestListActionCreator(this.props.invitations.invites[0].name, this.props.invitations.invites[0].email, 'test', 'test')}>Add to Guest List</div>
+                            <div className='add-to-guest-list-button' onClick={() => this.props.addToGuestListActionCreator(this.props.invitations.invites[0].name, this.props.invitations.invites[0].email, this.props.login, 1)}>Add to Guest List</div>
                         </div>
                         <div className='invitations-display-section'>
                             <div className='invitations-content-title'>Guest List</div>
@@ -52,7 +52,7 @@ class Invitations extends React.Component {
 }
 
 const InvitationsContainer = ReactRedux.connect(
-    state => ({invitations: state.invitations, food: state.food, drinks: state.drinks, map: state.map}),
+    state => ({invitations: state.invitations, food: state.food, drinks: state.drinks, map: state.map, login: state.login}),
     actions
 )(Invitations);
 

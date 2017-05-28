@@ -326,6 +326,10 @@ app.post('/api/send_invites', (req,res,next) => {
             emails = emails.join(', ');
             names = names.join(' and ');
             let mailOptions = {
+                // /*headers: {
+                //     'User-Agent': ''
+                // },*/
+                // server: 'smtp.mail.yahoo.com',
                 from: '"Fred Foo 👻" <foo@blurdybloop.com>', // sender address
                 to: emails, // list of receivers
                 subject: 'Hello ✔', // Subject line
@@ -337,8 +341,13 @@ app.post('/api/send_invites', (req,res,next) => {
                     if (error) {
                         reject(error);
                     }
-                    resolve('Message was sent. Info: ' + info.toString());
+                    resolve('Message was sent.');
                 });
+            });
+        })
+        .then((result) => {
+            res.json({
+                success: true
             });
         })
         .catch(next);
