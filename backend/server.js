@@ -76,6 +76,28 @@ app.get('/api/recipe/saved/:userID', (req,res,next) => {
     let user_id = req.params.userID;
 });
 
+//save recipe for later
+app.post('/api/save_recipe', (req, res, next) => {
+    db.one('insert into recipes_saves values ($1, $2, $3) returning user_id', [req.body.recipe_id, req.body.user_id, req.body.type])
+    .then(results => {
+        res.json({
+            success: true
+        });
+    })
+    .catch(next);
+});
+
+//save beer or wine for later
+app.post('/api/save_drink', (req, res, next) => {
+    var query = req.body.drink = 'beer' ? 'insert into beer_saves values ($1, $2, $3) returning user_id' : 'insert into wine_saves values ($1, $2, $3) returning user_id';
+    db.one(query, [req.body.drink_id, req.body.user_id, req.body.type])
+    .then(results => {
+        res.json({
+            success: true
+        });
+    })
+    .catch(next);
+});
 
 /****************************************/
 /* <-----  BEER API STARTS HERE  -----> */
@@ -101,7 +123,6 @@ app.get('/api/beer/specific/:id', (req,res,next) => {
         })
         .catch(next);
 });
-
 // POST /api/beer/criteriaSearch
 // Retrieve a set of beers that match the provided criteria
 // CRITERIA    => ?Comma?-separated property names
@@ -275,7 +296,8 @@ app.post('/api/picnik/save', (req, res, next) => {
         });
     })
     .catch(next);
-})
+});
+
 
 /************************************/
 /************************************/

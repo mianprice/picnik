@@ -61,6 +61,25 @@ export const selectRecipe = (item) => { //we pass the entire recipe object into 
     return {type: 'select-recipe', item};
 };
 
+export const saveForLater = (recipe_id, user_id) => {
+    let asyncAction = (dispatch) => {
+        $.ajax({
+            url: "http://localhost:4000/api/save_recipe",
+            method: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                recipe_id,
+                user_id,
+                type: 2
+            })
+        })
+        .then(results => console.log(results))
+        .catch(error => {throw error});
+    };
+    return asyncAction;
+};
+
 //beer ------------------------->
 
 const userPreferenceBeerFilter = (beer_prefs_from_signup_state) => { //filters out the corresponding styleids of the beer styles the user dislikes and returns the ids in an array
