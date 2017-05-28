@@ -38,7 +38,6 @@ class Invitations extends React.Component {
                             {this.props.invitations.guest_list.length > 0 ? this.props.invitations.guest_list.map((guest, index) => {
                                 return <div className='guest-display' key={index}>
                                             <div>{guest.name}</div>
-                                            <br/><br/>
                                             <div>{guest.email}</div>
                                             <div className='invitation-clear-button' onClick={() => this.props.removeFromGuestList(index)}>Remove</div>
                                        </div>
