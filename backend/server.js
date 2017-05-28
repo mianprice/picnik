@@ -20,7 +20,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-
+const nodemailer = require ('nodemailer');
+let transporter = nodemailer.createTransport({
+    service: 'yahoo',
+    auth: config.email
+})
 
 /******************************************/
 /******************************************/
@@ -187,23 +191,12 @@ app.get('/api/wine/saved/:userID', (req,res,next) => {
 // Retrieve a the forecast and parks for a given zip code
 app.get('/api/parks_and_weather/:zip', (req,res,next) => {
     let zip = req.params.zip;
-
-    let parks_request = {
-        uri: `https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyApxzwzxHelwZIV4JIkWmcOjqA9ISieZm4&type=park&query=${zip}`,
-        json: true
-    };
-    let weather_request = {
-        uri: `http://api.openweathermap.org/data/2.5/forecast/daily?zip=${zip},us&APPID=3569484daaaf0e9db08bd8a0189f6692`,
-        json: true
-    };
-    Promise.all([rp(parks_request),rp(weather_request)])
-        // .then(result => {
-        //     //Insert exerything into the DB
-        // })
+    Promise.all([get_parks(zip), get_weather(zip)])
         .then(result => {
+            console.log(result[1]);
             res.json({
                 weather: result[1],
-                parks: result[0].results
+                parks: result[0]
             });
         })
         .catch(next);
@@ -298,6 +291,59 @@ app.post('/api/picnik/save', (req, res, next) => {
     .catch(next);
 });
 
+// ADD INVITE
+app.post('/api/add_invite', (req,res,next) => {
+    let name = req.body.name;
+    let email = req.body.email;
+    let picnik_id = req.body.picnik_id;
+    db.one('select count(*)::int from invites where (picnik_id,name,email) = ($1,$2,$3)', [picnik_id,name, email])
+        .then(result => {
+            if (result.count === 0) {
+                return db.none('insert into invites values (default, $1, $2, $3, 0)', [picnik_id,name, email]);
+            } else {
+                return;
+            }
+        })
+        .then(result => {
+            res.json({
+                success: true
+            });
+        })
+        .catch(next);
+});
+
+// SEND INVITES
+app.post('/api/send_invites', (req,res,next) => {
+    let picnik_id = req.body.picnik_id;
+    db.any('select * from invites where picnik_id = $1', [picnik_id])
+        .then(result => {
+            let emails = result.map((element) => {
+                return element.email;
+            });
+            let names = result.map((element) => {
+                return element.name;
+            });
+            emails = emails.join(', ');
+            names = names.join(' and ');
+            let mailOptions = {
+                from: '"Fred Foo 👻" <foo@blurdybloop.com>', // sender address
+                to: emails, // list of receivers
+                subject: 'Hello ✔', // Subject line
+                text: `Hello ${names} world ?`, // plain text body
+                html: '<b>Hello world ?</b>' // html body
+            };
+            return new Promise((resolve, reject) => {
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve('Message was sent. Info: ' + info.toString());
+                });
+            });
+        })
+        .catch(next);
+});
+
 
 /************************************/
 /************************************/
@@ -387,4 +433,75 @@ function create_recipe_object(recipe) {
     r.courses = recipe[2];
     r.cuisines = recipe[3];
     return r;
+}
+
+function get_parks(zip) {
+    zip = parseInt(zip);
+    let parks_request_options = {
+        uri: `https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyApxzwzxHelwZIV4JIkWmcOjqA9ISieZm4&type=park&query=${zip}`,
+        json: true
+    };
+    return db.one('select count(*)::int from parks_zips where zip = $1', [zip])
+        .then(result => {
+            if (result.count === 0) {
+                return rp(parks_request_options)
+                    .then(parks_request_result => {
+                        let park_inserts = parks_request_result.results.map((park) => {
+                            return db.one('select count(*)::int from parks where place_id = $1', [park.place_id])
+                                .then(park_result => {
+                                    if (park_result.count === 0) {
+                                        return db.one('insert into parks values(default,$1,$2,$3) returning id', [park.name, park.id, park.place_id])
+                                            .then(new_park => {
+                                                return Promise.all([
+                                                    db.none('insert into park_links values($1,$2,$3,$4,$5,$6,$7,$8,$9)', [new_park.id, park.formatted_address, park.icon, park.rating, park.reference, (park.photos && park.photos.length > 0 && park.photos[0].photo_reference) || "", (park.photos && park.photos.length > 0 && park.photos[0].height) || 0, (park.photos && park.photos.length > 0 && park.photos[0].width) || 0, (park.photos && park.photos.length > 0 && park.photos[0].html_attributions && park.photos[0].html_attributions.length > 0 && park.photos[0].html_attributions[0]) || ""]),
+                                                    db.none('insert into park_locations values($1,$2,$3)', [new_park.id, (park.geometry && park.geometry.location && park.geometry.location.lat) || 0, (park.geometry && park.geometry.location && park.geometry.location.lng) || 0]),
+                                                    db.none('insert into park_viewports values($1,$2,$3,$4,$5)', [new_park.id, (park.geometry && park.geometry.viewport && park.geometry.viewport.northeast.lat) || 0, (park.geometry && park.geometry.viewport && park.geometry.viewport.northeast.lng) || 0, (park.geometry && park.geometry.viewport && park.geometry.viewport.southwest.lat) || 0, (park.geometry && park.geometry.viewport && park.geometry.viewport.southwest.lng) || 0])
+                                                ]);
+                                            })
+                                            .then(promise_set => {
+                                                return db.one('select id from parks where place_id = $1', [park.place_id]);
+                                            });
+                                    } else {
+                                        return db.one('select id from parks where place_id = $1', [park.place_id]);
+                                    }
+                                })
+                                .then(park_object => {
+                                    return db.none('insert into parks_zips values($1,$2)', [park_object.id, zip]);
+                                })
+                        });
+                        return Promise.all(park_inserts);
+                    })
+                    .then(big_promise_set => {
+                        return db.any('select p.id as park_id, p.name as name, p.google_id, p.place_id, pz.zip, pl.address, pl.icon, pl.rating, pl.reference, po.location_lat, po.location_lon, pv.viewport_ne_lat, pv.viewport_ne_lon, pv.viewport_sw_lat, pv.viewport_sw_lon from parks_zips pz inner join parks p on (pz.park_id = p.id) inner join park_links pl on (p.id = pl.park_id) inner join park_locations po on (p.id = po.park_id) inner join park_viewports pv on (p.id = pv.park_id) where pz.zip = $1', [zip]);
+                    });
+            } else {
+                return db.any('select p.id as park_id, p.name as name, p.google_id, p.place_id, pz.zip, pl.address, pl.icon, pl.rating, pl.reference, po.location_lat, po.location_lon, pv.viewport_ne_lat, pv.viewport_ne_lon, pv.viewport_sw_lat, pv.viewport_sw_lon from parks_zips pz inner join parks p on (pz.park_id = p.id) inner join park_links pl on (p.id = pl.park_id) inner join park_locations po on (p.id = po.park_id) inner join park_viewports pv on (p.id = pv.park_id) where pz.zip = $1', [zip]);
+            }
+        });
+}
+
+function get_weather(zip) {
+    let weather_request_options = {
+        uri: `http://api.openweathermap.org/data/2.5/forecast/daily?zip=${zip},us&APPID=3569484daaaf0e9db08bd8a0189f6692`,
+        json: true
+    };
+    let today = new Date();
+    let date_of = [today.getMonth().toString(), today.getDate().toString(), today.getFullYear().toString()].join(",");
+    console.log(date_of);
+    return db.one('select count(*)::int from weather where (zip, date_of) = ($1,$2)', [zip, date_of])
+        .then(result => {
+            if (result.count === 0) {
+                // go get the data
+                return rp(weather_request_options)
+                    .then(result => {
+                        return db.one('insert into weather values ($1,$2,$3) returning forecast', [zip, result, date_of]);
+                    });
+            } else {
+                // pull the data from the db
+                return db.one('select forecast from weather where (zip, date_of) = ($1,$2)', [zip, date_of]);
+            }
+        })
+        .then(result => {
+            return result.forecast;
+        });
 }

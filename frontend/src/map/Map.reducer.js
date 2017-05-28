@@ -5,7 +5,8 @@ let INITIAL_STATE = {
     weather_ready: false,
     parks_data: {},
     parks_ready: false,
-    selected_park: false
+    selected_park: false,
+    selected_day: ""
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -25,6 +26,10 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             weather_data: action.payload,
             weather_ready: true
+        });
+    } else if (action.type === "select-day") {
+        return Object.assign({}, state, {
+            selected_day: action.day
         });
     } else if (action.type === "show-parks-and-weather") {
         return Object.assign({}, state, {

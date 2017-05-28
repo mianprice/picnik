@@ -287,3 +287,16 @@ CREATE TABLE picniks_recipes (
     picnik_id int REFERENCES picniks(id),
     recipe_id int REFERENCES recipes (id)
 );
+
+CREATE TABLE invites (
+    id SERIAL PRIMARY KEY,
+    picnik_id INTEGER REFERENCES picniks(id),
+    name VARCHAR,
+    email VARCHAR,
+    response INTEGER
+    -- response is an integer with the following meaning:
+        -- 0 => pending  / not sent
+        -- 1 => pending  / sent
+        -- 2 => accepted / sent
+        -- 3 => rejected / sent
+);

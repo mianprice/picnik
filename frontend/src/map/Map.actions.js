@@ -80,3 +80,14 @@ export const selectPark = (park_id) => {
         park_id
     };
 };
+
+export const selectDay = (num) => {
+    let date = new Date();
+    let res = date.setTime(date.getTime() + (num * 24 * 60 * 60 * 1000));
+    date = new Date(res);
+    let date_of = [date.getMonth().toString(), date.getDate().toString(), date.getFullYear().toString()].join("/");
+    return {
+        type: 'select-day',
+        day: date_of
+    };
+};

@@ -13,7 +13,7 @@ class Map extends React.Component {
                 {this.props.map.parks_data.map((park,idx) => (
                     <div key={idx} className="park">
                         <div className="park_name">{park.name}</div>
-                        <div className="park_address">{park.formatted_address}</div>
+                        <div className="park_address">{park.address}</div>
                         <div className="park_address signup_section">
                             <div className="signup_button" onClick={(event) => {this.props.selectPark(park.id)}}>Select</div>
                         </div>
@@ -25,7 +25,7 @@ class Map extends React.Component {
             <div className="date_picker signup_section">
                 {this.props.map.weather_data.list.map((element, idx) => (
                     <div key={idx} className="signup_section">
-                        <div className="signup_button">
+                        <div className="signup_button" onClick={(event) => this.props.selectDay(idx)}>
                             Day {idx}: {element.weather[0].main}
                         </div>
                     </div>
