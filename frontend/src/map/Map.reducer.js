@@ -4,7 +4,8 @@ let INITIAL_STATE = {
     weather_data: {},
     weather_ready: false,
     parks_data: {},
-    parks_ready: false
+    parks_ready: false,
+    selected_park: false
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -15,6 +16,10 @@ export default function reducer(state = INITIAL_STATE, action) {
     } else if (action.type === "show-map") {
         return Object.assign({}, state, {
             link_complete: true
+        });
+    } else if (action.type === "select-park") {
+        return Object.assign({}, state, {
+            selected_park: action.park_id
         });
     } else if (action.type === "show-weather") {
         return Object.assign({}, state, {

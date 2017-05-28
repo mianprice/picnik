@@ -261,3 +261,27 @@ body {
 .cuisine-matched-recipe {
     color: yellow;
 }
+
+.date_picker {
+    background-color: lavender;
+    height: 42%;
+    overflow: scroll;
+}
+
+.park_set {
+    background-color: cornsilk;
+    height: 42%;
+    overflow: scroll;
+}
+
+.park {
+    background-color: forestgreen;
+}
+
+.park_name {
+    font-size: 125%;
+}
+
+.park_address {
+    color: black;
+}

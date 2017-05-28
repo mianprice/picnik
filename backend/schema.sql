@@ -157,6 +157,52 @@ CREATE TABLE wine_links(
     image_link VARCHAR
 );
 
+-- PARKS AND WEATHER --
+
+CREATE TABLE parks(
+    id SERIAL PRIMARY KEY,
+    name varchar,
+    google_id varchar,
+    place_id varchar
+);
+
+CREATE TABLE park_links(
+    park_id INTEGER REFERENCES parks(id),
+    address VARCHAR,
+    icon VARCHAR,
+    rating NUMERIC,
+    reference VARCHAR,
+    photo_reference VARCHAR,
+    photo_height VARCHAR,
+    photo_width VARCHAR,
+    photo_attribution VARCHAR
+);
+
+CREATE TABLE park_locations(
+    park_id INTEGER REFERENCES parks(id),
+    location_lat NUMERIC,
+    location_lon NUMERIC
+);
+
+CREATE TABLE park_viewports(
+    park_id INTEGER REFERENCES parks(id),
+    viewport_ne_lat NUMERIC,
+    viewport_ne_lon NUMERIC,
+    viewport_sw_lat NUMERIC,
+    viewport_sw_lon NUMERIC
+);
+
+CREATE TABLE parks_zips(
+    park_id INTEGER REFERENCES parks(id),
+    zip INTEGER
+);
+
+CREATE TABLE weather (
+    zip INTEGER,
+    forecast json,
+    date_of varchar
+);
+
 -- User Profiles and Picnics --
 
 CREATE TABLE users (
@@ -198,7 +244,7 @@ CREATE TABLE wine_saves (
 );
 
 CREATE TABLE parks_saves (
-    api_id varchar,
+    park_id INTEGER REFERENCES parks(id),
     user_id int references users(id),
     type int
     -- type 1 => selected in front end
@@ -213,30 +259,18 @@ CREATE TABLE recipes_saves (
     -- type 2 => saved as part of picnik
 );
 
-CREATE TABLE parks (
-    id SERIAL PRIMARY KEY,
-    name varchar,
-    address varchar,
-    api_id varchar
-);
-
-CREATE TABLE weather (
-    zip int,
-    forecast json,
-    date_of varchar
-);
-
 CREATE TABLE picniks (
     id SERIAL PRIMARY KEY,
     favorites boolean,
     date_of varchar,
+    time_of varchar,
     zip int,
-    user_id int REFERENCES users (id)
+    user_id int REFERENCES users(id)
 );
 
 CREATE TABLE picniks_parks (
     picnik_id int REFERENCES picniks(id),
-    park_id int REFERENCES parks (id)
+    park_id int REFERENCES parks(id)
 );
 
 CREATE TABLE picniks_beers (

@@ -89,7 +89,7 @@ app.post('/api/save_recipe', (req, res, next) => {
 
 //save beer or wine for later
 app.post('/api/save_drink', (req, res, next) => {
-    var query = req.body.drink = 'beer' ? 'insert into beer_saves values ($1, $2, $3) returning user_id' : 'insert into wine_saves values ($1, $2, $3) returning user_id';
+    var query = req.body.drink === 'beer' ? 'insert into beer_saves values ($1, $2, $3) returning user_id' : 'insert into wine_saves values ($1, $2, $3) returning user_id';
     db.one(query, [req.body.drink_id, req.body.user_id, req.body.type])
     .then(results => {
         res.json({
@@ -146,7 +146,7 @@ app.get('/api/beer/saved/:userID', (req,res,next) => {
 // GET /api/wine
 // Retrieve a set of wines
 app.get('/api/wine', (req,res,next) => {
-    db.any('select w.id as id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wines w inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) where w.seed = 0')
+    db.any('select w.id as wine_id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wines w inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) where w.seed = 0')
         .then((results) => {
             res.json(results);
         })
@@ -187,19 +187,19 @@ app.get('/api/wine/saved/:userID', (req,res,next) => {
 // Retrieve a the forecast and parks for a given zip code
 app.get('/api/parks_and_weather/:zip', (req,res,next) => {
     let zip = req.params.zip;
-    let parks_url = `https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyApxzwzxHelwZIV4JIkWmcOjqA9ISieZm4&type=park&query=${zip}`;
-    let weather_url = `http://api.openweathermap.org/data/2.5/forecast/daily?zip=${zip},us&APPID=3569484daaaf0e9db08bd8a0189f6692`;
-    let calls = [
-        rp({
-            uri: parks_url,
-            json: true
-        }),
-        rp({
-            uri: weather_url,
-            json: true
-        })
-    ];
-    Promise.all(calls)
+
+    let parks_request = {
+        uri: `https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyApxzwzxHelwZIV4JIkWmcOjqA9ISieZm4&type=park&query=${zip}`,
+        json: true
+    };
+    let weather_request = {
+        uri: `http://api.openweathermap.org/data/2.5/forecast/daily?zip=${zip},us&APPID=3569484daaaf0e9db08bd8a0189f6692`,
+        json: true
+    };
+    Promise.all([rp(parks_request),rp(weather_request)])
+        // .then(result => {
+        //     //Insert exerything into the DB
+        // })
         .then(result => {
             res.json({
                 weather: result[1],

@@ -17,7 +17,7 @@ class Food extends React.Component {
                         {item.name}
                     </div>
                     <img src={item.image_url} alt={item.name}/>
-                    <div className="recipe-buttons" onClick={() => {this.props.selectRecipe(item); this.props.beerPairingMegaFunction(this.props.signup.beer_profile, item)}}>Select</div>
+                    <div className="recipe-buttons" onClick={() => {this.props.selectRecipe(item); this.props.beerPairingMegaFunction(this.props.signup.beer_profile, item);this.props.getWines();}}>Select</div>
                     <div className="recipe-buttons" onClick={() => this.props.saveForLater(item.recipe_id, this.props.login.user_id)}>Save for later</div>
                     <a href={"http://www.yummly.co/recipe/" + item.yummly_id} target="_blank"><div className="recipe-buttons">View Recipe</div></a>
                     <div className="check_mark">{item.class === "recipe user-preferred-recipe" ? <img className="check_mark" alt="check mark" src={checked} /> : null}</div>

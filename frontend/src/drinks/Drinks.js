@@ -32,7 +32,7 @@ class Drinks extends React.Component {
                         {item.name}
                     </div>
                     <img src={item.image} alt={item.name} />
-                    <div className="drink-buttons" onClick={() => this.props.selectWine(item.code)}>Select</div>
+                    <div className="drink-buttons" onClick={() => this.props.selectWine(item.wine_id)}>Select</div>
                     <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>
             );

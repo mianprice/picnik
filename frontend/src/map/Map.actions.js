@@ -73,3 +73,10 @@ export const getWeather = (zip) => {
     };
     return asyncAction;
 };
+
+export const selectPark = (park_id) => {
+    return {
+        type: 'select-park',
+        park_id
+    };
+};

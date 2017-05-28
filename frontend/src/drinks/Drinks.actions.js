@@ -3,12 +3,13 @@ import $ from 'jquery';
 // Beer and Wine ---------------------->
 
 export const saveForLater = (beer_or_wine_item, user_id) => {
+    let drink, drink_id;
     if(beer_or_wine_item.beer_id) {
-        var drink_id = beer_or_wine_item.beer_id;
-        var drink = 'beer';
+        drink_id = beer_or_wine_item.beer_id;
+        drink = 'beer';
     } else {
-        var drink_id = beer_or_wine_item.wine_id;
-        var drink = 'wine';
+        drink_id = beer_or_wine_item.wine_id;
+        drink = 'wine';
     }
     let asyncAction = (dispatch) => {
         $.ajax({
