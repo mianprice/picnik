@@ -67,8 +67,8 @@ export const getRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from_sig
     return asyncAction;
 };
 
-export const selectRecipe = (item) => { //we pass the entire recipe object into the function so we can save it to the select_recipes array in the state
-    return {type: 'select-recipe', item};
+export const selectRecipe = (recipe) => { //we pass the entire recipe object into the function so we can save it to the select_recipes array in the state
+    return {type: 'select-recipe', recipe};
 };
 
 export const saveForLater = (recipe_id, user_id) => {

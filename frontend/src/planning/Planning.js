@@ -11,7 +11,7 @@ class Planning extends React.Component {
     return (
         <div className="planning">
             <div className="plan_info">Picnik Planning
-                <div className="plan-submit-buttons" onClick={(event) => this.props.savePicnik(this.props.state.food.select_recipes, this.props.state.drinks.beer_id, this.props.state.drinks.wine_id, this.props.state.map.selected_park, this.props.state.login)}>Save Your Picnic</div>
+                <div className="plan-submit-buttons" onClick={(event) => this.props.savePicnik(this.props.state.planning.recipes, this.props.state.planning.beers, this.props.state.planning.wines, this.props.state.planning.park, this.props.state.planning.date_of, this.props.state.planning.time_of, this.props.state.login)}>Save Your Picnic</div>
                 <Link className="plan-submit-buttons" to='/invitations'>Invite Guests</Link>
             </div>
             <MapContainer />

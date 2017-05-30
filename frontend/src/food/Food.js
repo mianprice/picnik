@@ -6,7 +6,6 @@ import basket from './basket.png'; //basket image
 
 class Food extends React.Component {
     componentDidMount() {
-        //Get Recipes
         this.props.getRecipes(this.props.signup.taste_profile, this.props.signup.cuisine_profile);
     }
     render() {

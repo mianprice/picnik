@@ -6,7 +6,9 @@ let INITIAL_STATE = {
     parks_data: {},
     parks_ready: false,
     selected_park: false,
-    selected_day: ""
+    selected_day: "",
+    selected_hour: "",
+    selected_minute: ""
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -18,18 +20,18 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             link_complete: true
         });
-    } else if (action.type === "select-park") {
-        return Object.assign({}, state, {
-            selected_park: action.park_id
-        });
     } else if (action.type === "show-weather") {
         return Object.assign({}, state, {
             weather_data: action.payload,
             weather_ready: true
         });
-    } else if (action.type === "select-day") {
+    } else if (action.type === "change-hour") {
         return Object.assign({}, state, {
-            selected_day: action.day
+            selected_day: action.val
+        });
+    } else if (action.type === "change-minute") {
+        return Object.assign({}, state, {
+            selected_day: action.val
         });
     } else if (action.type === "show-parks-and-weather") {
         return Object.assign({}, state, {

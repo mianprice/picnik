@@ -33,7 +33,7 @@ function get_api_data() {
 
 function insert_api_data(response) {
     response.wines = response.wines.filter((element) => {
-        return element.varietal && element.image && element.type && element.code;
+        return element.varietal && !element.varietal.includes(';') && !element.varietal.includes(',') && !element.varietal.includes('^') && element.image && element.type && element.code;
     });
     let first_round = Promise.mapSeries(response.wines, (element) => {
         return Promise.all([

@@ -4,9 +4,6 @@ import * as actions from './Drinks.actions';
 import beer_pint from './pint.svg';
 
 class Drinks extends React.Component {
-    componentDidMount() {
-        // this.props.getWine();
-    }
     render() {
         let beer_view = this.props.drinks.beer_set.map((item) => {
             let label = item.label_image_link_icon ? (
@@ -19,7 +16,7 @@ class Drinks extends React.Component {
                         {item.brewery_name}
                     </div>
                     {label}
-                    <div className="drink-buttons" onClick={() => this.props.selectBeer(item.beer_id)}>Select</div>
+                    <div className="drink-buttons" onClick={() => this.props.selectBeer(item)}>Select</div>
                     <div className="check_mark">{item.class === "beer paired-beer" ? <i className="fa fa-fw fa-beer" style={{color: "green"}} alt="beer pint"  /> : null}</div>
                     <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>
@@ -32,7 +29,7 @@ class Drinks extends React.Component {
                         {item.name}
                     </div>
                     <img src={item.image_link} alt={item.name} />
-                    <div className="drink-buttons" onClick={() => this.props.selectWine(item.wine_id)}>Select</div>
+                    <div className="drink-buttons" onClick={() => this.props.selectWine(item)}>Select</div>
                     <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>
             );

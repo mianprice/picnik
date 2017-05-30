@@ -32,12 +32,12 @@ export const saveForLater = (beer_or_wine_item, user_id) => {
 
 // Beer ------------------------------->
 
-export const selectBeer = (beer_id) => {
-    return {type: 'select-beer', beer_id};
+export const selectBeer = (beer) => {
+    return {type: 'select-beer', beer};
 };
 
 // Wine ------------------------------->
 
-export const selectWine = (wine_id) => {
-    return {type: 'select-wine', wine_id};
+export const selectWine = (wine) => {
+    return {type: 'select-wine', wine};
 };

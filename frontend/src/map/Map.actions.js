@@ -74,10 +74,10 @@ export const getWeather = (zip) => {
     return asyncAction;
 };
 
-export const selectPark = (park_id) => {
+export const selectPark = (park) => {
     return {
         type: 'select-park',
-        park_id
+        park
     };
 };
 
@@ -89,5 +89,27 @@ export const selectDay = (num) => {
     return {
         type: 'select-day',
         day: date_of
+    };
+};
+
+export const changeTime = (val, type) => {
+    if (type === 'h') {
+        return {
+            type: "change-hour",
+            val
+        };
+    } else {
+        return {
+            type: "change-minute",
+            val
+        };
+    }
+};
+
+export const enterTime = (hh,mm) => {
+    let time_of = hh.toString() + ":" + mm.toString();
+    return {
+        type: 'select-time',
+        time: time_of
     };
 };
