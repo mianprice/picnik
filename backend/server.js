@@ -241,15 +241,6 @@ app.post('/api/user/login', (req,res,next) => {
     .catch(next);
 });
 
-//GET SAVED PICNIKS FOR DISPLAYING ON PROFILE PAGE
-app.get('/api/saved_picniks', (req,res,next) => {
-    db.one('select * from picniks left outer join picniks_beers on (picniks_beers.picnik_id = picniks.id) left outer join beers on (picniks_beers.beer_id = beers.id) left outer join beer_links on (picniks_beers.beer_id = beer_links.beer_id) left outer join beers_styles on (picniks_beers.beer_id = beers_styles.beer_id) left outer join styles on (beers_styles.style_id = styles.id) left outer join picniks_wines on (picniks_wines.picnik_id = picniks.id) left outer join wines on (picniks_wines.wine_id = wines.id) left outer join wine_links on (picniks_wines.wine_id = wine_links.wine_id) left outer join wines_varietals on (picniks_wines.wine_id = wines_varietals.wine_id) left outer join varietals on (wines_varietals.varietal_id = varietals.id) left outer join picniks_recipes on (picniks_recipes.picnik_id = picniks.id) left outer join recipe_links on (picniks_recipes.recipe_id = recipe_links.recipe_id) left outer join picniks_parks on (picniks_parks.picnik_id = picniks.id) left outer join parks on (picniks_parks.park_id = parks.id) left outer join park_links on (picniks_parks.park_id = park_links.park_id) where user_id = $1', [req.query.user_id])
-        .then(result => {
-            res.json({result});
-        })
-        .catch(next);
-});
-
 // AUTHENTICATION MIDDLEWARE
 // Authenticate the token provided as part of the request
 app.use(function authenticate(req,res,next) {
@@ -264,6 +255,15 @@ app.use(function authenticate(req,res,next) {
     .catch((err) => {
       res.send('Unauthenticated user, please log in.');
     });
+});
+
+//GET SAVED PICNIKS FOR DISPLAYING ON PROFILE PAGE
+app.post('/api/saved_picniks', (req,res,next) => {
+    db.any('select * from picniks left outer join picniks_beers on (picniks_beers.picnik_id = picniks.id) left outer join beers on (picniks_beers.beer_id = beers.id) left outer join beer_links on (picniks_beers.beer_id = beer_links.beer_id) left outer join beers_styles on (picniks_beers.beer_id = beers_styles.beer_id) left outer join styles on (beers_styles.style_id = styles.id) left outer join picniks_wines on (picniks_wines.picnik_id = picniks.id) left outer join wines on (picniks_wines.wine_id = wines.id) left outer join wine_links on (picniks_wines.wine_id = wine_links.wine_id) left outer join wines_varietals on (picniks_wines.wine_id = wines_varietals.wine_id) left outer join varietals on (wines_varietals.varietal_id = varietals.id) left outer join picniks_recipes on (picniks_recipes.picnik_id = picniks.id) left outer join recipe_links on (picniks_recipes.recipe_id = recipe_links.recipe_id) left outer join picniks_parks on (picniks_parks.picnik_id = picniks.id) left outer join parks on (picniks_parks.park_id = parks.id) left outer join park_links on (picniks_parks.park_id = park_links.park_id) where user_id = $1', [req.body.login.user_id])
+        .then(result => {
+            res.json({result});
+        })
+        .catch(next);
 });
 
 app.post('/api/picnik/save', (req, res, next) => {
@@ -300,6 +300,7 @@ app.post('/api/picnik/save', (req, res, next) => {
 
 // ADD INVITE
 app.post('/api/add_invite', (req,res,next) => {
+    console.log(req.body);
     let name = req.body.name;
     let email = req.body.email;
     let picnik_id = req.body.picnik_id;
