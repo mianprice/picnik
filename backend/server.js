@@ -20,8 +20,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// const mailer = require ('nodemailer-promise');
-// let sendEmail = mailer.config(config.email);
+const mailer = require ('nodemailer');
+// CREATE MAIL TRANPORTER
 
 /******************************************/
 /******************************************/
@@ -420,19 +420,11 @@ app.post('/api/send_invites', (req,res,next) => {
             });
             emails = emails.join(', ');
             names = names.join(' and ');
-            let mailOptions = {
-                senderName: 'Picnik',
-                receiver: ['michael.ian.price@gmail.com', 'aaronawhite1@gmail.com'],
-                subject: 'Picnik Invite Test',
-                text: 'Welcome to the picnik invite test',
-            };
-            return sendEmail(mailOptions);
+            // SEND AN EMAIL
         })
-        .then((result) => {
-            console.log(result);
+        .then(() => {
             res.json({
-                success: true,
-                info: result
+                success: true
             });
         })
         .catch(next);
