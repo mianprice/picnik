@@ -259,9 +259,59 @@ app.use(function authenticate(req,res,next) {
 
 //GET SAVED PICNIKS FOR DISPLAYING ON PROFILE PAGE
 app.post('/api/saved_picniks', (req,res,next) => {
-    db.any('select * from picniks left outer join picniks_beers on (picniks_beers.picnik_id = picniks.id) left outer join beers on (picniks_beers.beer_id = beers.id) left outer join beer_links on (picniks_beers.beer_id = beer_links.beer_id) left outer join beers_styles on (picniks_beers.beer_id = beers_styles.beer_id) left outer join styles on (beers_styles.style_id = styles.id) left outer join picniks_wines on (picniks_wines.picnik_id = picniks.id) left outer join wines on (picniks_wines.wine_id = wines.id) left outer join wine_links on (picniks_wines.wine_id = wine_links.wine_id) left outer join wines_varietals on (picniks_wines.wine_id = wines_varietals.wine_id) left outer join varietals on (wines_varietals.varietal_id = varietals.id) left outer join picniks_recipes on (picniks_recipes.picnik_id = picniks.id) left outer join recipe_links on (picniks_recipes.recipe_id = recipe_links.recipe_id) left outer join picniks_parks on (picniks_parks.picnik_id = picniks.id) left outer join parks on (picniks_parks.park_id = parks.id) left outer join park_links on (picniks_parks.park_id = park_links.park_id) where user_id = $1', [req.body.login.user_id])
+    db.any('select id::int as picnik_id, favorites as favorite, date_of, time_of, zip from picniks where user_id = $1', [req.body.login.user_id])
         .then(result => {
-            res.json({result});
+            let first_promises = result.map(picnik => {
+                return Promise.all([
+                    picnik,
+                    db.one('select park_id::int from picniks_parks where picnik_id = $1', [picnik.picnik_id]),
+                    db.any('select recipe_id::int from picniks_recipes where picnik_id = $1', [picnik.picnik_id]),
+                    db.any('select beer_id::int from picniks_beers where picnik_id = $1', [picnik.picnik_id]),
+                    db.any('select wine_id::int from picniks_wines where picnik_id = $1', [picnik.picnik_id])
+                ]);
+            });
+            console.log('hello 1');
+            return Promise.all(first_promises);
+        })
+        .then(result => {
+            let second_promises = result.map(picnik_set => {
+                let picnik = picnik_set[0];
+                let park_id = picnik_set[1].park_id;
+                let recipe_ids = picnik_set[2];
+                let recipe_set = Promise.all(recipe_ids.map(recipe => {
+                    return get_recipe_step_1(recipe)
+                        .then(get_recipe_step_2)
+                        .then(create_recipe_object);
+                }));
+                let beer_ids = picnik_set[3];
+                let beer_set = Promise.all(beer_ids.map(beer => {
+                    return db.one('select b.id as beer_id, b.name as beer_name, brewery_db_id, cast(abv as float), cast(ibu as float), label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beers b inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where b.id = $1', [beer.beer_id]);
+                }));
+                let wine_ids = picnik_set[4];
+                let wine_set = Promise.all(wine_ids.map(wine => {
+                    return db.one('select w.id as id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wines w inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) where w.id = $1', [wine.wine_id]);
+                }));
+                return Promise.all([
+                    picnik,
+                    db.one('select p.id as park_id, p.name as name, p.google_id, p.place_id, pl.address, pl.icon, pl.rating, pl.reference, po.location_lat, po.location_lon, pv.viewport_ne_lat, pv.viewport_ne_lon, pv.viewport_sw_lat, pv.viewport_sw_lon from parks p inner join park_links pl on (p.id = pl.park_id) inner join park_locations po on (p.id = po.park_id) inner join park_viewports pv on (p.id = pv.park_id) where p.id = $1', [park_id]),
+                    Promise.all(recipe_set),
+                    Promise.all(beer_set),
+                    Promise.all(wine_set)
+                ]);
+            });
+
+            return Promise.all(second_promises);
+        })
+        .then(result => {
+            let picniks = result.map(item => {
+                let p = item[0];
+                p.park = item[1];
+                p.recipes = item[2];
+                p.beers = item[3];
+                p.wines = item[4];
+                return p;
+            });
+            res.json(picniks);
         })
         .catch(next);
 });
