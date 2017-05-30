@@ -7,7 +7,7 @@ class Signup extends React.Component {
       let taste_profile_array = ["None", "Little", "Some", "Lots"];
       let cuisine_profile_array = [
           "Mexican", "Italian", "Mediterranean", "Thai", "Barbeque", "American", "Japanese", "Chinese"];
-      let wine_profile_array = ["Chardonnay", "Cabernet", "Malbec", "Riesling", "Rose"];
+      // let wine_profile_array = ["Chardonnay", "Cabernet", "Malbec", "Riesling", "Rose"];
       let beer_profile_array = ["IPA", "Stout", "Wheat", "Pilsner","Saison",  "Belgian", "Sours", "Porter", "Lager"];
       let displayArray = [
           (
@@ -81,14 +81,15 @@ class Signup extends React.Component {
               </div>
           ),
           (
-              <div className="signup_section"><div className="signup_section_title">Wine</div>
-                  {wine_profile_array.map((item, index) =>
-                      <div key={index} className={this.props.signup.wine_profile[item.toLowerCase()] === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine(item.toLowerCase())}>{item}</div>
-                  )}
-                  {/* CAN'T MAP OVER THE WINES BELOW BECAUSE THEIR NAMES IN THE STATE ARE DIFFERENT THAN THEY APPEAR IN THE VIEW */}
-                <div className={this.props.signup.wine_profile.pinot_noir === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('pinot_noir')}>Pinot Noir</div>
-                <div className={this.props.signup.wine_profile.pinot_grigio === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('pinot_grigio')}>Pinot Grigio</div>
-                <div className={this.props.signup.wine_profile.sauvignon_blanc === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('sauvignon_blanc')}>Sauvignon Blanc</div>
+              <div className="signup_section">
+              <div className="signup_section_title">Wine</div>
+                <div className={this.props.signup.wine_profile.dry_whites === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('dry_whites')}>Dry Whites</div>
+                <div className={this.props.signup.wine_profile.sweet_whites === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('sweet_whites')}>Sweet Whites</div>
+                <div className={this.props.signup.wine_profile.rich_whites === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('rich_whites')}>Rich Whites</div>
+                <div className={this.props.signup.wine_profile.light_reds === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('light_reds')}>Light Reds</div>
+                <div className={this.props.signup.wine_profile.medium_reds === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('medium_reds')}>Medium Reds</div>
+                <div className={this.props.signup.wine_profile.bold_reds === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('bold_reds')}>Bold Reds</div>
+                <div className={this.props.signup.wine_profile.sparkling === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('sparkling')}>Sparkling</div>
 
                 <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
 

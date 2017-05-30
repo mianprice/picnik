@@ -26,14 +26,13 @@ let INITIAL_STATE = {
         chinese: true
     },
     wine_profile: {
-        chardonnay: true,
-        cabernet: true,
-        malbec: true,
-        pinot_noir: true,
-        champagne: true,
-        riesling: true,
-        rose: true,
-        barbera: true
+        dry_whites: true,
+        sweet_whites: true,
+        rich_whites: true,
+        light_reds: true,
+        medium_reds: true,
+        bold_reds: true,
+        sparkling: true,
     },
     beer_profile: {
         ipa: true,
