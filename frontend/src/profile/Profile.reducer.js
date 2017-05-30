@@ -3,15 +3,27 @@ let INITIAL_STATE = {
     saved_parks: [],
     saved_recipes: [],
     saved_beers: [],
-    saved_wines: []
+    saved_wines: [],
+    id: 0,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
     if (action.type === 'display-picniks') {
-        let temp_state = state;
-        temp_state.saved_picniks[0] = action.payload;
-        return Object.assign(temp_state);
-    } else {
-        return state;
+        return Object.assign({}, state, {
+            saved_picniks: action.payload
+        });
+    } else if (action.type === 'load-saved-beers-to-profile') {
+        return Object.assign({}, state, {
+            saved_beers: action.payload
+        });
+    } else if (action.type === 'load-saved-wines-to-profile') {
+        return Object.assign({}, state, {
+            saved_wines: action.payload
+        });
+    } else if (action.type === 'load-saved-recipes-to-profile') {
+        return Object.assign({}, state, {
+            saved_recipes: action.payload
+        });
     }
+    return state;
 };
