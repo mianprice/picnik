@@ -288,11 +288,7 @@ app.post('/api/saved_picniks', (req,res,next) => {
             let first_promises = result.map(picnik => {
                 return Promise.all([
                     picnik,
-<<<<<<< HEAD
                     db.one('select park_id::int from picniks_parks where picnik_id = $1', [picnik.picnik_id]),
-=======
-                    db.any('select park_id::int from picniks_parks where picnik_id = $1', [picnik.picnik_id]),
->>>>>>> efff710f59a574ed5ece1a19a6a6c6cf909c7c50
                     db.any('select recipe_id::int from picniks_recipes where picnik_id = $1', [picnik.picnik_id]),
                     db.any('select beer_id::int from picniks_beers where picnik_id = $1', [picnik.picnik_id]),
                     db.any('select wine_id::int from picniks_wines where picnik_id = $1', [picnik.picnik_id])
