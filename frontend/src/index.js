@@ -49,6 +49,7 @@ class AppLayout extends React.Component {
         store.dispatch({
           type: 'logout'
         });
+        hashHistory.push('/');
       }
     render() {
         let nav_options = this.props.state.login.token ? (

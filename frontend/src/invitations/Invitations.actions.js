@@ -8,8 +8,27 @@ const addToGuestList = (name, email) => {
     return {type: 'save-to-guest-list', name, email};
 };
 
-export const removeFromGuestList = (index) => {
+const removeFromGuestList = (index) => {
     return {type: 'remove-from-guest-list', index}
+};
+
+export const removeFromGuestListActionCreator = (index, email, picnik_id, login) => {
+    let asyncAction = (dispatch) => {
+        $.ajax({
+            url: "http://localhost:4000/api/remove_invite",
+            method: "DELETE",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                email,
+                picnik_id,
+                login
+            })
+        })
+        .then(results => dispatch(removeFromGuestList(index)))
+        .catch(error => dispatch({type: 'page-error', error: error}));
+    };
+    return asyncAction;
 };
 
 export const addToGuestListActionCreator = (name, email, login, picnik_id) => {

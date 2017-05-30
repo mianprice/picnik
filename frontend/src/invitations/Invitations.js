@@ -10,8 +10,8 @@ class Invitations extends React.Component {
                 <div className="invitations-picnik-summary">
                     <div className='invitations-content-title'>Picnik Summary</div>
                     <div>Recipes</div>
-                        <div>{this.props.food.select_recipes.length > 0 ? this.props.food.select_recipes.map(recipe => (
-                            <div>
+                        <div>{this.props.food.select_recipes.length > 0 ? this.props.food.select_recipes.map((recipe, index) => (
+                            <div key={index}>
                                 <img src={recipe.image_url} alt={recipe.name}/>
                                 <div>{recipe.name}</div>
                                 <a href={"http://www.yummly.co/recipe/" + recipe.yummly_id} target="_blank"><div className="recipe-buttons">View Recipe</div></a>
@@ -39,7 +39,7 @@ class Invitations extends React.Component {
                                 return <div className='guest-display' key={index}>
                                             <div>{guest.name}</div>
                                             <div>{guest.email}</div>
-                                            <div className='invitation-clear-button' onClick={() => this.props.removeFromGuestList(index)}>Remove</div>
+                                            <div className='invitation-clear-button' onClick={() => this.props.removeFromGuestListActionCreator(index, guest.email, 1, this.props.login)}>Remove</div>
                                        </div>
                             }) : ""}
                             <div className='invitation-submit-button' onClick={event => this.props.sendInvites(1, this.props.login)}>Send Invitations</div>

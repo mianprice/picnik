@@ -1,5 +1,5 @@
 let INITIAL_STATE = {
-    test: true
+    saved_picniks: []
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
