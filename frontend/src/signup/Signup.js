@@ -7,7 +7,7 @@ class Signup extends React.Component {
       let taste_profile_array = ["None", "Little", "Some", "Lots"];
       let cuisine_profile_array = [
           "Mexican", "Italian", "Mediterranean", "Thai", "Barbeque", "American", "Japanese", "Chinese"];
-      let wine_profile_array = ["Chardonnay", "Cabernet", "Malbec", "Riesling", "Rose"];
+      // let wine_profile_array = ["Chardonnay", "Cabernet", "Malbec", "Riesling", "Rose"];
       let beer_profile_array = ["IPA", "Stout", "Wheat", "Pilsner","Saison",  "Belgian", "Sours", "Porter", "Lager"];
       let displayArray = [
           (
@@ -81,11 +81,8 @@ class Signup extends React.Component {
               </div>
           ),
           (
-              <div className="signup_section"><div className="signup_section_title">Wine</div>
-                  {wine_profile_array.map((item, index) =>
-                      <div key={index} className={this.props.signup.wine_profile[item.toLowerCase()] === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine(item.toLowerCase())}>{item}</div>
-                  )}
-                  {/* CAN'T MAP OVER THE WINES BELOW BECAUSE THEIR NAMES IN THE STATE ARE DIFFERENT THAN THEY APPEAR IN THE VIEW */}
+              <div className="signup_section">
+              <div className="signup_section_title">Wine</div>
                 <div className={this.props.signup.wine_profile.dry_whites === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('dry_whites')}>Dry Whites</div>
                 <div className={this.props.signup.wine_profile.sweet_whites === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('sweet_whites')}>Sweet Whites</div>
                 <div className={this.props.signup.wine_profile.rich_whites === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('rich_whites')}>Rich Whites</div>

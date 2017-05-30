@@ -30,7 +30,7 @@ let INITIAL_STATE = {
         sweet_whites: true,
         rich_whites: true,
         light_reds: true,
-        meduim_reds: true,
+        medium_reds: true,
         bold_reds: true,
         sparkling: true,
     },
