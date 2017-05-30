@@ -16,8 +16,12 @@ export const displayPicniksActionCreator = (login) => {
     let asyncAction = (dispatch) => {
         $.ajax({
             url: "http://localhost:4000/api/saved_picniks",
-            method: "GET",
-            data: login
+            method: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                login
+            })
         })
         .then(results => dispatch(displayPicniks(results)))
         .catch(error => console.log(error));
