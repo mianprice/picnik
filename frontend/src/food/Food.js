@@ -1,8 +1,6 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as actions from './Food.actions';
-import checked from './checked.png'; //check mark image
-import basket from './basket.png'; //basket image
 
 class Food extends React.Component {
     componentDidMount() {
