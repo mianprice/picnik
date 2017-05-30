@@ -382,3 +382,27 @@ body {
     margin: 10px;
     padding: 10px;
 }
+
+.user-preferred-recipe-good {
+    color: yellow;
+}
+
+.user-preferred-recipe-great {
+    color: lightgreen;
+}
+
+.user-preferred-recipe-excellent {
+    color: green;
+}
+
+.user-preferred-recipe-poor {
+    color: darkblue;
+}
+
+.saved_items {
+    background-color: green;
+}
+
+.saved_items_title {
+    font-size: 1.25em;
+}

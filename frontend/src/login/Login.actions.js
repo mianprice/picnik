@@ -22,6 +22,21 @@ const pageError = (err) => {
     };
 };
 
+const loadSavedItemsToProfile = (data) => {
+    let asyncAction = (dispatch) => {
+        $.ajax({
+            method: "POST",
+            url: "http://localhost:4000/api/beer/saved/:userID",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({
+                
+            })
+        })
+    };
+    return asyncAction;
+};
+
 export function sendLogin(login) {
     let asyncAction = function(dispatch) {
         $.ajax({

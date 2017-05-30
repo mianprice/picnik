@@ -1,5 +1,9 @@
 let INITIAL_STATE = {
-    saved_picniks: []
+    saved_picniks: [],
+    saved_parks: [],
+    saved_recipes: [],
+    saved_beers: [],
+    saved_wines: []
 };
 
 export default function reducer(state = INITIAL_STATE, action) {

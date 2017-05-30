@@ -7,7 +7,22 @@ class Profile extends React.Component {
   render() {
     return (
         <div className="profile">
-            <div className="signup_button" onClick={(event) => {this.props.displayPicniksActionCreator(this.props.login)}}>Saved Picniks</div>
+            <div className="saved_items">
+                <div className="saved_items_title">Saved Picniks</div>
+                
+            </div>
+            <div className="saved_items">
+                <div className="saved_items_title">Saved Recipes</div>
+            </div>
+            <div className="saved_items">
+                <div className="saved_items_title">Saved Wines</div>
+            </div>
+            <div className="saved_items">
+                <div className="saved_items_title">Saved Beers</div>
+            </div>
+            <div className="saved_items">
+                <div className="saved_items_title">Saved Parks</div>
+            </div>
             <div className="signup_button" onClick={(event) => {this.props.goToSignup()}}>Edit profile</div>
         </div>
       );

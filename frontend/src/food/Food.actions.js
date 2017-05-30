@@ -5,13 +5,14 @@ const displayRecipes = (results) => {
     return {type: 'display-recipe-options', payload: results};
 };
 
-const checkRange = (element) => {
-    return ((element[0] <= (element[1] / 3)) && (element[0] >= ((element[1] - 1) / 3)));
+const checkRange = (prev_value, element) => {
+    return prev_value + (((element[0] <= (element[1] / 3)) && (element[0] >= ((element[1] - 1) / 3))) ? 1 : 0);
 };
 
 export const getRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from_signup_state) => {
     let taste = taste_prefs_from_signup_state;
     let cuisine = cuisine_prefs_from_signup_state;
+
     let asyncAction = function(dispatch) {
         $.ajax({
             url: "http://localhost:4000/api/recipe",
@@ -22,6 +23,7 @@ export const getRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from_sig
             return results.map((recipe) => {
                 // User preference check
                 // FLAVOR
+                let classes = "recipe fa fa-fw fa-check-circle";
                 let flavors_and_prefs = [
                     [recipe.f_sweet,taste.sweet],
                     [recipe.f_sour,taste.sour_taste],
@@ -30,7 +32,17 @@ export const getRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from_sig
                     [recipe.f_piquant,taste.piquant],
                     [recipe.f_salty,taste.salty]
                 ];
-                let classes = "recipe" + (flavors_and_prefs.some(checkRange) ? " user-preferred-recipe" : "");
+                let taste_pref_matching_class_score = flavors_and_prefs.reduce(checkRange, 0);
+
+                if ((taste_pref_matching_class_score > 1) && (taste_pref_matching_class_score <= 2)) {
+                    classes += " user-preferred-recipe-good";
+                } else if ((taste_pref_matching_class_score > 2) && (taste_pref_matching_class_score <= 4)) {
+                    classes += " user-preferred-recipe-great";
+                } else if (taste_pref_matching_class_score > 4) {
+                    classes += " user-preferred-recipe-excellent";
+                } else {
+                    classes += " user-preferred-recipe-poor"
+                }
                 // CUISINE
                 let cuisine_set = recipe.cuisines.map((c) => {
                     return c.name.toLowerCase();
@@ -45,9 +57,7 @@ export const getRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from_sig
                     (cuisine_set.includes("japanese") && cuisine.japanese),
                     (cuisine_set.includes("chinese") && cuisine.chinese),
                 ];
-                let cuisine_class = cuisines_and_prefs.some((element) => {return element;}) ? "cuisine-matched-recipe" : "";
                 recipe.class = classes;
-                recipe.cuisine_class = cuisine_class;
                 return recipe;
             });
         })
