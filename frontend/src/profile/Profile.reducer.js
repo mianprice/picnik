@@ -3,5 +3,11 @@ let INITIAL_STATE = {
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
-    return state;
+    if (action.type === 'display-picniks') {
+        let temp_state = state;
+        temp_state.saved_picniks[0] = action.payload;
+        return Object.assign(temp_state);
+    } else {
+        return state;
+    }
 };

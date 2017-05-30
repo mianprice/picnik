@@ -9,19 +9,15 @@ export const goToSignup = () => {
 };
 
 const displayPicniks = (data) => {
-    return {type: 'display-picniks', payload: data}
+    return {type: 'display-picniks', payload: data};
 };
 
-export const displayPicniksActionCreator = (user_id) => {
+export const displayPicniksActionCreator = (login) => {
     let asyncAction = (dispatch) => {
         $.ajax({
             url: "http://localhost:4000/api/saved_picniks",
             method: "GET",
-            dataType: 'JSON',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                user_id
-            })
+            data: login
         })
         .then(results => dispatch(displayPicniks(results)))
         .catch(error => console.log(error));
