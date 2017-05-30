@@ -20,8 +20,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const mailer = require ('nodemailer-promise');
-let sendEmail = mailer.config(config.email);
+// const mailer = require ('nodemailer-promise');
+// let sendEmail = mailer.config(config.email);
 
 /******************************************/
 /******************************************/
@@ -310,6 +310,21 @@ app.post('/api/add_invite', (req,res,next) => {
         .catch(next);
 });
 
+//DELETE INVITE
+
+app.delete('/api/remove_invite', (req,res,next) => {
+    let email = req.body.email;
+    let picnik_id = req.body.picnik_id;
+    let login = req.body.login;
+    db.one('delete from invites where picnik_id = $1 and email = $2 returning id', [picnik_id, email])
+        .then(result => {
+            res.json({
+                success: true
+            });
+        })
+        .catch(next);
+});
+
 // SEND INVITES
 app.post('/api/send_invites', (req,res,next) => {
     let picnik_id = req.body.picnik_id;
@@ -341,6 +356,16 @@ app.post('/api/send_invites', (req,res,next) => {
         .catch(next);
 });
 
+//GET SAVED PICNIKS FOR DISPLAYING ON PROFILE PAGE
+app.get('/api/saved_picniks', (req,res,next) => {
+    db.one('', req.body.user_id)
+        .then(result => {
+            res.json({
+                success: true
+            });
+        })
+        .catch(next);
+});
 
 /************************************/
 /************************************/
