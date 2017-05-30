@@ -343,16 +343,16 @@ app.post('/api/saved_picniks', (req,res,next) => {
 app.post('/api/picnik/save', (req, res, next) => {
     db.one('insert into picniks values (default, $1, $2, $3, $4, $5) returning id', [false, "07/04/2017", "3:00 PM", 30324, req.body.login.user_id])
     .then(result => {
-        let beer_promises = req.body.beers.map(beer_id => {
-            return db.none('insert into picniks_beers values ($1, $2)', [result.id, beer_id])
+        let beer_promises = req.body.beer_ids.map(beer => {
+            return db.none('insert into picniks_beers values ($1, $2)', [result.id, beer.beer_id])
         });
-        let wine_promises = req.body.wines.map(wine_id => {
-            return db.none('insert into picniks_wines values ($1, $2)', [result.id, wine_id])
+        let wine_promises = req.body.wine_ids.map(wine => {
+            return db.none('insert into picniks_wines values ($1, $2)', [result.id, wine.wine_id])
         });
-        let recipe_promises = req.body.recipes.map(recipe => {
-            return db.none('insert into picniks_recipes values ($1, $2)', [result.id, recipe.id])
+        let recipe_promises = req.body.recipe_ids.map(recipe => {
+            return db.none('insert into picniks_recipes values ($1, $2)', [result.id, recipe.recipe_id])
         });
-        let park_promise = db.none('insert into picniks_parks values ($1, $2)', [result.id, req.body.park]);
+        let park_promise = db.none('insert into picniks_parks values ($1, $2)', [result.id, req.body.park.park_id]);
         return Promise.all([
             result.id,
             Promise.all(beer_promises),
