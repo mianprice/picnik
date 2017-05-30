@@ -7,7 +7,7 @@ const addPicnikID = (id) => {
     };
 };
 
-export const savePicnik = (recipes, beers, wines, parks, login) => {
+export const savePicnik = (recipes, beers, wines, park, login) => {
     let asyncAction = function(dispatch) {
         $.ajax({
             url: "http://localhost:4000/api/picnik/save",
@@ -18,7 +18,7 @@ export const savePicnik = (recipes, beers, wines, parks, login) => {
                 recipes,
                 beers,
                 wines,
-                parks,
+                park,
                 login
             })
         })

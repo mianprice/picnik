@@ -15,7 +15,7 @@ class Map extends React.Component {
                         <div className="park_name">{park.name}</div>
                         <div className="park_address">{park.address}</div>
                         <div className="park_address signup_section">
-                            <div className="signup_button" onClick={(event) => {this.props.selectPark(park.id)}}>Select</div>
+                            <div className="signup_button" onClick={(event) => {this.props.selectPark(park.park_id)}}>Select</div>
                         </div>
                     </div>
                 ))}

@@ -278,15 +278,13 @@ app.post('/api/picnik/save', (req, res, next) => {
         let recipe_promises = req.body.recipes.map(recipe => {
             return db.none('insert into picniks_recipes values ($1, $2)', [result.id, recipe.id])
         });
-        let park_promises = req.body.parks.map(park_id => {
-            return db.none('insert into picniks_parks values ($1, $2)', [result.id, park_id])
-        });
+        let park_promise = db.none('insert into picniks_parks values ($1, $2)', [result.id, req.body.park]);
         return Promise.all([
             result.id,
             Promise.all(beer_promises),
             Promise.all(wine_promises),
             Promise.all(recipe_promises),
-            Promise.all(park_promises),
+            park_promise,
         ]);
     })
     .then(result => {
