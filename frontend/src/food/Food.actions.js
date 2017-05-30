@@ -71,6 +71,9 @@ export const selectRecipe = (recipe) => { //we pass the entire recipe object int
     return {type: 'select-recipe', recipe};
 };
 
+export const removeRecipe = (recipe) => { //we pass the entire recipe object into the function so we can save it to the select_recipes array in the state
+    return {type: 'remove-recipe', recipe};
+};
 
 export const saveForLater = (recipe_id, user_id) => {
     let asyncAction = (dispatch) => {
