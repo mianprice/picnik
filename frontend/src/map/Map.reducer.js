@@ -44,6 +44,19 @@ export default function reducer(state = INITIAL_STATE, action) {
         return INITIAL_STATE;
     } else if (action.type === 'logout') {
         return Object.assign(INITIAL_STATE);
+    } else if (action.type === "login-complete") {
+        return {
+            search_zip: "",
+            link_complete: false,
+            weather_data: {},
+            weather_ready: false,
+            parks_data: {},
+            parks_ready: false,
+            selected_park: false,
+            selected_day: "",
+            selected_hour: "",
+            selected_minute: ""
+        };
     }
     return state;
 };

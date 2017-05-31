@@ -40,7 +40,12 @@ export default function reducer(state = INITIAL_STATE, action) {
         });
     } else if (action.type === "select-park") {
         return Object.assign({}, state, {
-            park: action.park
+            park: action.park,
+            message: action.message
+        });
+    } else if (action.type === 'remove-park') {
+        return Object.assign({}, state, {
+            park: {}
         });
     } else if (action.type === "select-date") {
         return Object.assign({}, state, {
@@ -81,7 +86,6 @@ export default function reducer(state = INITIAL_STATE, action) {
             beers
         });
     } else if (action.type === 'logout') {
-        console.log(INITIAL_STATE);
         return {
             id: 0,
             date_of: "",
@@ -93,6 +97,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         };
     } else if (action.type === 'save-error') {
         console.log('Please select a complete picnik.');
-    }
+    } 
     return state;
 };

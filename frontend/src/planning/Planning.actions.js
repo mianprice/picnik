@@ -12,15 +12,6 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
         return {type: 'save-error'};
     }
     let asyncAction = function(dispatch) {
-        console.log(JSON.stringify({
-            beers,
-            wines,
-            recipes,
-            park,
-            date_of,
-            time_of,
-            login
-        }));
         $.ajax({
             url: "http://localhost:4000/api/picnik/save",
             method: "POST",
@@ -44,4 +35,8 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
         });
     };
     return asyncAction;
+};
+
+export const removeBeer = (beer) => { //we pass the entire recipe object into the function so we can save it to the select_recipes array in the state
+    return {type: 'remove-beer', beer};
 };

@@ -24,7 +24,7 @@ class Drinks extends React.Component {
                     :
                     <div className="drink-buttons" onClick={() => this.props.selectBeer(item)}>Add to Picnik</div>}
 
-                    <div className="check_mark">{item.class === "beer paired-beer" ? <i className="fa fa-fw fa-beer" style={{color: "green"}} alt="beer pint"  /> : null}</div>
+                    <div className="check_mark">{item.class === "beer paired-beer" ? <i className="fa fa-fw fa-beer" alt="beer pint"  /> : null}</div>
 
                     <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>
@@ -48,7 +48,7 @@ class Drinks extends React.Component {
                     :
                     <div className="drink-buttons" onClick={() => this.props.selectWine(item)}>Add to Picnik</div>}
 
-                    <div className="check_mark">{item.class === "wine paired-wine" ? <i className="fa fa-fw fa-glass" style={{color: "purple"}} alt="glass"  /> : null}</div>
+                    <div className="check_mark">{item.class === "wine paired-wine" ? <i className="fa fa-fw fa-glass"  alt="glass"  /> : null}</div>
 
                     <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>

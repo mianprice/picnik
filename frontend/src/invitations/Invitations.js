@@ -51,7 +51,7 @@ class Invitations extends React.Component {
 
                             <div>Email: <input type='text' value={this.props.invitations.invites[0].email} onChange={(event) => this.props.enterInvites(this.props.invitations.invites[0].name, event.target.value, 0)}/></div>
 
-                            <div className='add-to-guest-list-button' onClick={() => this.props.addToGuestListActionCreator(this.props.invitations.invites[0].name, this.props.invitations.invites[0].email, this.props.login, 18)}>Add to Guest List</div>
+                            <div className='add-to-guest-list-button' onClick={() => this.props.addToGuestListActionCreator(this.props.invitations.invites[0].name, this.props.invitations.invites[0].email, this.props.login, this.props.planning.id)}>Add to Guest List</div>
                         </div>
                         <div className='invitations-display-section'>
                             <div className='invitations-content-title'>Guest List</div>
@@ -59,7 +59,7 @@ class Invitations extends React.Component {
                                 return <div className='guest-display' key={index}>
                                             <div>{guest.name}</div>
                                             <div>{guest.email}</div>
-                                            <div className='invitation-clear-button' onClick={() => this.props.removeFromGuestListActionCreator(index, guest.email, 18, this.props.login)}>Remove</div>
+                                            <div className='invitation-clear-button' onClick={() => this.props.removeFromGuestListActionCreator(index, guest.email, this.props.planning.id, this.props.login)}>Remove</div>
                                        </div>
                             }) : ""}
                             <div className='invitation-submit-button' onClick={event => this.props.sendInvites(1, this.props.login)}>Send Invitations</div>

@@ -37,6 +37,12 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             INITIAL_STATE
         });
+    } else if (action.type === "login-complete") {
+        return {
+            invites: [{email: '', name: ''}],
+            guest_list: [],
+            error_message: null
+        };
     } else {
         return state;
     }
