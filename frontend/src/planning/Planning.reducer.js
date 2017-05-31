@@ -61,12 +61,19 @@ export default function reducer(state = INITIAL_STATE, action) {
         });
         temp_state.recipes = recipes_filtered;
         return Object.assign(temp_state);
-    }  else if (action.type === "remove-beer") {
+    } else if (action.type === "remove-beer") {
         let temp_state = Object.assign({}, state);
         let beers_filtered = temp_state.beers.filter(beer => {
             return beer.beer_id !== action.beer.beer_id;
         });
         temp_state.beers = beers_filtered;
+        return Object.assign(temp_state);
+    } else if (action.type === "remove-wine") {
+        let temp_state = Object.assign({}, state);
+        let wines_filtered = temp_state.wines.filter(wine => {
+            return wine.wine_id !== action.wine.wine_id;
+        });
+        temp_state.wines = wines_filtered;
         return Object.assign(temp_state);
     }
     return state;

@@ -45,3 +45,7 @@ export const removeBeer = (beer) => { //we pass the entire recipe object into th
 export const selectWine = (wine) => {
     return {type: 'select-wine', wine};
 };
+
+export const removeWine = (wine) => { //we pass the entire recipe object into the function so we can save it to the select_recipes array in the state
+    return {type: 'remove-wine', wine};
+};

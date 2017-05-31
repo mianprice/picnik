@@ -8,6 +8,13 @@ export const goToSignup = () => {
     };
 };
 
+const pageError = (err) => {
+    return {
+        type: 'page-error',
+        payload: err
+    };
+};
+
 const displayPicniks = (data) => {
     return {type: 'display-picniks', payload: data};
 };
@@ -66,11 +73,4 @@ export const loadSavedRecipesToProfile = (data) => {
         .catch(error => dispatch(pageError(error)));
     };
     return asyncAction;
-};
-
-const pageError = (err) => {
-    return {
-        type: 'page-error',
-        payload: err
-    };
 };

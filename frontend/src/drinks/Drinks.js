@@ -1,7 +1,6 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as actions from './Drinks.actions';
-import beer_pint from './pint.svg';
 
 class Drinks extends React.Component {
     render() {
@@ -31,9 +30,11 @@ class Drinks extends React.Component {
                 </div>
             );
         });
+        let wine_set = this.props.planning.wines.map(wine => {
+            return wine.wine_id;
+        });
         let wine_view = this.props.drinks.wine_set.map((item, idx) => {
             if (item.class.includes('paired-wine')) {
-              console.log('it should be green');
             }
             return (
                 <div className={item.class} key={idx}>
@@ -41,7 +42,11 @@ class Drinks extends React.Component {
                         {item.name}
                     </div>
                     <img src={item.image_link} alt={item.name} />
-                    <div className="drink-buttons" onClick={() => this.props.selectWine(item)}>Select</div>
+
+                    {wine_set.includes(item.wine_id) ?
+                    <div className="drink-buttons" onClick={() => {this.props.removeWine(item)}}>Remove from Picnik</div>
+                    :
+                    <div className="drink-buttons" onClick={() => this.props.selectWine(item)}>Add to Picnik</div>}
 
                     <div className="check_mark">{item.class === "wine paired-wine" ? <i className="fa fa-fw fa-glass" style={{color: "purple"}} alt="glass"  /> : null}</div>
 

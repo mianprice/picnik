@@ -20,9 +20,9 @@ class Food extends React.Component {
                     {recipe_set.includes(item.recipe_id) ?
                     <div className="recipe-buttons" onClick={() => {this.props.removeRecipe(item)}}>Remove from Picnik</div>
                     :
-                    <div className="recipe-buttons" onClick={() => {this.props.selectRecipe(item); this.props.beerPairingMegaFunction(this.props.signup.beer_profile, item);this.props.winePairingMegaFunction(this.props.signup.wine_profile, item);}}>Add to Picnik</div>}
+                    <div className="recipe-buttons" onClick={() => this.props.selectRecipe(item)}>Add to Picnik</div>}
 
-                    <div className="recipe-buttons" onClick={() => this.props.beerPairingMegaFunction(this.props.signup.beer_profile, item)}>Show Pairing Options</div>
+                    <div className="recipe-buttons" onClick={() => {this.props.beerPairingMegaFunction(this.props.signup.beer_profile, item);this.props.winePairingMegaFunction(this.props.signup.wine_profile, item);}}>Show Pairing Options</div>
 
                     <div className="recipe-buttons" onClick={() => this.props.saveForLater(item.recipe_id, this.props.login.user_id)}>Save for later</div>
 
