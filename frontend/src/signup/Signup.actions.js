@@ -65,6 +65,7 @@ const pageError = (err) => {
 
 export const completeSignup = (signup) => {
     let asyncAction = function(dispatch) {
+        console.log(signup);
         $.ajax({
             method: 'POST',
             url: 'http://localhost:4000/api/user/signup',

@@ -20,8 +20,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const mailer = require ('nodemailer');
+const nodemailer = require ('nodemailer');
 // CREATE MAIL TRANPORTER
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: config.email
+});
 
 /******************************************/
 /******************************************/
@@ -222,6 +226,37 @@ app.get('/api/park/saved/:userID', (req,res,next) => {
         .catch(next);
 });
 
+/****************************************/
+/****************************************/
+/* <-----  INVITE RESPONSE API   -----> */
+/****************************************/
+/****************************************/
+app.get('/api/respond/accept/:token', (req,res,next) => {
+    let token = parseInt(req.params.token);
+    console.log(typeof token, token);
+    db.one('select i.id as id from invites_tokens it inner join invites i on (it.invite_id = i.id) where it.id = $1', [token])
+        .then(result => {
+            let invite_id = result.id;
+            return db.none('update invites set response = 2 where id = $1', [invite_id])
+        })
+        .then(() => {
+            res.send('<h1>We have recorded you response!  The Picnik Planner will contact you with any further information.</h1>');
+        })
+        .catch(next);
+});
+
+app.get('/api/respond/decline/:token', (req,res,next) => {
+    let token = parseInt(req.params.token);
+    db.one('select i.id as id from invites_tokens it inner join invites i on (it.invite_id = i.id) where it.id = $1', [token])
+        .then(result => {
+            let invite_id = result.id;
+            return db.none('update invites set response = 3 where id = $1', [invite_id])
+        })
+        .then(() => {
+            res.send('<h1>We have recorded your response.  The Picnik Planner will miss you at the Picnik, but you can always plan another Picnik for another time.</h1>');
+        })
+        .catch(next);
+});
 
 
 /****************************************/
@@ -234,6 +269,7 @@ app.get('/api/park/saved/:userID', (req,res,next) => {
 // Creates new user accounts, returns standard login response
 app.post('/api/user/signup', (req,res,next) => {
   let new_account = req.body.signup;
+  console.log(new_account);
   let new_tastes = [new_account.taste_profile.piquant.toString(),new_account.taste_profile.meaty.toString(),new_account.taste_profile.sweet.toString(),new_account.taste_profile.salty.toString(),new_account.taste_profile.bitter.toString(),new_account.taste_profile.sour_taste.toString()].join(",");
   let new_cuisines = [new_account.cuisine_profile.mexican.toString(),new_account.cuisine_profile.italian.toString(),new_account.cuisine_profile.mediterranean.toString(),new_account.cuisine_profile.thai.toString(),new_account.cuisine_profile.barbecue.toString(),new_account.cuisine_profile.american.toString(),new_account.cuisine_profile.japanese.toString(),new_account.cuisine_profile.chinese.toString()].join(",");
   let new_wines = [new_account.wine_profile.dry_whites.toString(),new_account.wine_profile.sweet_whites.toString(),new_account.wine_profile.rich_whites.toString(),new_account.wine_profile.light_reds.toString(),new_account.wine_profile.medium_reds.toString(),new_account.wine_profile.bold_reds.toString(),new_account.wine_profile.sparkling.toString()].join(",");
@@ -421,17 +457,67 @@ app.post('/api/send_invites', (req,res,next) => {
     let picnik_id = req.body.picnik_id;
     db.any('select * from invites where picnik_id = $1', [picnik_id])
         .then(result => {
-            let emails = result.map((element) => {
-                return element.email;
+            let emails_names = result.map((element) => {
+                return {
+                    email: element.email,
+                    name: element.name
+                };
             });
-            let names = result.map((element) => {
-                return element.name;
-            });
-            emails = emails.join(', ');
-            names = names.join(' and ');
-            // SEND AN EMAIL
+            let tokens = result.map((element) => {
+                return db.one('insert into invites_tokens values ($1,default) returning id', [element.id])
+            })
+            console.log(req.user.id);
+            return Promise.all([
+                emails_names,
+                db.one('select * from users where id = $1', [req.user.id]),
+                db.one('select * from picniks where id = $1', [picnik_id]),
+                db.one('select * from picniks_parks pp inner join parks p on (pp.park_id = p.id) inner join park_links pl on (p.id = pl.park_id) where pp.picnik_id = $1', [picnik_id]),
+                db.any('select * from picniks_recipes pp inner join recipes r on (pp.recipe_id = r.id) inner join recipe_links rl on (r.id = rl.recipe_id) where pp.picnik_id = $1', [picnik_id]),
+                db.any('select * from picniks_beers pp inner join beers b on (pp.beer_id = b.id) inner join beer_links bl on (b.id = bl.beer_id) where pp.picnik_id = $1', [picnik_id]),
+                db.any('select * from picniks_wines pp inner join wines w on (pp.wine_id = w.id) inner join wine_links wl on (w.id = wl.wine_id) where pp.picnik_id = $1', [picnik_id]),
+                Promise.all(tokens)
+            ]);
         })
-        .then(() => {
+        .then(result => {
+            return Promise.mapSeries(result[0], (element, idx) => {
+                let greeting = `<h1>${element.name}, ${result[1].name} has invited you to a Picnik!</h1><br><br>`;
+                let dateAndTimeString = `<p>Date: ${result[2].date_of}<br>Time: ${result[2].time_of}</p><br><br>`
+                let parkString = `<p>Park: ${result[3].name}<br>Address: ${result[3].address}</p><br><br>`;
+                let recipeStrings = result[4].map(recipe => {
+                    return `<a href="http://google.com">${recipe.name}</a>`
+                });
+                let recipeString = '<h3>Food</h3><br>' + recipeStrings.join('<br>') + '<br><br>';
+                let beerStrings = result[5].map(beer => {
+                    return `<a href="http://google.com">${beer.name}</a>`
+                });
+                let beerString = '<h3>Beer</h3><br>' + beerStrings.join('<br>') + '<br><br>';
+                let wineStrings = result[6].map(wine => {
+                    return `<a href="http://google.com">${wine.name}</a>`
+                });
+                let wineString = '<h3>Wine</h3><br>' + wineStrings.join('<br>') + '<br><br>';
+                let responseString = `<a href="http://localhost:4000/api/respond/accept/${result[7][idx].id}">Accept</a><br><br><a href="http://localhost:4000/api/respond/decline/${result[7][idx].id}">Decline</a>`
+                let body = dateAndTimeString + parkString + recipeString + beerString + wineString + responseString;
+                let mailOptions = {
+                    from: 'picnik.ian@gmail.com',
+                    to: element.email, // list of receivers
+                    subject: "You've been invited to a Picnik!", // Subject line
+                    html: body, // html body
+                };
+                return new Promise((resolve,reject) => {
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            console.log(error);
+                            reject(error);
+                        } else {
+                            console.log('success');
+                            console.log('Message %s sent: %s', info.messageId, info.response);
+                            resolve(info);
+                        }
+                    });
+                });
+            });
+        })
+        .then((result) => {
             res.json({
                 success: true
             });

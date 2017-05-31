@@ -300,3 +300,8 @@ CREATE TABLE invites (
         -- 2 => accepted / sent
         -- 3 => rejected / sent
 );
+
+CREATE TABLE invites_tokens(
+    invite_id INTEGER REFERENCES invites(id),
+    id SERIAL PRIMARY KEY
+);
