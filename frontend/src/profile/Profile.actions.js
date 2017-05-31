@@ -74,3 +74,7 @@ export const loadSavedRecipesToProfile = (data) => {
     };
     return asyncAction;
 };
+
+export const loadPicnikToPlanning = (picnik) => {
+    return {type: 'load-picnik-to-planning', picnik };
+};

@@ -8,19 +8,28 @@ const addPicnikID = (id) => {
 };
 
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
+    if (recipes.length < 1 || beers.length < 1 || wines.length < 1 || !park.park_id) {
+        return {type: 'save-error'};
+    }
     let asyncAction = function(dispatch) {
-        let beer_ids = beers.map(element =>  element.beer_id);
-        let wine_ids = wines.map(element =>  element.wine_id);
-        let recipe_ids = recipes.map(element =>  element.recipe_id);
+        console.log(JSON.stringify({
+            beers,
+            wines,
+            recipes,
+            park,
+            date_of,
+            time_of,
+            login
+        }));
         $.ajax({
             url: "http://localhost:4000/api/picnik/save",
             method: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
             data: JSON.stringify({
-                recipe_ids,
-                beer_ids,
-                wine_ids,
+                beers,
+                wines,
+                recipes,
                 park,
                 date_of,
                 time_of,

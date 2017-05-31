@@ -42,6 +42,8 @@ export default function reducer(state = INITIAL_STATE, action) {
         });
     } else if (action.type === "reset-zip") {
         return INITIAL_STATE;
+    } else if (action.type === 'logout') {
+        return Object.assign(INITIAL_STATE);
     }
     return state;
 };

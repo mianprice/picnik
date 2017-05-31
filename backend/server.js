@@ -236,7 +236,7 @@ app.post('/api/user/signup', (req,res,next) => {
   let new_account = req.body.signup;
   let new_tastes = [new_account.taste_profile.piquant.toString(),new_account.taste_profile.meaty.toString(),new_account.taste_profile.sweet.toString(),new_account.taste_profile.salty.toString(),new_account.taste_profile.bitter.toString(),new_account.taste_profile.sour_taste.toString()].join(",");
   let new_cuisines = [new_account.cuisine_profile.mexican.toString(),new_account.cuisine_profile.italian.toString(),new_account.cuisine_profile.mediterranean.toString(),new_account.cuisine_profile.thai.toString(),new_account.cuisine_profile.barbecue.toString(),new_account.cuisine_profile.american.toString(),new_account.cuisine_profile.japanese.toString(),new_account.cuisine_profile.chinese.toString()].join(",");
-  let new_wines = [new_account.wine_profile.dry_whites.toString(),new_account.wine_profile.sweet_whites.toString(),new_account.wine_profile.rich_whites.toString(),new_account.wine_profile.light_reds.toString(),new_account.wine_profile.memedium_reds.toString(),new_account.wine_profile.bold_reds.toString(),new_account.wine_profile.sparkling.toString()].join(",");
+  let new_wines = [new_account.wine_profile.dry_whites.toString(),new_account.wine_profile.sweet_whites.toString(),new_account.wine_profile.rich_whites.toString(),new_account.wine_profile.light_reds.toString(),new_account.wine_profile.medium_reds.toString(),new_account.wine_profile.bold_reds.toString(),new_account.wine_profile.sparkling.toString()].join(",");
   let new_beers = [new_account.beer_profile.ipa.toString(),new_account.beer_profile.pale_ale.toString(),
   new_account.beer_profile.lager.toString(),new_account.beer_profile.belgian.toString(),new_account.beer_profile.wheat.toString(),new_account.beer_profile.stout.toString(),new_account.beer_profile.porter.toString(),new_account.beer_profile.pilsner.toString(),new_account.beer_profile.saison.toString(),new_account.beer_profile.sours.toString()].join(",");
   db.none('select * from users where user_name = $1 or email = $2', [new_account.user_name, new_account.email])
@@ -286,23 +286,33 @@ app.post('/api/saved_picniks', (req,res,next) => {
     db.any('select id::int as picnik_id, favorites as favorite, date_of, time_of, zip from picniks where user_id = $1', [req.body.login.user_id])
         .then(result => {
             let first_promises = result.map(picnik => {
+                console.log(picnik.picnik_id);
+                console.log(typeof picnik.picnik_id);
                 return Promise.all([
                     picnik,
-                    db.any('select park_id::int from picniks_parks where picnik_id = $1', [picnik.picnik_id]),
-                    db.any('select recipe_id::int from picniks_recipes where picnik_id = $1', [picnik.picnik_id]),
-                    db.any('select beer_id::int from picniks_beers where picnik_id = $1', [picnik.picnik_id]),
-                    db.any('select wine_id::int from picniks_wines where picnik_id = $1', [picnik.picnik_id])
+                    db.any('select * from picniks_parks where picnik_id = $1', [picnik.picnik_id]),
+                    db.any('select * from picniks_recipes where picnik_id = $1', [picnik.picnik_id]),
+                    db.any('select * from picniks_beers where picnik_id = $1', [picnik.picnik_id]),
+                    db.any('select * from picniks_wines where picnik_id = $1', [picnik.picnik_id])
                 ]);
             });
             return Promise.all(first_promises);
         })
         .then(result => {
             let second_promises = result.map(picnik_set => {
+                console.log(picnik_set);
                 let picnik = picnik_set[0];
-                let park_id = picnik_set[1].park_id;
+                console.log(typeof picnik.picnik_id, picnik.picnik_id);
+                let park_id;
+                if (picnik_set[1] && picnik_set[1][0] && picnik_set[1][0].park_id) {
+                    park_id = picnik_set[1][0].park_id;
+                } else {
+                    park_id = 0;
+                }
                 let recipe_ids = picnik_set[2];
                 let recipe_set = Promise.all(recipe_ids.map(recipe => {
-                    return get_recipe_step_1(recipe)
+                    return db.one('select * from recipes r inner join recipe_links rl on(r.id=rl.recipe_id) where r.id = $1', [recipe.recipe_id])
+                        .then(get_recipe_step_1)
                         .then(get_recipe_step_2)
                         .then(create_recipe_object);
                 }));
@@ -316,7 +326,7 @@ app.post('/api/saved_picniks', (req,res,next) => {
                 }));
                 return Promise.all([
                     picnik,
-                    db.any('select p.id as park_id, p.name as name, p.google_id, p.place_id, pl.address, pl.icon, pl.rating, pl.reference, po.location_lat, po.location_lon, pv.viewport_ne_lat, pv.viewport_ne_lon, pv.viewport_sw_lat, pv.viewport_sw_lon from parks p inner join park_links pl on (p.id = pl.park_id) inner join park_locations po on (p.id = po.park_id) inner join park_viewports pv on (p.id = pv.park_id) where p.id = $1', [park_id]),
+                    db.any('select p.id as park_id, p.name as name, p.google_id, p.place_id, pl.address, pl.icon, pl.rating, pl.reference, po.location_lat, po.location_lon, pv.viewport_ne_lat, pv.viewport_ne_lon, pv.viewport_sw_lat, pv.viewport_sw_lon from parks p inner join park_links pl on (p.id = pl.park_id) inner join park_locations po on (p.id = po.park_id) inner join park_viewports pv on (p.id = pv.park_id) where p.id = $1', [1]),
                     Promise.all(recipe_set),
                     Promise.all(beer_set),
                     Promise.all(wine_set)
@@ -342,13 +352,13 @@ app.post('/api/saved_picniks', (req,res,next) => {
 app.post('/api/picnik/save', (req, res, next) => {
     db.one('insert into picniks values (default, $1, $2, $3, $4, $5) returning id', [false, "07/04/2017", "3:00 PM", 30324, req.body.login.user_id])
     .then(result => {
-        let beer_promises = req.body.beer_ids.map(beer => {
+        let beer_promises = req.body.beers.map(beer => {
             return db.none('insert into picniks_beers values ($1, $2)', [result.id, beer.beer_id])
         });
-        let wine_promises = req.body.wine_ids.map(wine => {
+        let wine_promises = req.body.wines.map(wine => {
             return db.none('insert into picniks_wines values ($1, $2)', [result.id, wine.wine_id])
         });
-        let recipe_promises = req.body.recipe_ids.map(recipe => {
+        let recipe_promises = req.body.recipes.map(recipe => {
             return db.none('insert into picniks_recipes values ($1, $2)', [result.id, recipe.recipe_id])
         });
         let park_promise = db.none('insert into picniks_parks values ($1, $2)', [result.id, req.body.park.park_id]);

@@ -33,6 +33,10 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             error_message: action.error
         });
+    } else if (action.type === 'logout') {
+        return Object.assign({}, state, {
+            INITIAL_STATE
+        });
     } else {
         return state;
     }

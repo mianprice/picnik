@@ -11,20 +11,20 @@ class Planning extends React.Component {
     return (
         <div className="planning">
             <div className="plan_info">Picnik Planning
-                <Link className="plan-submit-buttons" to='/invitations'><div onClick={(event) => this.props.savePicnik(this.props.state.planning.recipes, this.props.state.planning.beers, this.props.state.planning.wines, this.props.state.planning.park, this.props.state.planning.date_of, this.props.state.planning.time_of, this.props.state.login)}>Save Your Picnic and Invite Your Friends</div></Link>
+                <Link className="plan-submit-buttons" to='/invitations'><div onClick={(event) => this.props.savePicnik(this.props.planning.recipes, this.props.planning.beers, this.props.planning.wines, this.props.planning.park, this.props.planning.date_of, this.props.planning.time_of, this.props.login)}>Save Your Picnic and Invite Your Friends</div></Link>
             </div>
             <div className="planning-page-picnik-tracker">
                 <div>Your Picnik</div>
                     <div>Recipes</div>
-                        {this.props.state.planning.recipes.map((recipe, index) => {
+                        {this.props.planning.recipes.map((recipe, index) => {
                             return <div key={index}>{recipe.name}</div>
                         })}
                     <div>Beers</div>
-                        {this.props.state.planning.beers.map((beer, index) => {
+                        {this.props.planning.beers.map((beer, index) => {
                             return <div key={index}>{beer.beer_name}</div>
                         })}
                     <div>Wines</div>
-                        {this.props.state.planning.wines.map((wine, index) => {
+                        {this.props.planning.wines.map((wine, index) => {
                             return <div key={index}>{wine.name}</div>
                         })}
             </div>
@@ -37,7 +37,7 @@ class Planning extends React.Component {
 }
 
 const PlanningContainer = ReactRedux.connect(
-  state => ({ state }),
+  state => ({ planning: state.planning, login: state.login }),
   actions
 )(Planning);
 
