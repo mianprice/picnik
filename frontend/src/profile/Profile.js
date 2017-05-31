@@ -4,11 +4,15 @@ import * as actions from './Profile.actions';
 
 
 class Profile extends React.Component {
+    componentDidMount() {
+        this.props.displayPicniksActionCreator(this.props.login);
+    }
     componentWillReceiveProps(new_props) {
         if (new_props.login.user_id !== this.props.login.user_id) {
             this.props.loadSavedBeersToProfile(new_props.login);
             this.props.loadSavedWinesToProfile(new_props.login);
             this.props.loadSavedRecipesToProfile(new_props.login);
+            this.props.displayPicniksActionCreator(new_props.login);
         }
     }
   render() {
@@ -16,7 +20,11 @@ class Profile extends React.Component {
         <div className="profile">
             <div className="saved_items">
                 <div className="saved_items_title">Saved Picniks</div>
-
+                {this.props.profile.saved_picniks.map((picnik, index) => (
+                    <div key={index}>
+                    {picnik.picnik_id}
+                    </div>
+                ))}
             </div>
             <div className="saved_items">
                 <div className="saved_items_title">Saved Recipes</div>
