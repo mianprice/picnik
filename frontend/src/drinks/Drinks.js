@@ -32,13 +32,19 @@ class Drinks extends React.Component {
             );
         });
         let wine_view = this.props.drinks.wine_set.map((item, idx) => {
+            if (item.class.includes('paired-wine')) {
+              console.log('it should be green');
+            }
             return (
-                <div key={idx}>
+                <div className={item.class} key={idx}>
                     <div>
                         {item.name}
                     </div>
                     <img src={item.image_link} alt={item.name} />
                     <div className="drink-buttons" onClick={() => this.props.selectWine(item)}>Select</div>
+
+                    <div className="check_mark">{item.class === "wine paired-wine" ? <i className="fa fa-fw fa-glass" style={{color: "purple"}} alt="glass"  /> : null}</div>
+
                     <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>
             );
