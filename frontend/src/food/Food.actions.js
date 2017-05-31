@@ -310,14 +310,12 @@ export const winePairingMegaFunction = (wine_prefs_from_signup_state, selected_r
             let final_wine_set = wines_filtered_based_on_prefs.map(wine => { //adds paired-wine class to wines that matched the recommended pairings for the selected dish
                 let classes = "wine";
                 let smart_pairings = winePairingEngine(selected_recipe);
-                console.log('smart', smart_pairings);
                 if (smart_pairings !== "No matches") {
                     if (smart_pairings.includes(wine.varietal_id)) {
                         classes += " paired-wine";
                     }
                 }
                 wine.class = classes;
-                console.log(wine.class);
                 return wine;
             });
             return final_wine_set;

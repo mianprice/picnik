@@ -4,11 +4,12 @@ let INITIAL_STATE = {
     saved_recipes: [],
     saved_beers: [],
     saved_wines: [],
-    id: 0,
+    id: 0
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
     if (action.type === 'display-picniks') {
+        console.log(action.payload);
         return Object.assign({}, state, {
             saved_picniks: action.payload
         });

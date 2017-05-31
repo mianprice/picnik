@@ -25,17 +25,13 @@ export default function reducer(state = INITIAL_STATE, action) {
             wines: p.wines
         });
     } else if (action.type === "select-beer") {
-        let b = state.beers;
-        b.push(action.beer);
-        return Object.assign({}, state, {
-            beers: b
-        });
+        let temp_state = Object.assign({}, state);
+        temp_state.beers.push(action.beer);
+        return Object.assign(temp_state);
     } else if (action.type === "select-wine") {
-        let w = state.wines;
-        w.push(action.wine);
-        return Object.assign({}, state, {
-            wines: w
-        });
+        let temp_state = Object.assign({}, state);
+        temp_state.wines.push(action.wine);
+        return Object.assign(temp_state);
     } else if (action.type === "select-recipe") {
         let r = state.recipes;
         r.push(action.recipe);
@@ -61,13 +57,42 @@ export default function reducer(state = INITIAL_STATE, action) {
         });
         temp_state.recipes = recipes_filtered;
         return Object.assign(temp_state);
-    }  else if (action.type === "remove-beer") {
+    } else if (action.type === "remove-beer") {
         let temp_state = Object.assign({}, state);
         let beers_filtered = temp_state.beers.filter(beer => {
             return beer.beer_id !== action.beer.beer_id;
         });
         temp_state.beers = beers_filtered;
         return Object.assign(temp_state);
+    } else if (action.type === "remove-wine") {
+        let temp_state = Object.assign({}, state);
+        let wines_filtered = temp_state.wines.filter(wine => {
+            return wine.wine_id !== action.wine.wine_id;
+        });
+        temp_state.wines = wines_filtered;
+        return Object.assign(temp_state);
+    } else if (action.type === 'load-picnik-to-planning') {
+        let recipes = action.picnik.recipes;
+        let wines = action.picnik.wines;
+        let beers = action.picnik.beers;
+        return Object.assign({}, state, {
+            recipes,
+            wines,
+            beers
+        });
+    } else if (action.type === 'logout') {
+        console.log(INITIAL_STATE);
+        return {
+            id: 0,
+            date_of: "",
+            time_of: "",
+            park: {},
+            recipes: [],
+            beers: [],
+            wines: []
+        };
+    } else if (action.type === 'save-error') {
+        console.log('Please select a complete picnik.');
     }
     return state;
 };

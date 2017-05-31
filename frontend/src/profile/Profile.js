@@ -5,7 +5,12 @@ import * as actions from './Profile.actions';
 
 class Profile extends React.Component {
     componentDidMount() {
-        this.props.displayPicniksActionCreator(this.props.login);
+        if (this.props.login.user_id) {
+            this.props.displayPicniksActionCreator(this.props.login);
+            this.props.loadSavedBeersToProfile(this.props.login);
+            this.props.loadSavedWinesToProfile(this.props.login);
+            this.props.loadSavedRecipesToProfile(this.props.login);
+        }
     }
     componentWillReceiveProps(new_props) {
         if (new_props.login.user_id !== this.props.login.user_id) {
@@ -23,6 +28,7 @@ class Profile extends React.Component {
                 {this.props.profile.saved_picniks.map((picnik, index) => (
                     <div key={index}>
                     {picnik.picnik_id}
+                    <div className='recipe-buttons' onClick={() => this.props.loadPicnikToPlanning( this.props.profile.saved_picniks[index])}>Select Picnik and Invite Guests</div>
                     </div>
                 ))}
             </div>

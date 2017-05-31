@@ -3,6 +3,7 @@ import * as ReactRedux from 'react-redux';
 import * as actions from './Invitations.actions';
 
 class Invitations extends React.Component {
+
     render() {
         return(
             <div className='invitations-content'>

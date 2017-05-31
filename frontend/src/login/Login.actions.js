@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {hashHistory} from 'react-router';
 
 export function updateValue(id, value) {
     return {
@@ -9,6 +10,7 @@ export function updateValue(id, value) {
 };
 
 const loginComplete = (data) => {
+    hashHistory.push('/');
     return {
         type: 'login-complete',
         payload: data

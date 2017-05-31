@@ -14,6 +14,8 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             wine_set: action.payload
         });
+    } else if (action.type === 'logout') {
+        return Object.assign(INITIAL_STATE);
     } else {
         return state;
     }
