@@ -62,7 +62,7 @@ class Invitations extends React.Component {
                                             <div className='invitation-clear-button' onClick={() => this.props.removeFromGuestListActionCreator(index, guest.email, this.props.planning.id, this.props.login)}>Remove</div>
                                        </div>
                             }) : ""}
-                            <div className='invitation-submit-button' onClick={event => this.props.sendInvites(1, this.props.login)}>Send Invitations</div>
+                            <div className='invitation-submit-button' onClick={event => this.props.sendInvites(this.props.planning.id, this.props.login)}>Send Invitations</div>
                         </div>
                 </div>
             </div>
