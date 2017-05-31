@@ -96,6 +96,8 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             editing: true
         });
+    } else if (action.type === "login-complete") {
+        return INITIAL_STATE;
     }
     return state;
 };

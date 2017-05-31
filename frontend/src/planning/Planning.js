@@ -12,6 +12,7 @@ class Planning extends React.Component {
         <div className="planning">
             <div className="plan_info">Picnik Planning
                 <Link className="plan-submit-buttons" to='/invitations'><div onClick={(event) => this.props.savePicnik(this.props.planning.recipes, this.props.planning.beers, this.props.planning.wines, this.props.planning.park, this.props.planning.date_of, this.props.planning.time_of, this.props.login)}>Save Your Picnic and Invite Your Friends</div></Link>
+                <div>{this.props.planning.message}</div>
             </div>
             <div className="planning-page-picnik-tracker">
                 <div>Your Picnik</div>
@@ -21,12 +22,17 @@ class Planning extends React.Component {
                         })}
                     <div>Beers</div>
                         {this.props.planning.beers.map((beer, index) => {
-                            return <div key={index}>{beer.beer_name}</div>
+                            return <div key={index}>
+                                        {beer.beer_name}
+                                        <div className="drink-buttons" onClick={() => {this.props.removeBeer(beer)}}>Remove from Picnik</div>
+                                    </div>
                         })}
                     <div>Wines</div>
                         {this.props.planning.wines.map((wine, index) => {
                             return <div key={index}>{wine.name}</div>
                         })}
+                    <div>Park</div>
+                        <div>{JSON.stringify(this.props.planning.park) !== '{}' ? this.props.planning.park.name : ''}</div>
             </div>
             <MapContainer />
             <FoodContainer />
@@ -37,7 +43,7 @@ class Planning extends React.Component {
 }
 
 const PlanningContainer = ReactRedux.connect(
-  state => ({ planning: state.planning, login: state.login }),
+  state => ({ planning: state.planning, login: state.login, drinks: state.drinks }),
   actions
 )(Planning);
 

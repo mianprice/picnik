@@ -74,11 +74,17 @@ export const getWeather = (zip) => {
     return asyncAction;
 };
 
-export const selectPark = (park) => {
-    return {
-        type: 'select-park',
-        park
-    };
+export const selectPark = (park, park_object_from_planning) => {
+    if (JSON.stringify(park_object_from_planning) === '{}') {
+        return {
+            type: 'select-park',
+            park
+        };
+    }
+};
+
+export const removePark = (park) => { //we pass the entire park object into the function so we can save it to the select_parks array in the state
+    return {type: 'remove-park', park};
 };
 
 export const selectDay = (num) => {

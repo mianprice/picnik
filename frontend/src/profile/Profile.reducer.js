@@ -27,6 +27,24 @@ export default function reducer(state = INITIAL_STATE, action) {
         });
     } else if (action.type === 'logout') {
         return INITIAL_STATE;
+    } else if (action.type === "login-complete") {
+        return {
+            saved_picniks: [],
+            saved_parks: [],
+            saved_recipes: [],
+            saved_beers: [],
+            saved_wines: [],
+            id: 0
+        };
+    } else if (action.type === "login-complete") {
+        return {
+            saved_picniks: [],
+            saved_parks: [],
+            saved_recipes: [],
+            saved_beers: [],
+            saved_wines: [],
+            id: 0
+        };
     }
     return state;
 };

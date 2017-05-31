@@ -15,7 +15,10 @@ class Map extends React.Component {
                         <div className="park_name">{park.name}</div>
                         <div className="park_address">{park.address}</div>
                         <div className="park_address signup_section">
-                            <div className="signup_button" onClick={(event) => {this.props.selectPark(park)}}>Select</div>
+                            {((JSON.stringify(this.props.planning.park) !== '{}') &&  (this.props.planning.park.park_id === park.park_id)) ?
+                                <div className="recipe-buttons" onClick={() => {this.props.removePark(park)}}>Remove Park</div>
+                                :
+                                <div className="recipe-buttons" onClick={() => this.props.selectPark(park, this.props.planning.park)}>Select Park</div>}
                         </div>
                     </div>
                 ))}
@@ -53,7 +56,7 @@ class Map extends React.Component {
 }
 
 const MapContainer = ReactRedux.connect(
-  state => ({ map: state.map }),
+  state => ({ map: state.map, planning: state.planning }),
   actions
 )(Map);
 

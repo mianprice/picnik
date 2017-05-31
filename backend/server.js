@@ -322,8 +322,6 @@ app.post('/api/saved_picniks', (req,res,next) => {
     db.any('select id::int as picnik_id, favorites as favorite, date_of, time_of, zip from picniks where user_id = $1', [req.body.login.user_id])
         .then(result => {
             let first_promises = result.map(picnik => {
-                console.log(picnik.picnik_id);
-                console.log(typeof picnik.picnik_id);
                 return Promise.all([
                     picnik,
                     db.any('select * from picniks_parks where picnik_id = $1', [picnik.picnik_id]),
@@ -336,9 +334,7 @@ app.post('/api/saved_picniks', (req,res,next) => {
         })
         .then(result => {
             let second_promises = result.map(picnik_set => {
-                console.log(picnik_set);
                 let picnik = picnik_set[0];
-                console.log(typeof picnik.picnik_id, picnik.picnik_id);
                 let park_id;
                 if (picnik_set[1] && picnik_set[1][0] && picnik_set[1][0].park_id) {
                     park_id = picnik_set[1][0].park_id;
@@ -417,7 +413,6 @@ app.post('/api/picnik/save', (req, res, next) => {
 
 // ADD INVITE
 app.post('/api/add_invite', (req,res,next) => {
-    console.log(req.body);
     let name = req.body.name;
     let email = req.body.email;
     let picnik_id = req.body.picnik_id;

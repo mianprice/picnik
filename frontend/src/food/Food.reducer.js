@@ -10,7 +10,13 @@ export default function reducer(state = INITIAL_STATE, action) {
             recipe_set: action.payload
         });
     } else if (action.type === 'logout') {
-        return Object.assign(INITIAL_STATE);
+        return INITIAL_STATE;
+    } else if (action.type === "login-complete") {
+        return {
+            recipe_set: [],
+            search_criteria: {},
+            select_recipes: []
+        };
     }
     return state;
 };
