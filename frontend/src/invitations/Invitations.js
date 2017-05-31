@@ -3,14 +3,13 @@ import * as ReactRedux from 'react-redux';
 import * as actions from './Invitations.actions';
 
 class Invitations extends React.Component {
-
     render() {
         return(
             <div className='invitations-content'>
                 <div className="invitations-picnik-summary">
                     <div className='invitations-content-title'>Picnik Summary</div>
                     <div>Recipes</div>
-                        <div>{this.props.food.select_recipes.length > 0 ? this.props.food.select_recipes.map((recipe, index) => (
+                        <div>{this.props.planning.recipes.length > 0 ? this.props.planning.recipes.map((recipe, index) => (
                             <div key={index}>
                                 <img src={recipe.image_url} alt={recipe.name}/>
                                 <div>{recipe.name}</div>
@@ -18,8 +17,28 @@ class Invitations extends React.Component {
                             </div>
                         )) : ''}</div>
                     <div>Park</div>
+                    <div>
+                            <div>{this.props.planning.park.name}</div>
+                            <div>{this.props.planning.park.address}</div>
+                    </div>
                     <div>Beers</div>
+                    <div>{this.props.planning.beers.length > 0 ? this.props.planning.beers.map((beer, index) => (
+                        <div key={index}>
+                            <img src={beer.label_image_link_icon} alt={beer.beer_name}/>
+                            <div>{beer.beer_name}</div>
+                            <div>{beer.brewery_name}</div>
+                            <div>{beer.style_name}</div>
+                        </div>
+                    )) : ''}</div>
                     <div>Wines</div>
+                        <div>{this.props.planning.wines.length > 0 ? this.props.planning.wines.map((wine, index) => (
+                            <div key={index}>
+                                <img src={wine.image_link} alt={wine.name}/>
+                                <div>{wine.name}</div>
+                                <div>{wine.winery}</div>
+                                <div>{wine.varietal}</div>
+                            </div>
+                        )) : ''}</div>
                     <div>Date</div>
                     <div>Weather</div>
                 </div>
