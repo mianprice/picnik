@@ -24,6 +24,8 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             saved_recipes: action.payload
         });
+    } else if (action.type === 'logout') {
+        return INITIAL_STATE;
     }
     return state;
 };
