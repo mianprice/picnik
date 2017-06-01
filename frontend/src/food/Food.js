@@ -22,8 +22,6 @@ class Food extends React.Component {
                     :
                     <div className="recipe-buttons" onClick={() => this.props.selectRecipe(item)}>Add to Picnik</div>}
 
-                    <div className="recipe-buttons" onClick={() => {this.props.beerPairingMegaFunction(this.props.signup.beer_profile, item);this.props.winePairingMegaFunction(this.props.signup.wine_profile, item);}}>Show Pairing Options</div>
-
                     <div className="recipe-buttons" onClick={() => this.props.saveForLater(item.recipe_id, this.props.login.user_id)}>Save for later</div>
 
                     <a href={"http://www.yummly.co/recipe/" + item.yummly_id} target="_blank"><div className="recipe-buttons">View Recipe</div></a>

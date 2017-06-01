@@ -5,7 +5,9 @@ let INITIAL_STATE = {
     park: {},
     recipes: [],
     beers: [],
-    wines: []
+    wines: [],
+    currentPage: 'food',
+    currentBasket: 'food'
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -21,8 +23,8 @@ export default function reducer(state = INITIAL_STATE, action) {
             time_of: p.time_of,
             park: p.park,
             recipes: p.recipes,
-            beers: p.beers,
-            wines: p.wines
+            beers: p.beers[0],
+            wines: p.wines[0]
         });
     } else if (action.type === "select-beer") {
         let temp_state = Object.assign({}, state);
@@ -97,6 +99,34 @@ export default function reducer(state = INITIAL_STATE, action) {
         };
     } else if (action.type === 'save-error') {
         console.log('Please select a complete picnik.');
-    } 
+    } else if (action.type === 'to-food') {
+        return Object.assign({}, state, {
+            currentPage: 'food'
+        });
+    } else if (action.type === 'to-drinks') {
+        return Object.assign({}, state, {
+            currentPage: 'drinks'
+        });
+    } else if (action.type === 'to-map') {
+        return Object.assign({}, state, {
+            currentPage: 'map'
+        });
+    } else if (action.type === 'map-choices') {
+        return Object.assign({}, state, {
+            currentBasket: 'map'
+        });
+    } else if (action.type === 'beers-choices') {
+        return Object.assign({}, state, {
+            currentBasket: 'beers'
+        });
+    } else if (action.type === 'wines-choices') {
+        return Object.assign({}, state, {
+            currentBasket: 'wines'
+        });
+    } else if (action.type === 'recipes-choices') {
+        return Object.assign({}, state, {
+            currentBasket: 'recipes'
+        });
+    }
     return state;
 };

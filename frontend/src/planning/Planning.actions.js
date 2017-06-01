@@ -40,3 +40,15 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
 export const removeBeer = (beer) => { //we pass the entire recipe object into the function so we can save it to the select_recipes array in the state
     return {type: 'remove-beer', beer};
 };
+
+export const changePage = (str) => {
+    return {
+        type: 'to-' + str
+    };
+}
+
+export const changeBasket = (str) => {
+    return {
+        type: str + '-choices'
+    };
+}

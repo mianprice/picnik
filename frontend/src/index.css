@@ -7,6 +7,7 @@ body {
 
 .navbar {
     width: 100vw;
+    height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,8 +41,12 @@ body {
     background-color: rgb(150,150,150);
 }
 
+/***************/
+/*PLANNING PAGE*/
+/***************/
 .planning {
     width: 100%;
+    height: 90vh;
     background-color: rgb(225,225,225);
     display: flex;
     justify-content: space-around;
@@ -49,13 +54,24 @@ body {
     flex-wrap: wrap;
 }
 
-.plan_info {
-    width: 100vw;
-    font-size: 2em;
-    background-color: green;
-    color: white;
-    padding: 10px;
-    text-align: center;
+.plan-title {
+    grid-row: span 1;
+    grid-column: span 1;
+}
+
+.save-picnik-buttons-container {
+    grid-row: span 1;
+    grid-column: span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: cornflowerblue;
+}
+
+.save-picnik-button {
+    grid-row: span 1;
+    grid-column: span 1;
 }
 
 .plan-submit-buttons {
@@ -69,57 +85,256 @@ body {
     font-size: 12px;
 }
 
+.planning-container-tab:hover {
+    background-color: burlywood;
+    cursor: pointer;
+}
+
 .plan-submit-buttons:hover {
     background-color: darkgrey;
     cursor: pointer;
 }
 
-.plan_part {
-    width: 25vw;
-    height: 65vh;
-    overflow: scroll;
-    padding: 25px 0;
-    margin: 15px 0;
-    background-color: darkblue;
+.picnik-planner-container {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 3fr 1fr;
+    width: 100vw;
+    height: 80vh;
+}
+
+.planning-page-picnik-chooser {
+    grid-column: span 1;
+    grid-row: span 1;
+    background-color: gold;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 7fr;
+}
+
+.planning-container-tab {
+    grid-column: span 1;
+    grid-row: span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-planning-container {
+    grid-column: span 3;
+    grid-row: span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: cornsilk;
+}
+
+.planning-page-picnik-tracker {
+    grid-column: span 1;
+    grid-row: span 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 6fr 1fr;
+    background-color: yellow;
+}
+
+.current-picnik-basket-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightblue;
+}
+
+.current-picnik-basket {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: lavender;
+}
+
+.basket-choice-types {
+    height: 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.choice-type {
+    grid-row: span 1;
+    grid-column: span 1;
+    background-color: peachpuff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choice-type:hover {
+    background-color: rebeccapurple;
     color: white;
+}
+
+.choice-type > div {
+    font-size: 125%;
+}
+
+.basket-choices {
+    height: 90%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.choice {
+    text-align: center;
+    padding: 5px;
+}
+
+/*.current-picnik-basket > div {
+    width: 100%;
+}*/
+
+.plan_part {
+    width: 100%;
+    height: 75vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: blanchedalmond;
     text-align: center;
 }
 
-.plan_part div {
-    margin-bottom: 10px;
+.plan_part_wrap {
+    overflow: hidden;
 }
 
+/*DRINKS PLANNING*/
+.drinks-wrapper {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.beers {
+    grid-row: span 1;
+    grid-column: span 1;
+    background-color: tan;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.wines {
+    grid-row: span 1;
+    grid-column: span 1;
+    background-color: coral;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+/*MAP PLANNING*/
+.map-wrapper {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 7fr;
+}
+
+.zip-entry {
+    grid-row: span 1;
+    grid-column: span 2;
+    background-color: mistyrose;
+    overflow: hidden;
+}
+
+.date-picker {
+    grid-row: span 1;
+    grid-column: span 1;
+    background-color: lemonchiffon;
+    overflow: hidden;
+}
+
+.park-set {
+    grid-row: span 1;
+    grid-column: span 1;
+    background-color: deepskyblue;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.park {
+    height: 50px;
+    padding-bottom: 5px;
+    margin: 10px 5%;
+    border-bottom: 10px solid white;
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.park_name {
+    font-size: 110%;
+    text-align: left;
+}
+
+.park_address {
+    color: black;
+    text-align: left;
+}
+
+.park-button {
+    line-height: 2.5em;
+    text-align: center;
+    height: 40px;
+    width: 100px;
+    background-color: grey;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.park-button:hover {
+    background-color: darkgrey;
+}
+
+/*************/
+/*SIGNUP PAGE*/
+/*************/
 .signup {
     background-color: lightblue;
     text-align: center;
 }
 
+/************/
+/*LOGIN PAGE*/
+/************/
 .login {
     background-color: lightgreen;
     text-align: center;
 }
 
+/***********/
+/*HOME PAGE*/
+/***********/
 .home {
-    background-color: pink;
     text-align: center;
 }
 
+/**************/
+/*PROFILE PAGE*/
+/**************/
 .profile {
     background-color: lavender;
     text-align: center;
 }
 
-.beers {
-    background-color: tan;
-    height: 50%;
-    overflow: scroll;
-}
 
-.wines {
-    background-color: coral;
-    height: 50%;
-    overflow: scroll;
-}
 
 .signup_button {
     padding: 5px;
@@ -266,29 +481,7 @@ body {
     color: yellow;
 }
 
-.date_picker {
-    background-color: lavender;
-    height: 42%;
-    overflow: scroll;
-}
 
-.park_set {
-    background-color: cornsilk;
-    height: 42%;
-    overflow: scroll;
-}
-
-.park {
-    background-color: forestgreen;
-}
-
-.park_name {
-    font-size: 125%;
-}
-
-.park_address {
-    color: black;
-}
 
 .invitations-content {
     display: flex;
@@ -409,15 +602,4 @@ body {
 
 .saved_items_title {
     font-size: 1.25em;
-}
-
-.planning-page-picnik-tracker {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    background-color: yellow;
-    width: 10%;
-    height: 65vh;
 }

@@ -3,6 +3,12 @@ import * as ReactRedux from 'react-redux';
 import * as actions from './Drinks.actions';
 
 class Drinks extends React.Component {
+    componentWillMount() {
+        this.props.getBeers(this.props.signup.beer_profile);
+        this.props.getWines(this.props.signup.wine_profile);
+        // this.props.beerPairingMegaFunction(this.props.signup.beer_profile, item);
+        // this.props.winePairingMegaFunction(this.props.signup.wine_profile, item)
+    }
     render() {
         let beer_set = this.props.planning.beers.map(beer => {
             return beer.beer_id;
@@ -34,8 +40,6 @@ class Drinks extends React.Component {
             return wine.wine_id;
         });
         let wine_view = this.props.drinks.wine_set.map((item, idx) => {
-            if (item.class.includes('paired-wine')) {
-            }
             return (
                 <div className={item.class} key={idx}>
                     <div>
@@ -55,12 +59,14 @@ class Drinks extends React.Component {
             );
         });
         return (
-            <div className="plan_part">
-                <div className="beers">
-                    {beer_view}
-                </div>
-                <div className="wines">
-                    {wine_view}
+            <div className="plan_part plan_part_wrap">
+                <div className="drinks-wrapper">
+                    <div className="beers">
+                        {beer_view}
+                    </div>
+                    <div className="wines">
+                        {wine_view}
+                    </div>
                 </div>
             </div>
         );
