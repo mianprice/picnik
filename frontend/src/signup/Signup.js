@@ -81,15 +81,67 @@ class Signup extends React.Component {
               </div>
           ),
           (
-              <div className="signup_section">
-              <div className="signup_section_title">Wine</div>
-                <div className={this.props.signup.wine_profile.dry_whites === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('dry_whites')}>Dry Whites</div>
-                <div className={this.props.signup.wine_profile.sweet_whites === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('sweet_whites')}>Sweet Whites</div>
-                <div className={this.props.signup.wine_profile.rich_whites === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('rich_whites')}>Rich Whites</div>
-                <div className={this.props.signup.wine_profile.light_reds === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('light_reds')}>Light Reds</div>
-                <div className={this.props.signup.wine_profile.medium_reds === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('medium_reds')}>Medium Reds</div>
-                <div className={this.props.signup.wine_profile.bold_reds === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('bold_reds')}>Bold Reds</div>
-                <div className={this.props.signup.wine_profile.sparkling === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('sparkling')}>Sparkling</div>
+              <div className="signup_section wine_section">
+                <div className="wine_instructions">
+                Here we suggest keeping your options open. Sometimes a properly paired wine 			can really change your mind, but if you really don’t like Reds, or can’t stand Sparkling 		wine, we won’t judge, Simply select the wines you don’t want us to show you.
+                </div>
+                <div className="wine_category">
+                  <div className={this.props.signup.wine_profile.dry_whites === false ? " wine_button wine_button_selected" : "wine_button"} onClick={() => this.props.setWine('dry_whites')}>Dry Whites</div>
+                  <div className="wine_category_description">Dry, crisp, sometimes tart and usually refreshing, these are among the lightest wines. <br/>
+                  ex. Sauvignon Blanc, Albariño, Pinot Grigio, ...
+                  </div>
+                </div>
+
+                <div className="wine_category">
+                  <div className={this.props.signup.wine_profile.sweet_whites === false ? " wine_button wine_button_selected" : "wine_button"} onClick={() => this.props.setWine('sweet_whites')}>Sweet Whites</div>
+                  <div className="wine_category_description">
+                  Sweet while sweet, these wines are also generally balanced. The natural sugars from the grapes help to balance the higher than average acidity or bitterness present in these wines.
+                  examples: Chenin Blanc, Riesling , Torrontés
+                  </div>
+                </div>
+
+                <div className="wine_category">
+                  <div className={this.props.signup.wine_profile.rich_whites === false ? " wine_button wine_button_selected" : "wine_button"} onClick={() => this.props.setWine('rich_whites')}>Rich Whites</div>
+                  <div className="wine_category_description">
+                  Rich Whites - fuller in body and sometimes oaky, these wines tend to be a bit heavier on the pallet than their Dry counterparts
+                  ex. Chardonnay, Sémillon, Viogner, ...
+                  </div>
+                </div>
+
+                <div className="wine_category">
+                  <div className={this.props.signup.wine_profile.light_reds === false ? " wine_button wine_button_selected" : "wine_button"} onClick={() => this.props.setWine('light_reds')}>Light Reds</div>
+                  <div className="wine_category_description">
+                  Light Reds - Subtle and lighter in body compared to other red wines, lower tannins and bright acidity make these wines very drinkable
+                  ex. Pinot Noir, Gamay, Brachetto
+                  </div>
+                </div>
+
+                <div className="wine_category">
+                  <div className={this.props.signup.wine_profile.medium_reds === false ? " wine_button wine_button_selected" : "wine_button"} onClick={() => this.props.setWine('medium_reds')}>Medium Reds</div>
+                  <div className="wine_category_description">
+                  Medium Reds - medium in body with a broad spectrum of flavor profiles, these are some of the most food friendly wines
+                  ex. Merlot, Sangiovese, Barbera, …
+                  </div>
+                </div>
+
+                <div className="wine_category">
+                  <div className={this.props.signup.wine_profile.bold_reds === false ? " wine_button wine_button_selected" : "wine_button"} onClick={() => this.props.setWine('bold_reds')}>Bold Reds</div>
+                  <div className="wine_category_description">
+                  Bold Reds - High in tannins and bold in flavor, these wines can hold their own when paired with very flavorful dishes
+                  ex. Cabernet Sauvignon, Malbec, Syrah, …
+                  </div>
+                </div>
+
+                <div className="wine_category">
+                  <div className={this.props.signup.wine_profile.sparkling === false ? " wine_button wine_button_selected" : "wine_button"} onClick={() => this.props.setWine('sparkling')}>Sparkling</div>
+                  <div>
+                  Sparkling
+                  Ranging from dry to sweet, sparkling wines are good for a variety of occasions and cuisines.
+
+                  ex. cava, champagne, prosecco, …
+                  </div>
+                </div>
+
 
                 <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
 

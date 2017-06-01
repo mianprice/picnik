@@ -339,6 +339,14 @@ body {
     text-align: center;
 }
 
+.wine_button {
+  width: 100px;
+}
+
+.wine_section {
+  width: 400px;
+}
+
 /************/
 /*LOGIN PAGE*/
 /************/
@@ -415,6 +423,49 @@ body {
     text-align: center;
 }
 
+.wine_category {
+  width: 50%;
+  background-color: lightgray;
+  margin: 0 25%;
+  margin-top: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.wine_section {
+  text-align: center;
+  width: 100%;
+}
+
+.wine_instructions {
+  width: 50%;
+  margin: 5% 25%;
+}
+
+.wine_button {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #9ECC69;
+  color: white;
+  width: 50%;
+}
+
+.wine_button_selected {
+  background-color: #C93131;
+}
+
+.wine_button:hover {
+  background-color: #F95759;
+}
+
+.wine_category_description {
+  width: 100%;
+}
+
 .signup_button {
     padding: 5px;
     margin: 5px;
@@ -455,6 +506,13 @@ body {
     align-items: center;
     flex-wrap: wrap;
 }
+
+/*.signup_section {
+  width: 600px;
+  margin: auto;
+  text-align: justify;
+}*/
+
 
 .signup_submit_button {
     padding: 10px;
