@@ -22,7 +22,7 @@ class Planning extends React.Component {
               {this.props.planning.recipes.map((recipe, index) => {
                   return <div key={index}>
                             <div className="choice" >{recipe.name}</div>
-                            <div className='drink-buttons' onClick={() => {this.props.beerPairingMegaFunction(this.props.signup,recipe); this.props.winePairingMegaFunction(this.props.signup, recipe)}}>View Pairing Options</div>
+                            <div className='drink-buttons' onClick={() => {this.props.beerPairingMegaFunction(this.props.signup,recipe); this.props.winePairingMegaFunction(this.props.signup, recipe)}}>Show Pairing Options</div>
                             <div className='drink-buttons' onClick={() => this.props.removeRecipe(recipe)}>Remove from Picnik Basket</div>
                         </div>
               })}
@@ -47,7 +47,7 @@ class Planning extends React.Component {
           </div>);
       } else {
           currentBasket = (<div className="choice park-choice">
-              <div>{(this.props.planning.park && this.props.planning.park.name) || "No choice made yet."}</div>
+              <div>{(this.props.planning.park && this.props.planning.park.name) || "No park chosen yet."}</div>
           </div>);
       }
     return (
@@ -79,10 +79,10 @@ class Planning extends React.Component {
                         </div>
                         <div className="current-picnik-basket">
                             <div className="basket-choice-types">
-                                <div className="choice-type" onClick={event => this.props.changeBasket('recipes')}><div>Recipes</div></div>
-                                <div className="choice-type" onClick={event => this.props.changeBasket('beers')}><div>Beers</div></div>
-                                <div className="choice-type" onClick={event => this.props.changeBasket('wines')}><div>Wines</div></div>
-                                <div className="choice-type" onClick={event => this.props.changeBasket('map')}><div>Park</div></div>
+                                <div className={this.props.planning.currentBasket !== 'recipes' ? "choice-type" : "choice-type choice-type-active"} onClick={event => this.props.changeBasket('recipes')}><div>Recipes</div></div>
+                                <div className={this.props.planning.currentBasket !== 'beers' ? "choice-type" : "choice-type choice-type-active"} onClick={event => this.props.changeBasket('beers')}><div>Beers</div></div>
+                                <div className={this.props.planning.currentBasket !== 'wines' ? "choice-type" : "choice-type choice-type-active"} onClick={event => this.props.changeBasket('wines')}><div>Wines</div></div>
+                                <div className={this.props.planning.currentBasket !== 'map' ? "choice-type" : "choice-type choice-type-active"} onClick={event => this.props.changeBasket('map')}><div>Park</div></div>
                             </div>
                             <div className="basket-choices">
                                 {currentBasket}
