@@ -68,9 +68,11 @@ const userPreferenceBeerFilter = (beer_prefs_from_signup_state) => { //filters o
     let user_dislikes =[];
     for (var key in beer_prefs_from_signup_state) {
         if (beer_prefs_from_signup_state[key] === false) {
+            console.log(key, beer_prefs_from_signup_state[key]);
             user_dislikes = user_dislikes.concat(brewerydb_style_ids[key]);
         }
     }
+    console.log(user_dislikes);
     return user_dislikes;
 };
 

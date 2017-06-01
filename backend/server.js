@@ -168,8 +168,7 @@ app.post('/api/user/signup', (req,res,next) => {
   let new_tastes = [new_account.taste_profile.piquant.toString(),new_account.taste_profile.meaty.toString(),new_account.taste_profile.sweet.toString(),new_account.taste_profile.salty.toString(),new_account.taste_profile.bitter.toString(),new_account.taste_profile.sour_taste.toString()].join(",");
   let new_cuisines = [new_account.cuisine_profile.mexican.toString(),new_account.cuisine_profile.italian.toString(),new_account.cuisine_profile.mediterranean.toString(),new_account.cuisine_profile.thai.toString(),new_account.cuisine_profile.barbecue.toString(),new_account.cuisine_profile.american.toString(),new_account.cuisine_profile.japanese.toString(),new_account.cuisine_profile.chinese.toString()].join(",");
   let new_wines = [new_account.wine_profile.dry_whites.toString(),new_account.wine_profile.sweet_whites.toString(),new_account.wine_profile.rich_whites.toString(),new_account.wine_profile.light_reds.toString(),new_account.wine_profile.medium_reds.toString(),new_account.wine_profile.bold_reds.toString(),new_account.wine_profile.sparkling.toString()].join(",");
-  let new_beers = [new_account.beer_profile.ipa.toString(),new_account.beer_profile.pale_ale.toString(),
-  new_account.beer_profile.lager.toString(),new_account.beer_profile.belgian.toString(),new_account.beer_profile.wheat.toString(),new_account.beer_profile.stout.toString(),new_account.beer_profile.porter.toString(),new_account.beer_profile.pilsner.toString(),new_account.beer_profile.saison.toString(),new_account.beer_profile.sours.toString()].join(",");
+  let new_beers = [new_account.beer_profile.ipa.toString(),new_account.beer_profile.pale_ale.toString(),new_account.beer_profile.lager.toString(),new_account.beer_profile.belgian.toString(),new_account.beer_profile.wheat.toString(),new_account.beer_profile.stout.toString(),new_account.beer_profile.porter.toString(),new_account.beer_profile.pilsner.toString(),new_account.beer_profile.saison.toString(),new_account.beer_profile.sours.toString()].join(",");
   db.none('select * from users where user_name = $1 or email = $2', [new_account.user_name, new_account.email])
     .then(() => {
       return bcrypt.hash(new_account.password, 10);
@@ -458,18 +457,15 @@ function validate_login(attempted) {
         reject('Invalid login attempt');
       }
     })
-    .then(result => {
-        return Promise.all([
-            result.token,
-            db.one('select')
-        ])
-    })
     .then((result) => {
       return {
         username: data.user_name,
         first: data.first_name,
         last: data.last_name,
         token: result.token,
+        taste_profile: data.taste_profile,
+        beer_profile: data.beer_profile,
+        wine_profile: data.wine_profile,
         id: data.id
       };
     })

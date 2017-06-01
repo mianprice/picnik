@@ -96,8 +96,12 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             editing: true
         });
-    } else if (action.type === "login-complete") {
-        return INITIAL_STATE;
+    } else if (action.type === "update-prefs") {
+        return Object.assign({}, state, {
+            taste_profile: action.taste_profile,
+            wine_profile: action.wine_profile,
+            beer_profile: action.beer_profile,
+        });
     }
     return state;
 };
