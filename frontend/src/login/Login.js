@@ -10,7 +10,7 @@ class Login extends React.Component {
             <input type="text" onChange={(event) => this.props.updateValue(event.target.id, event.target.value)} id="user_name" value={this.props.login.user_name}/>
         <label>Password</label>
             <input type="password" onChange={(event) => this.props.updateValue(event.target.id, event.target.value)} id="password" value={this.props.login.password}/>
-        <button onClick={(event) => this.props.sendLogin(this.props.login)}>Login</button>
+        <div onClick={(event) => this.props.sendLogin(this.props.login)}>Login</div>
         </div>
       );
   }
