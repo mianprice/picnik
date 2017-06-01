@@ -14,22 +14,29 @@ class Food extends React.Component {
             return (
                 <div className="recipe" key={index}>
                     <div>
-                        {item.name}
-                        {item.cuisines.map(cuisines => {
-                            return cuisines.name;
-                        })}
+                        <div className="recipe-title">
+                            {item.name}
+                            <div className={item.class}>
+                            <div alt="food pairing match box"/>{item.class.includes("user-preferred-recipe-good") ? "Good Match" : item.class.includes("user-preferred-recipe-great") ? "Great Match" : item.class.includes("user-preferred-recipe-excellent") ? "Excellent Match" : ""}</div>
+                        </div>
+                            {item.cuisines.map((cuisines, index) => {
+                                return <div key={index} className="recipe-cuisines">
+                                            {cuisines.name}
+                                        </div>
+                            })}
                     </div>
                     <img src={item.image_url} alt={item.name}/>
-                    {item.ingredients.map(item => {
-                        return item.name;
-                    })}
+                    <div className="recipe-ingredients">
+                        {item.ingredients.map(item => {
+                            return item.name + ", ";
+                        })}
+                    </div>
                     {recipe_set.includes(item.recipe_id) ?
                     <div className="recipe-buttons" onClick={() => {this.props.removeRecipe(item)}}>Remove from Picnik</div>
                     :
                     <div className="recipe-buttons" onClick={() => this.props.selectRecipe(item)}>Add to My Picnik</div>}
 
                     <a href={"http://www.yummly.co/recipe/" + item.yummly_id} target="_blank"><div className="recipe-buttons">View Recipe</div></a>
-                    <div className={item.class}><div alt="food pairing match box"/>{item.class.includes("user-preferred-recipe-good") ? "Good Match" : item.class.includes("user-preferred-recipe-great") ? "Great Match" : item.class.includes("user-preferred-recipe-excellent") ? "Excellent Match" : ""}</div>
                 </div>
             );
         });

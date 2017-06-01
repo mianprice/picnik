@@ -14,14 +14,15 @@ class Drinks extends React.Component {
             return beer.beer_id;
         });
         let beer_view = this.props.drinks.beer_set.map((item, index) => {
-            let label = item.label_image_link_icon ? (
-                <img src={item.label_image_link_icon} alt={item.beer_name} />
+            let label = item.label_image_link_medium ? (
+                <img className="beer-label-img" src={item.label_image_link_medium} alt={item.beer_name} />
             ) : "";
             return (
-                <div key={index} >
+                <div key={index} className="beer-and-wine">
                     <div >
                         {item.beer_name}<br/>
-                        {item.brewery_name}
+                        {item.brewery_name}<br/>
+                        {item.style_name}
                     </div>
                     {label}
 
@@ -40,9 +41,11 @@ class Drinks extends React.Component {
         });
         let wine_view = this.props.drinks.wine_set.map((item, idx) => {
             return (
-                <div className={item.class} key={idx}>
+                <div className={item.class} className="beer-and-wine" key={idx}>
                     <div>
-                        {item.name}
+                        {item.name}<br/>
+                        {item.varietal}<br/>
+                        {item.winery}<br/>
                     </div>
                     <img src={item.image_link} alt={item.name} />
 
