@@ -323,7 +323,25 @@ body {
 /************/
 .login {
     background-color: lightgreen;
+    display: flex;
     text-align: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-width: 200px;
+    margin: auto;
+}
+
+/*.login {
+    background-color: lightgreen;
+    display: grid;
+    grid-column: span 1;
+    grid-row: span 1;
+    /*grid-template-rows: 1fr;
+    grid-template-columns: 3fr 1fr;
+}*/
+
+.login > label {
+  background-color: white;
 }
 
 /***********/
