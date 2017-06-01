@@ -82,6 +82,13 @@ body {
 .save-picnik-button {
     grid-row: span 1;
     grid-column: span 1;
+    background-color: #f95759;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.save-picnik-button:hover {
+    background-color: #FA8486;
 }
 
 .plan-submit-buttons {
@@ -173,10 +180,10 @@ body {
 .choice-type {
     grid-row: span 1;
     grid-column: span 1;
-    /*background-color: peachpuff;*/
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .choice-type:hover {
