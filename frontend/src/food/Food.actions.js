@@ -85,7 +85,7 @@ export const getMoreRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from
             return results.map((recipe) => {
                 // User preference check
                 // FLAVOR
-                let classes = "recipe fa fa-fw fa-check-circle";
+                let classes = "recipe ";
                 let flavors_and_prefs = [
                     [recipe.f_sweet,taste.sweet],
                     [recipe.f_sour,taste.sour_taste],

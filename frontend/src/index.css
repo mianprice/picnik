@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Sanchez');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Sanchez', serif;
   box-sizing: border-box;
 }
 
@@ -12,21 +14,26 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
+    color: #f95759;
 }
 
 .app_title, .nav_link {
     padding: 5px;
     margin: 5px;
     border-radius: 5px;
-    color: black;
+    /*color: black;*/
     text-decoration: none;
+}
+
+.app_title:visited, .nav_link:visited {
+    color: #f95759;
 }
 
 .app_title {
     font-size: 2.5em;
     width: 15vw;
     text-align: center;
-    font-family: 'Josefin Slab', serif;
+    /*font-family: 'Josefin Slab', serif;*/
 }
 
 .link_set {
