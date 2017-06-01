@@ -8,9 +8,6 @@ const addPicnikID = (id) => {
 };
 
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
-    if (recipes.length < 1 || beers.length < 1 || wines.length < 1 || !park.park_id) {
-        return {type: 'save-error'};
-    }
     let asyncAction = function(dispatch) {
         $.ajax({
             url: "http://localhost:4000/api/picnik/save",

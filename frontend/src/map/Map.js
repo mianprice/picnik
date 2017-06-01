@@ -22,13 +22,72 @@ class Map extends React.Component {
         ) : "";
         let weatherFrame = this.props.map.weather_ready ? (
             <div className="date-picker">
-                {this.props.map.weather_data.list.map((element, idx) => (
-                    <div key={idx} className="signup_section">
-                        <div className="signup_button" onClick={(event) => this.props.selectDay(idx)}>
-                            Day {idx}: {element.weather[0].main}
-                        </div>
+                <div className="day-picker">
+                    {this.props.map.weather_data.list.map((element, idx) => {
+                        let current_day = new Date(Date.now() + (idx * 24 * 60 * 60 * 1000));
+                        let current = current_day.getDay();
+                        let day;
+                        if (idx === 0) {
+                            day = 'Today';
+                        } else if (idx === 1) {
+                            day = 'Tomorrow';
+                        } else {
+                            if (current === 0) {
+                                day = 'Sunday';
+                            } else if (current === 1) {
+                                day = 'Monday';
+                            } else if (current === 2) {
+                                day = 'Tuesday';
+                            } else if (current === 3) {
+                                day = 'Wednesday';
+                            } else if (current === 4) {
+                                day = 'Thursday';
+                            } else if (current === 5) {
+                                day = 'Friday';
+                            } else if (current === 6) {
+                                day = 'Saturday';
+                            }
+                        }
+                        let dateString = (current_day.getMonth() + 1).toString() + '/' + current_day.getDate().toString() + '/' + current_day.getFullYear().toString()
+                        return (
+                            <div key={idx} className="signup_section">
+                                <div className="day_button signup_section" onClick={(event) => this.props.setDay(dateString)}>
+                                    <div>{day}: </div>
+                                    <img src={`http://openweathermap.org/img/w/${element.weather[0].icon}.png`} />
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+                <div className="time-picker">
+                    <div className="time-inputs">
+                        <select value={this.props.map.selected_hour} onChange={event => this.props.changeTime(event.target.value, 'hour')}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>:
+                        <select value={this.props.map.selected_minute} onChange={event => this.props.changeTime(event.target.value, 'minute')}>
+                            <option value="00">00</option>
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
+                        <select value={this.props.map.selected_ampm} onChange={event => this.props.changeTime(event.target.value, 'ampm')}>
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                        </select>
                     </div>
-                ))}
+                    <div className="signup_button" onClick={event => this.props.enterTime(this.props.map.selected_hour,this.props.map.selected_minute,this.props.map.selected_ampm)}>Choose Time</div>
+                </div>
             </div>
         ) : "";
         let zipEntry = this.props.map.weather_ready || this.props.map.parks_ready ? (

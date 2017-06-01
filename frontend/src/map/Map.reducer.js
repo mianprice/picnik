@@ -6,9 +6,9 @@ let INITIAL_STATE = {
     parks_data: {},
     parks_ready: false,
     selected_park: false,
-    selected_day: "",
-    selected_hour: "",
-    selected_minute: ""
+    selected_hour: "12",
+    selected_minute: "00",
+    selected_ampm: "PM"
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -27,11 +27,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         });
     } else if (action.type === "change-hour") {
         return Object.assign({}, state, {
-            selected_day: action.val
+            selected_hour: action.val
         });
     } else if (action.type === "change-minute") {
         return Object.assign({}, state, {
-            selected_day: action.val
+            selected_minute: action.val
+        });
+    } else if (action.type === "change-ampm") {
+        return Object.assign({}, state, {
+            selected_ampm: action.val
         });
     } else if (action.type === "show-parks-and-weather") {
         return Object.assign({}, state, {

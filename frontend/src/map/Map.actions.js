@@ -85,21 +85,22 @@ export const removePark = (park) => { //we pass the entire park object into the 
     return {type: 'remove-park', park};
 };
 
-export const selectDay = (num) => {
-    let date = new Date();
-    let res = date.setTime(date.getTime() + (num * 24 * 60 * 60 * 1000));
-    date = new Date(res);
-    let date_of = [date.getMonth().toString(), date.getDate().toString(), date.getFullYear().toString()].join("/");
+export const setDay = (str) => {
     return {
         type: 'select-day',
-        day: date_of
+        day: str
     };
 };
 
 export const changeTime = (val, type) => {
-    if (type === 'h') {
+    if (type === 'hour') {
         return {
             type: "change-hour",
+            val
+        };
+    } else if (type === 'ampm') {
+        return {
+            type: "change-ampm",
             val
         };
     } else {
@@ -110,8 +111,8 @@ export const changeTime = (val, type) => {
     }
 };
 
-export const enterTime = (hh,mm) => {
-    let time_of = hh.toString() + ":" + mm.toString();
+export const enterTime = (hh,mm,ampm) => {
+    let time_of = hh.toString() + ":" + mm.toString() + " " + ampm.toString();
     return {
         type: 'select-time',
         time: time_of

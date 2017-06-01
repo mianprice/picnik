@@ -15,7 +15,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             id: action.id
         });
-    } else if (action.type === "load-saved-picnik") {
+    } /*else if (action.type === "load-saved-picnik") {
         let p = action.picnik;
         return Object.assign({}, state, {
             id: p.picnik_id,
@@ -26,7 +26,7 @@ export default function reducer(state = INITIAL_STATE, action) {
             beers: p.beers[0],
             wines: p.wines[0]
         });
-    } else if (action.type === "select-beer") {
+    } */else if (action.type === "select-beer") {
         let temp_state = Object.assign({}, state);
         temp_state.beers.push(action.beer);
         return Object.assign(temp_state);
@@ -49,13 +49,13 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             park: {}
         });
-    } else if (action.type === "select-date") {
+    } else if (action.type === "select-day") {
         return Object.assign({}, state, {
-            date_of: action.date_of
+            date_of: action.day
         });
     } else if (action.type === "select-time") {
         return Object.assign({}, state, {
-            time_of: action.time_of
+            time_of: action.time
         });
     } else if (action.type === "remove-recipe") {
         let temp_state = Object.assign({}, state);
@@ -79,13 +79,21 @@ export default function reducer(state = INITIAL_STATE, action) {
         temp_state.wines = wines_filtered;
         return Object.assign(temp_state);
     } else if (action.type === 'load-picnik-to-planning') {
-        let recipes = action.picnik.recipes;
-        let wines = action.picnik.wines;
-        let beers = action.picnik.beers;
+        // console.log(action.picnik,action.picnik.park, action.picnik.park[0]);
+        let park = action.picnik.park[0];
+        let recipes = [].concat.apply([], action.picnik.recipes);
+        let wines = [].concat.apply([], action.picnik.wines);
+        let beers = [].concat.apply([], action.picnik.beers);
+        let date_of = action.picnik.date_of;
+        let time_of = action.picnik.time_of;
         return Object.assign({}, state, {
+            id: action.picnik.picnik_id,
+            park,
             recipes,
             wines,
-            beers
+            beers,
+            date_of,
+            time_of
         });
     } else if (action.type === 'logout') {
         return {

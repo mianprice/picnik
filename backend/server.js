@@ -70,44 +70,44 @@ app.get('/api/recipe/specific/:id', (req,res,next) => {
 // Retrieve a set of recipes that match the provided criteria
 // CRITERIA    => ?Comma?-separated property names
 // CONSTRAINTS => ?Comma?-separated property values
-app.post('/api/recipe/criteriaSearch', (req,res,next) => {
-    let criteria = req.body.criteria;
-    let constraints = req.body.contraints;
-});
+// app.post('/api/recipe/criteriaSearch', (req,res,next) => {
+//     let criteria = req.body.criteria;
+//     let constraints = req.body.contraints;
+// });
 
 // GET /api/recipe/saved/:userID
 // Retrieve the set of recipes saved by a specific user (denoted by userID)
-app.get('/api/recipe/saved/:userID', (req,res,next) => {
-    let user_id = req.params.userID;
-    db.any('select * from recipes_saves saves inner join recipes r on (saves.recipe_id = r.id) inner join recipe_links rl on(r.id=rl.recipe_id) where saves.user_id = $1', [user_id])
-        .then(result => {
-            res.json(result);
-        })
-        .catch(next);
-});
+// app.get('/api/recipe/saved/:userID', (req,res,next) => {
+//     let user_id = req.params.userID;
+//     db.any('select * from recipes_saves saves inner join recipes r on (saves.recipe_id = r.id) inner join recipe_links rl on(r.id=rl.recipe_id) where saves.user_id = $1', [user_id])
+//         .then(result => {
+//             res.json(result);
+//         })
+//         .catch(next);
+// });
 
 //save recipe for later
-app.post('/api/save_recipe', (req, res, next) => {
-    db.one('insert into recipes_saves values ($1, $2, $3) returning user_id', [req.body.recipe_id, req.body.user_id, req.body.type])
-    .then(results => {
-        res.json({
-            success: true
-        });
-    })
-    .catch(next);
-});
+// app.post('/api/save_recipe', (req, res, next) => {
+//     db.one('insert into recipes_saves values ($1, $2, $3) returning user_id', [req.body.recipe_id, req.body.user_id, req.body.type])
+//     .then(results => {
+//         res.json({
+//             success: true
+//         });
+//     })
+//     .catch(next);
+// });
 
 //save beer or wine for later
-app.post('/api/save_drink', (req, res, next) => {
-    var query = req.body.drink === 'beer' ? 'insert into beer_saves values ($1, $2, $3) returning user_id' : 'insert into wine_saves values ($1, $2, $3) returning user_id';
-    db.one(query, [req.body.drink_id, req.body.user_id, req.body.type])
-    .then(results => {
-        res.json({
-            success: true
-        });
-    })
-    .catch(next);
-});
+// app.post('/api/save_drink', (req, res, next) => {
+//     var query = req.body.drink === 'beer' ? 'insert into beer_saves values ($1, $2, $3) returning user_id' : 'insert into wine_saves values ($1, $2, $3) returning user_id';
+//     db.one(query, [req.body.drink_id, req.body.user_id, req.body.type])
+//     .then(results => {
+//         res.json({
+//             success: true
+//         });
+//     })
+//     .catch(next);
+// });
 
 /****************************************/
 /* <-----  BEER API STARTS HERE  -----> */
@@ -137,21 +137,21 @@ app.get('/api/beer/specific/:id', (req,res,next) => {
 // Retrieve a set of beers that match the provided criteria
 // CRITERIA    => ?Comma?-separated property names
 // CONSTRAINTS => ?Comma?-separated property values
-app.post('/api/beer/criteriaSearch', (req,res,next) => {
-    let criteria = req.body.criteria;
-    let constraints = req.body.contraints;
-});
+// app.post('/api/beer/criteriaSearch', (req,res,next) => {
+//     let criteria = req.body.criteria;
+//     let constraints = req.body.contraints;
+// });
 
 // GET /api/beer/saved/:userID
 // Retrieve the set of beers saved by a specific user (denoted by userID)
-app.get('/api/beer/saved/:userID', (req,res,next) => {
-    let user_id = req.params.userID;
-    db.any('select b.id as beer_id, b.name as beer_name, brewery_db_id, cast(abv as float), cast(ibu as float), label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beer_saves saves inner join beers b on (saves.beer_id = b.id) inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where saves.user_id = $1', [user_id])
-        .then(result => {
-            res.json(result);
-        })
-        .catch(next);
-});
+// app.get('/api/beer/saved/:userID', (req,res,next) => {
+//     let user_id = req.params.userID;
+//     db.any('select b.id as beer_id, b.name as beer_name, brewery_db_id, cast(abv as float), cast(ibu as float), label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beer_saves saves inner join beers b on (saves.beer_id = b.id) inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where saves.user_id = $1', [user_id])
+//         .then(result => {
+//             res.json(result);
+//         })
+//         .catch(next);
+// });
 
 
 /****************************************/
@@ -183,21 +183,21 @@ app.get('/api/wine/specific/:id', (req,res,next) => {
 // Retrieve a set of wines that match the provided criteria
 // CRITERIA    => ?Comma?-separated property names
 // CONSTRAINTS => ?Comma?-separated property values
-app.post('/api/wine/criteriaSearch', (req,res,next) => {
-    let criteria = req.body.criteria;
-    let constraints = req.body.contraints;
-});
+// app.post('/api/wine/criteriaSearch', (req,res,next) => {
+//     let criteria = req.body.criteria;
+//     let constraints = req.body.contraints;
+// });
 
 // GET /api/wine/saved/:userID
 // Retrieve the set of wines saved by a specific user (denoted by userID)
-app.get('/api/wine/saved/:userID', (req,res,next) => {
-    let user_id = req.params.userID;
-    db.any('select w.id as id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wine_saves saves inner join wines w on (saves.wine_id = w.id) inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) where saves.user_id = $1', [user_id])
-        .then(result => {
-            res.json(result);
-        })
-        .catch(next);
-});
+// app.get('/api/wine/saved/:userID', (req,res,next) => {
+//     let user_id = req.params.userID;
+//     db.any('select w.id as id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wine_saves saves inner join wines w on (saves.wine_id = w.id) inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) where saves.user_id = $1', [user_id])
+//         .then(result => {
+//             res.json(result);
+//         })
+//         .catch(next);
+// });
 
 /*************************************************/
 /* <-----  PARKS/WEATHER API STARTS HERE  -----> */
@@ -217,47 +217,30 @@ app.get('/api/parks_and_weather/:zip', (req,res,next) => {
         .catch(next);
 });
 
-app.get('/api/park/saved/:userID', (req,res,next) => {
-    let user_id = req.params.userID;
-    db.any('select p.id as park_id, p.name as name, p.google_id, p.place_id, pl.address, pl.icon, pl.rating, pl.reference, po.location_lat, po.location_lon, pv.viewport_ne_lat, pv.viewport_ne_lon, pv.viewport_sw_lat, pv.viewport_sw_lon from parks_saves saves inner join parks p on (saves.park_id = p.id) inner join park_links pl on (p.id = pl.park_id) inner join park_locations po on (p.id = po.park_id) inner join park_viewports pv on (p.id = pv.park_id) where saves.user_id = $1', [user_id])
-        .then(result => {
-            res.json(result);
-        })
-        .catch(next);
-});
+// app.get('/api/park/saved/:userID', (req,res,next) => {
+//     let user_id = req.params.userID;
+//     db.any('select p.id as park_id, p.name as name, p.google_id, p.place_id, pl.address, pl.icon, pl.rating, pl.reference, po.location_lat, po.location_lon, pv.viewport_ne_lat, pv.viewport_ne_lon, pv.viewport_sw_lat, pv.viewport_sw_lon from parks_saves saves inner join parks p on (saves.park_id = p.id) inner join park_links pl on (p.id = pl.park_id) inner join park_locations po on (p.id = po.park_id) inner join park_viewports pv on (p.id = pv.park_id) where saves.user_id = $1', [user_id])
+//         .then(result => {
+//             res.json(result);
+//         })
+//         .catch(next);
+// });
 
 /****************************************/
 /****************************************/
 /* <-----  INVITE RESPONSE API   -----> */
 /****************************************/
 /****************************************/
-app.get('/api/respond/accept/:token', (req,res,next) => {
-    let token = parseInt(req.params.token);
-    console.log(typeof token, token);
-    db.one('select i.id as id from invites_tokens it inner join invites i on (it.invite_id = i.id) where it.id = $1', [token])
-        .then(result => {
-            let invite_id = result.id;
-            return db.none('update invites set response = 2 where id = $1', [invite_id])
-        })
+app.get('/api/invite/:invite_id/:response', (req,res,next) => {
+    let invite_id = parseInt(req.params.invite_id);
+    let response = req.params.response === 'accept' ? 2 : 3;
+    db.none('update invites set response = $1 where id = $2', [response, invite_id])
         .then(() => {
-            res.send('<h1>We have recorded you response!  The Picnik Planner will contact you with any further information.</h1>');
+            let redirect_url = response === 2 ? 'http://localhost:3000/#/view_picnik' : 'https://www.google.com';
+            res.redirect(redirect_url);
         })
         .catch(next);
 });
-
-app.get('/api/respond/decline/:token', (req,res,next) => {
-    let token = parseInt(req.params.token);
-    db.one('select i.id as id from invites_tokens it inner join invites i on (it.invite_id = i.id) where it.id = $1', [token])
-        .then(result => {
-            let invite_id = result.id;
-            return db.none('update invites set response = 3 where id = $1', [invite_id])
-        })
-        .then(() => {
-            res.send('<h1>We have recorded your response.  The Picnik Planner will miss you at the Picnik, but you can always plan another Picnik for another time.</h1>');
-        })
-        .catch(next);
-});
-
 
 /****************************************/
 /****************************************/
@@ -382,7 +365,8 @@ app.post('/api/saved_picniks', (req,res,next) => {
 });
 
 app.post('/api/picnik/save', (req, res, next) => {
-    db.one('insert into picniks values (default, $1, $2, $3, $4, $5) returning id', [false, "07/04/2017", "3:00 PM", 30324, req.body.login.user_id])
+    console.log(req.body);
+    db.one('insert into picniks values (default, $1, $2, $3, $4, $5) returning id', [false, req.body.date_of, req.body.time_of, 30324, req.body.login.user_id])
     .then(result => {
         let beer_promises = req.body.beers.map(beer => {
             return db.none('insert into picniks_beers values ($1, $2)', [result.id, beer.beer_id])
@@ -411,113 +395,120 @@ app.post('/api/picnik/save', (req, res, next) => {
     .catch(next);
 });
 
-// ADD INVITE
-app.post('/api/add_invite', (req,res,next) => {
+// // ADD INVITE
+// app.post('/api/add_invite', (req,res,next) => {
+//     let name = req.body.name;
+//     let email = req.body.email;
+//     let picnik_id = req.body.picnik_id;
+//     db.one('select count(*)::int from invites where (picnik_id,name,email) = ($1,$2,$3)', [picnik_id,name, email])
+//         .then(result => {
+//             if (result.count === 0) {
+//                 return db.none('insert into invites values (default, $1, $2, $3, 0)', [picnik_id,name, email]);
+//             } else {
+//                 return;
+//             }
+//         })
+//         .then(result => {
+//             res.json({
+//                 success: true
+//             });
+//         })
+//         .catch(next);
+// });
+//
+// //DELETE INVITE
+//
+// app.delete('/api/remove_invite', (req,res,next) => {
+//     let email = req.body.email;
+//     let picnik_id = req.body.picnik_id;
+//     let login = req.body.login;
+//     db.one('delete from invites where picnik_id = $1 and email = $2 returning id', [picnik_id, email])
+//         .then(result => {
+//             res.json({
+//                 success: true
+//             });
+//         })
+//         .catch(next);
+// });
+
+// POST /api/get_invites
+// Required Parameters
+//      Body: (picnik_id, login)
+app.post('/api/get_invites', (req,res,next) => {
+    let picnik_id = req.body.picnik_id;
+    db.any('select * from invites where picnik_id = $1', [picnik_id])
+        .then(invite_set => {
+            res.json({
+                success: true,
+                invite_set
+            });
+        })
+        .catch(next);
+});
+
+
+// POST /api/send_invite
+// Required Parameters
+//      Body: (name, email, picnik_id, login)
+app.post('/api/send_invite', (req,res,next) => {
+    // Parse request body
     let name = req.body.name;
     let email = req.body.email;
     let picnik_id = req.body.picnik_id;
-    db.one('select count(*)::int from invites where (picnik_id,name,email) = ($1,$2,$3)', [picnik_id,name, email])
-        .then(result => {
-            if (result.count === 0) {
-                return db.none('insert into invites values (default, $1, $2, $3, 0)', [picnik_id,name, email]);
-            } else {
-                return;
-            }
-        })
-        .then(result => {
-            res.json({
-                success: true
-            });
-        })
-        .catch(next);
-});
+    let user = req.user;
 
-//DELETE INVITE
+    // Create Promises that grab data from db for use in email
+    let insertInvite = db.one('insert into invites values (default, $1, $2, $3, 1) returning *', [picnik_id, name, email]);
+    let getPicnik = db.one('select * from picniks where id = $1', [picnik_id]);
+    let getPark = db.one('select * from picniks_parks pp inner join parks p on (pp.park_id = p.id) inner join park_links pl on (p.id = pl.park_id) where pp.picnik_id = $1', [picnik_id]);
+    let getRecipes = db.any('select * from picniks_recipes pp inner join recipes r on (pp.recipe_id = r.id) inner join recipe_links rl on (r.id = rl.recipe_id) where pp.picnik_id = $1', [picnik_id]);
+    let getBeers = db.any('select * from picniks_beers pp inner join beers b on (pp.beer_id = b.id) inner join beer_links bl on (b.id = bl.beer_id) where pp.picnik_id = $1', [picnik_id]);
+    let getWines = db.any('select * from picniks_wines pp inner join wines w on (pp.wine_id = w.id) inner join wine_links wl on (w.id = wl.wine_id) where pp.picnik_id = $1', [picnik_id]);
 
-app.delete('/api/remove_invite', (req,res,next) => {
-    let email = req.body.email;
-    let picnik_id = req.body.picnik_id;
-    let login = req.body.login;
-    db.one('delete from invites where picnik_id = $1 and email = $2 returning id', [picnik_id, email])
-        .then(result => {
-            res.json({
-                success: true
-            });
-        })
-        .catch(next);
-});
+    // Join Promises for ease of use
+    Promise.join(insertInvite, getPicnik, getPark, getRecipes, getBeers, getWines, (invite, picnik, park, recipes, beers, wines) => {
 
-// SEND INVITES
-app.post('/api/send_invites', (req,res,next) => {
-    let picnik_id = req.body.picnik_id;
-    db.any('select * from invites where picnik_id = $1', [picnik_id])
-        .then(result => {
-            let emails_names = result.map((element) => {
-                return {
-                    email: element.email,
-                    name: element.name
-                };
+        // Once Promises resolve, use resulting data to create html email
+        let greeting = `<h1>${name}, ${user.first_name} has invited you to a Picnik!</h1><br><br>`;
+        let dateAndTimeString = `<p>Date: ${picnik.date_of}<br>Time: ${picnik.time_of}</p><br><br>`
+        let parkString = `<p>Park: ${park.name}<br>Address: ${park.address}</p><br><br>`;
+        let recipeString = recipes.length > 0 ? ('<h3>Food</h3><br>' + recipes.map(recipe => `<a href="http://google.com">${recipe.name}</a>`).join('<br>') + '<br><br>') : '';
+        let beerString = beers.length > 0 ? ('<h3>Beer</h3><br>' + beers.map(beer => `<a href="http://google.com">${beer.name}</a>`).join('<br>') + '<br><br>') : '';
+        let wineString = wines.length > 0 ? ('<h3>Wine</h3><br>' + wines.map(wine => `<a href="http://google.com">${wine.name}</a>`).join('<br>') + '<br><br>') : '';
+        let responseString = `<a href="http://localhost:4000/api/invite/${invite.id}/accept">Accept</a><br><br><a href="http://localhost:4000/api/invite/${invite.id}/decline">Decline</a>`
+        let body = dateAndTimeString + parkString + recipeString + beerString + wineString + responseString;
+
+        // Create mail options specific to this invite
+        let mailOptions = {
+            from: 'picnik.ian@gmail.com',
+            to: email,
+            subject: `${user.first_name + " " + user.last_name} invited you to a Picnik!`,
+            html: body,
+        };
+
+        // Wrap sendMail function in Promise to maintain promise chain and error handling
+        return new Promise((resolve,reject) => {
+            // Send email using transporter object, rejecting with an error or resolving with a successful response
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(info);
+                }
             });
-            let tokens = result.map((element) => {
-                return db.one('insert into invites_tokens values ($1,default) returning id', [element.id])
-            })
-            console.log(req.user.id);
-            return Promise.all([
-                emails_names,
-                db.one('select * from users where id = $1', [req.user.id]),
-                db.one('select * from picniks where id = $1', [picnik_id]),
-                db.one('select * from picniks_parks pp inner join parks p on (pp.park_id = p.id) inner join park_links pl on (p.id = pl.park_id) where pp.picnik_id = $1', [picnik_id]),
-                db.any('select * from picniks_recipes pp inner join recipes r on (pp.recipe_id = r.id) inner join recipe_links rl on (r.id = rl.recipe_id) where pp.picnik_id = $1', [picnik_id]),
-                db.any('select * from picniks_beers pp inner join beers b on (pp.beer_id = b.id) inner join beer_links bl on (b.id = bl.beer_id) where pp.picnik_id = $1', [picnik_id]),
-                db.any('select * from picniks_wines pp inner join wines w on (pp.wine_id = w.id) inner join wine_links wl on (w.id = wl.wine_id) where pp.picnik_id = $1', [picnik_id]),
-                Promise.all(tokens)
-            ]);
-        })
-        .then(result => {
-            return Promise.mapSeries(result[0], (element, idx) => {
-                let greeting = `<h1>${element.name}, ${result[1].name} has invited you to a Picnik!</h1><br><br>`;
-                let dateAndTimeString = `<p>Date: ${result[2].date_of}<br>Time: ${result[2].time_of}</p><br><br>`
-                let parkString = `<p>Park: ${result[3].name}<br>Address: ${result[3].address}</p><br><br>`;
-                let recipeStrings = result[4].map(recipe => {
-                    return `<a href="http://google.com">${recipe.name}</a>`
-                });
-                let recipeString = '<h3>Food</h3><br>' + recipeStrings.join('<br>') + '<br><br>';
-                let beerStrings = result[5].map(beer => {
-                    return `<a href="http://google.com">${beer.name}</a>`
-                });
-                let beerString = '<h3>Beer</h3><br>' + beerStrings.join('<br>') + '<br><br>';
-                let wineStrings = result[6].map(wine => {
-                    return `<a href="http://google.com">${wine.name}</a>`
-                });
-                let wineString = '<h3>Wine</h3><br>' + wineStrings.join('<br>') + '<br><br>';
-                let responseString = `<a href="http://localhost:4000/api/respond/accept/${result[7][idx].id}">Accept</a><br><br><a href="http://localhost:4000/api/respond/decline/${result[7][idx].id}">Decline</a>`
-                let body = dateAndTimeString + parkString + recipeString + beerString + wineString + responseString;
-                let mailOptions = {
-                    from: 'picnik.ian@gmail.com',
-                    to: element.email, // list of receivers
-                    subject: "You've been invited to a Picnik!", // Subject line
-                    html: body, // html body
-                };
-                return new Promise((resolve,reject) => {
-                    transporter.sendMail(mailOptions, (error, info) => {
-                        if (error) {
-                            console.log(error);
-                            reject(error);
-                        } else {
-                            console.log('success');
-                            console.log('Message %s sent: %s', info.messageId, info.response);
-                            resolve(info);
-                        }
-                    });
-                });
-            });
-        })
-        .then((result) => {
-            res.json({
-                success: true
-            });
-        })
-        .catch(next);
+        });
+    })
+    .then(result => {
+        return db.any('select * from invites where picnik_id = $1', [picnik_id]);
+    })
+    .then(invite_set => {
+        // Send response back to the client
+        res.json({
+            success: true,
+            invite_set
+        });
+    })
+    .catch(next);
 });
 
 /************************************/

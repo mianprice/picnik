@@ -1,22 +1,23 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as actions from './Profile.actions';
+import {hashHistory} from 'react-router';
 
 
 class Profile extends React.Component {
     componentDidMount() {
         if (this.props.login.user_id) {
             this.props.displayPicniksActionCreator(this.props.login);
-            this.props.loadSavedBeersToProfile(this.props.login);
-            this.props.loadSavedWinesToProfile(this.props.login);
-            this.props.loadSavedRecipesToProfile(this.props.login);
+            // this.props.loadSavedBeersToProfile(this.props.login);
+            // this.props.loadSavedWinesToProfile(this.props.login);
+            // this.props.loadSavedRecipesToProfile(this.props.login);
         }
     }
     componentWillReceiveProps(new_props) {
         if (new_props.login.user_id !== this.props.login.user_id) {
-            this.props.loadSavedBeersToProfile(new_props.login);
-            this.props.loadSavedWinesToProfile(new_props.login);
-            this.props.loadSavedRecipesToProfile(new_props.login);
+            // this.props.loadSavedBeersToProfile(new_props.login);
+            // this.props.loadSavedWinesToProfile(new_props.login);
+            // this.props.loadSavedRecipesToProfile(new_props.login);
             this.props.displayPicniksActionCreator(new_props.login);
         }
     }
@@ -27,12 +28,13 @@ class Profile extends React.Component {
                 <div className="saved_items_title">Saved Picniks</div>
                 {this.props.profile.saved_picniks.map((picnik, index) => (
                     <div key={index}>
-                    {picnik.picnik_id}
-                    <div className='recipe-buttons' onClick={() => this.props.loadPicnikToPlanning( this.props.profile.saved_picniks[index])}>Select Picnik and Invite Guests</div>
+                        {picnik.picnik_id} || {picnik.date_of} || {picnik.time_of}
+                        <div className='recipe-buttons' onClick={() => {this.props.loadPicnikToPlanning( this.props.profile.saved_picniks[index]);hashHistory.push('/planning')}}>Edit Picnik</div>
+                        <div className='recipe-buttons' onClick={() => {this.props.loadPicnikToPlanning( this.props.profile.saved_picniks[index]);hashHistory.push('/invitations')}}>View and Send Invites</div>
                     </div>
                 ))}
             </div>
-            <div className="saved_items">
+            {/*<div className="saved_items">
                 <div className="saved_items_title">Saved Recipes</div>
                 {this.props.profile.saved_recipes.map((recipe, index) => (
                     <div key={index}>
@@ -56,7 +58,7 @@ class Profile extends React.Component {
             <div className="saved_items">
                 <div className="saved_items_title">Saved Parks</div>
             </div>
-            <div className="signup_button" onClick={(event) => {this.props.goToSignup()}}>Edit profile</div>
+            <div className="signup_button" onClick={(event) => {this.props.goToSignup()}}>Edit profile</div>*/}
         </div>
       );
   }

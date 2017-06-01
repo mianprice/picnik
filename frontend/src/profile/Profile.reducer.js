@@ -13,7 +13,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             saved_picniks: action.payload
         });
-    } else if (action.type === 'load-saved-beers-to-profile') {
+    } /*else if (action.type === 'load-saved-beers-to-profile') {
         return Object.assign({}, state, {
             saved_beers: action.payload
         });
@@ -25,7 +25,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         return Object.assign({}, state, {
             saved_recipes: action.payload
         });
-    } else if (action.type === 'logout') {
+    } */else if (action.type === 'logout') {
         return INITIAL_STATE;
     } else if (action.type === "login-complete") {
         return {

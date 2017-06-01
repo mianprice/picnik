@@ -227,38 +227,6 @@ CREATE TABLE sessions(
     user_id INTEGER REFERENCES users(id)
 );
 
-CREATE TABLE beer_saves (
-    beer_id INTEGER REFERENCES beers(id),
-    user_id int references users(id),
-    type int
-    -- type 1 => selected in front end
-    -- type 2 => saved as part of picnik
-);
-
-CREATE TABLE wine_saves (
-    wine_id INTEGER REFERENCES wines(id),
-    user_id int references users(id),
-    type int
-    -- type 1 => selected in front end
-    -- type 2 => saved as part of picnik
-);
-
-CREATE TABLE parks_saves (
-    park_id INTEGER REFERENCES parks(id),
-    user_id int references users(id),
-    type int
-    -- type 1 => selected in front end
-    -- type 2 => saved as part of picnik
-);
-
-CREATE TABLE recipes_saves (
-    recipe_id INTEGER REFERENCES recipes(id),
-    user_id int references users(id),
-    type int
-    -- type 1 => selected in front end
-    -- type 2 => saved as part of picnik
-);
-
 CREATE TABLE picniks (
     id SERIAL PRIMARY KEY,
     favorites boolean,
@@ -295,13 +263,46 @@ CREATE TABLE invites (
     email VARCHAR,
     response INTEGER
     -- response is an integer with the following meaning:
-        -- 0 => pending  / not sent
         -- 1 => pending  / sent
         -- 2 => accepted / sent
         -- 3 => rejected / sent
 );
 
+-- UP FOR DELETION \/
+
 CREATE TABLE invites_tokens(
     invite_id INTEGER REFERENCES invites(id),
     id SERIAL PRIMARY KEY
+);
+
+CREATE TABLE beer_saves (
+    beer_id INTEGER REFERENCES beers(id),
+    user_id int references users(id),
+    type int
+    -- type 1 => selected in front end
+    -- type 2 => saved as part of picnik
+);
+
+CREATE TABLE wine_saves (
+    wine_id INTEGER REFERENCES wines(id),
+    user_id int references users(id),
+    type int
+    -- type 1 => selected in front end
+    -- type 2 => saved as part of picnik
+);
+
+CREATE TABLE parks_saves (
+    park_id INTEGER REFERENCES parks(id),
+    user_id int references users(id),
+    type int
+    -- type 1 => selected in front end
+    -- type 2 => saved as part of picnik
+);
+
+CREATE TABLE recipes_saves (
+    recipe_id INTEGER REFERENCES recipes(id),
+    user_id int references users(id),
+    type int
+    -- type 1 => selected in front end
+    -- type 2 => saved as part of picnik
 );
