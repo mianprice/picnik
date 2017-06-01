@@ -326,6 +326,13 @@ body {
     text-align: center;
 }
 
+.welcome-section {
+    background-color:rgba(195,201,207,0.3);
+    display: inline-block;
+    width: 200px;
+    color: black;
+}
+
 /**************/
 /*PROFILE PAGE*/
 /**************/
@@ -333,8 +340,6 @@ body {
     background-color: lavender;
     text-align: center;
 }
-
-
 
 .signup_button {
     padding: 5px;
