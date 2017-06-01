@@ -12,26 +12,31 @@ class Food extends React.Component {
                 return recipe.recipe_id;
             });
             return (
-                <div key={item.id}>
+                <div key={index}>
                     <div>
                         {item.name}
+                        {item.cuisines.map(cuisines => {
+                            return cuisines.name;
+                        })}
                     </div>
                     <img src={item.image_url} alt={item.name}/>
+                    {item.ingredients.map(item => {
+                        return item.name;
+                    })}
                     {recipe_set.includes(item.recipe_id) ?
                     <div className="recipe-buttons" onClick={() => {this.props.removeRecipe(item)}}>Remove from Picnik</div>
                     :
-                    <div className="recipe-buttons" onClick={() => this.props.selectRecipe(item)}>Add to Picnik</div>}
-
-                    <div className="recipe-buttons" onClick={() => this.props.saveForLater(item.recipe_id, this.props.login.user_id)}>Save for later</div>
+                    <div className="recipe-buttons" onClick={() => this.props.selectRecipe(item)}>Add to My Picnik</div>}
 
                     <a href={"http://www.yummly.co/recipe/" + item.yummly_id} target="_blank"><div className="recipe-buttons">View Recipe</div></a>
-                    <div className="check_mark"><i className={item.class} alt="check mark"/></div>
+                    <div className={item.class}><div alt="food pairing match box"/>{item.class.includes("user-preferred-recipe-good") ? "Good Match" : item.class.includes("user-preferred-recipe-great") ? "Great Match" : item.class.includes("user-preferred-recipe-excellent") ? "Excellent Match" : ""}</div>
                 </div>
             );
         });
         return (
             <div className="plan_part">
             {match_set}
+            <div className="drink-buttons" onClick={() => this.props.getMoreRecipes(this.props.signup.taste_profile, this.props.signup.cuisine_profile)}>Load More Recipes</div>
             </div>
         );
     }

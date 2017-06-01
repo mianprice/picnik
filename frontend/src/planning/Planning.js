@@ -20,7 +20,11 @@ class Planning extends React.Component {
       if (this.props.planning.currentBasket === 'recipes') {
           currentBasket = (<div className="recipe-choices">
               {this.props.planning.recipes.map((recipe, index) => {
-                  return <div className="choice" key={index}>{recipe.name}</div>
+                  return <div key={index}>
+                            <div className="choice" >{recipe.name}</div>
+                            <div className='drink-buttons' onClick={() => {this.props.beerPairingMegaFunction(this.props.signup,recipe); this.props.winePairingMegaFunction(this.props.signup, recipe)}}>View Pairing Options</div>
+                            <div className='drink-buttons' onClick={() => this.props.removeRecipe(recipe)}>Remove from Picnik Basket</div>
+                        </div>
               })}
           </div>);
       } else if (this.props.planning.currentBasket === 'beers') {
@@ -35,7 +39,10 @@ class Planning extends React.Component {
       } else if (this.props.planning.currentBasket === 'wines') {
           currentBasket = (<div className="wine-choices">
               {this.props.planning.wines.map((wine, index) => {
-                  return <div className="choice" key={index}>{wine.name}</div>
+                  return <div className="choice" key={index}>
+                                {wine.name}
+                                <div className="drink-buttons" onClick={() => {this.props.removeWine(wine)}}>Remove from Picnik</div>
+                        </div>
               })}
           </div>);
       } else {
@@ -97,7 +104,7 @@ class Planning extends React.Component {
 }
 
 const PlanningContainer = ReactRedux.connect(
-  state => ({ planning: state.planning, login: state.login, drinks: state.drinks }),
+  state => ({ planning: state.planning, login: state.login, drinks: state.drinks, signup: state.signup }),
   actions
 )(Planning);
 

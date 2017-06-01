@@ -13,12 +13,12 @@ class Drinks extends React.Component {
         let beer_set = this.props.planning.beers.map(beer => {
             return beer.beer_id;
         });
-        let beer_view = this.props.drinks.beer_set.map((item) => {
+        let beer_view = this.props.drinks.beer_set.map((item, index) => {
             let label = item.label_image_link_icon ? (
                 <img src={item.label_image_link_icon} alt={item.beer_name} />
             ) : "";
             return (
-                <div key={item.beer_id} >
+                <div key={index} >
                     <div >
                         {item.beer_name}<br/>
                         {item.brewery_name}
@@ -32,7 +32,6 @@ class Drinks extends React.Component {
 
                     <div className="check_mark">{item.class === "beer paired-beer" ? <i className="fa fa-fw fa-beer" alt="beer pint"  /> : null}</div>
 
-                    <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>
             );
         });
@@ -54,7 +53,6 @@ class Drinks extends React.Component {
 
                     <div className="check_mark">{item.class === "wine paired-wine" ? <i className="fa fa-fw fa-glass"  alt="glass"  /> : null}</div>
 
-                    <div className="recipe-buttons" onClick={() => this.props.saveForLater(item, this.props.login.user_id)}>Save for later</div>
                 </div>
             );
         });
@@ -63,9 +61,11 @@ class Drinks extends React.Component {
                 <div className="drinks-wrapper">
                     <div className="beers">
                         {beer_view}
+                    <div className="drink-buttons" onClick={() => this.props.getMoreBeers(this.props.signup.beer_profile)}>Load More Beers</div>
                     </div>
                     <div className="wines">
                         {wine_view}
+                    <div className="drink-buttons" onClick={() => this.props.getMoreWines(this.props.signup.wine_profile)}>Load More Wines</div>
                     </div>
                 </div>
             </div>

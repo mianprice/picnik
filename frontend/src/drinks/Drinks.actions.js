@@ -137,6 +137,10 @@ const displayBeers = (results) => {
     return {type: 'display-beer-options', payload: results};
 };
 
+const displayMoreBeers = (results) => {
+    return {type: 'display-more-beer-options', payload: results};
+};
+
 
 export const beerPairingMegaFunction = (beer_prefs_from_signup_state, selected_recipe) => {
     let asyncAction = function(dispatch) {
@@ -180,6 +184,10 @@ export const beerPairingMegaFunction = (beer_prefs_from_signup_state, selected_r
 
 const displayWines = (results) => {
     return {type: 'display-wine-options', payload: results};
+};
+
+const displayMoreWines = (results) => {
+    return {type: 'display-more-wine-options', payload: results};
 };
 
 const userPreferenceWineFilter = (wine_prefs_from_signup_state) => { //filters out the corresponding styleids of the beer styles the user dislikes and returns the ids in an array
@@ -243,24 +251,12 @@ const winePairingEngine = (selected_recipe) => {
   } else return "No matches";
 }
 
-export const winePairingMegaFunction = (wine_prefs_from_signup_state, selected_recipe) => {
+export const winePairingMegaFunction = (wines_filtered_based_on_prefs, selected_recipe) => {
     let asyncAction = function(dispatch) {
         $.ajax({
             url: "http://localhost:4000/api/wine",
             method: "GET",
             dataType: 'JSON'
-        })
-        .then((api_wine_data) => {
-            let disliked_wines_checker = userPreferenceWineFilter(wine_prefs_from_signup_state);
-            let wines_filtered_based_on_prefs = api_wine_data.filter(wine => { // uses disliked_wines array to compare against the returned array of objects from the api call, and returns only the wines that don't match the disliked wines array
-                if (disliked_wines_checker.length > 0) {
-                    return (!disliked_wines_checker.includes(wine.style_id));
-                }
-                else {
-                    return wine;
-                }
-            });
-            return wines_filtered_based_on_prefs;
         })
         .then((wines_filtered_based_on_prefs) => {
             let final_wine_set = wines_filtered_based_on_prefs.map(wine => { //adds paired-wine class to wines that matched the recommended pairings for the selected dish
@@ -307,6 +303,31 @@ export const getBeers = (beer_prefs_from_signup_state) => {
     return asyncAction;
 };
 
+export const getMoreBeers = (beer_prefs_from_signup_state) => {
+    let asyncAction = function(dispatch) {
+        $.ajax({
+            url: "http://localhost:4000/api/beer",
+            method: "GET",
+            dataType: 'JSON'
+        })
+        .then((api_beer_data) => {
+            let disliked_beers_checker = userPreferenceBeerFilter(beer_prefs_from_signup_state);
+            let final_beer_set = api_beer_data.filter(beer => { // uses disliked_beers array to compare against the returned array of objects from the api call, and returns only the beers that don't match the disliked beers array
+                if (disliked_beers_checker.length > 0) {
+                    return (!disliked_beers_checker.includes(beer.style_id));
+                }
+                else {
+                    return beer;
+                }
+            });
+            return final_beer_set;
+        })
+        .then((final_beer_set) => dispatch(displayMoreBeers(final_beer_set)))
+        .catch(error =>  {throw error});
+    }
+    return asyncAction;
+};
+
 export const getWines = (wine_prefs_from_signup_state) => {
     let asyncAction = function(dispatch) {
         $.ajax({
@@ -327,6 +348,31 @@ export const getWines = (wine_prefs_from_signup_state) => {
             return final_wine_set;
         })
         .then((final_wine_set) => dispatch(displayWines(final_wine_set)))
+        .catch(error =>  {throw error});
+    }
+    return asyncAction;
+};
+
+export const getMoreWines = (wine_prefs_from_signup_state) => {
+    let asyncAction = function(dispatch) {
+        $.ajax({
+            url: "http://localhost:4000/api/wine",
+            method: "GET",
+            dataType: 'JSON'
+        })
+        .then((api_wine_data) => {
+            let disliked_wines_checker = userPreferenceWineFilter(wine_prefs_from_signup_state);
+            let final_wine_set = api_wine_data.filter(wine => { // uses disliked_wines array to compare against the returned array of objects from the api call, and returns only the wines that don't match the disliked wines array
+                if (disliked_wines_checker.length > 0) {
+                    return (!disliked_wines_checker.includes(wine.style_id));
+                }
+                else {
+                    return wine;
+                }
+            });
+            return final_wine_set;
+        })
+        .then((final_wine_set) => dispatch(displayMoreWines(final_wine_set)))
         .catch(error =>  {throw error});
     }
     return asyncAction;
