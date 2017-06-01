@@ -20,6 +20,7 @@ body {
     align-items: center;
     flex-wrap: nowrap;
     color: #f95759;
+    border-bottom: 4px solid #f95759;
 }
 
 .app_title, .nav_link {
@@ -135,6 +136,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #f95759;
+    color: white;
+}
+
+.planning-container-tab-active {
+    background-color: white;
+    color: #f95759;
+    /*border-top: 5px solid #f95759;
+    border-right: 5px solid #f95759;
+    border-left: 5px solid #f95759;*/
 }
 
 .current-planning-container {
@@ -506,6 +517,11 @@ body {
 
 .paired-wine {
     background-color: green;
+}
+
+.recipe {
+    background-color: #FFF7F7;
+    margin: 10px;
 }
 
 .recipe-buttons {

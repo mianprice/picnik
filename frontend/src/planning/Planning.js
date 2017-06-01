@@ -54,17 +54,17 @@ class Planning extends React.Component {
         <div className="planning">
             <div className="picnik-planner-container">
                 <div className="planning-page-picnik-chooser">
-                    <div className="planning-container-tab" onClick={event => this.props.changePage('food')}>
+                    <div className={this.props.planning.currentPage !== 'food' ? "planning-container-tab" : "planning-container-tab planning-container-tab-active"} onClick={event => this.props.changePage('food')}>
                         <div>
                             Food
                         </div>
                     </div>
-                    <div className="planning-container-tab" onClick={event => this.props.changePage('drinks')}>
+                    <div className={this.props.planning.currentPage !== 'drinks' ? "planning-container-tab" : "planning-container-tab planning-container-tab-active"} onClick={event => this.props.changePage('drinks')}>
                         <div>
                             Drinks
                         </div>
                     </div>
-                    <div className="planning-container-tab" onClick={event => this.props.changePage('map')}>
+                    <div className={this.props.planning.currentPage !== 'map' ? "planning-container-tab" : "planning-container-tab planning-container-tab-active"} onClick={event => this.props.changePage('map')}>
                         <div>
                             Parks & Weather
                         </div>

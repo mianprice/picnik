@@ -7,12 +7,12 @@ class Food extends React.Component {
         this.props.getRecipes(this.props.signup.taste_profile, this.props.signup.cuisine_profile);
     }
     render() {
+        let recipe_set = this.props.planning.recipes.map(recipe => {
+            return recipe.recipe_id;
+        });
         let match_set = this.props.food.recipe_set.map((item, index) => {
-            let recipe_set = this.props.planning.recipes.map(recipe => {
-                return recipe.recipe_id;
-            });
             return (
-                <div key={index}>
+                <div className="recipe" key={index}>
                     <div>
                         {item.name}
                         {item.cuisines.map(cuisines => {
