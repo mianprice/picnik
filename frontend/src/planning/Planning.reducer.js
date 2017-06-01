@@ -35,11 +35,9 @@ export default function reducer(state = INITIAL_STATE, action) {
         temp_state.wines.push(action.wine);
         return Object.assign(temp_state);
     } else if (action.type === "select-recipe") {
-        let r = state.recipes;
-        r.push(action.recipe);
-        return Object.assign({}, state, {
-            recipes: r
-        });
+        let temp_state = Object.assign({}, state);
+        temp_state.recipes.push(action.recipe);
+        return Object.assign(temp_state);
     } else if (action.type === "select-park") {
         return Object.assign({}, state, {
             park: action.park,
