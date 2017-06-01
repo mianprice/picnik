@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const nodemailer = require ('nodemailer');
-// CREATE MAIL TRANPORTER
+// CREATE MAIL TRANSPORTER
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: config.email
@@ -66,48 +66,6 @@ app.get('/api/recipe/specific/:id', (req,res,next) => {
         .catch(next);
 });
 
-// POST /api/recipe/criteriaSearch
-// Retrieve a set of recipes that match the provided criteria
-// CRITERIA    => ?Comma?-separated property names
-// CONSTRAINTS => ?Comma?-separated property values
-// app.post('/api/recipe/criteriaSearch', (req,res,next) => {
-//     let criteria = req.body.criteria;
-//     let constraints = req.body.contraints;
-// });
-
-// GET /api/recipe/saved/:userID
-// Retrieve the set of recipes saved by a specific user (denoted by userID)
-// app.get('/api/recipe/saved/:userID', (req,res,next) => {
-//     let user_id = req.params.userID;
-//     db.any('select * from recipes_saves saves inner join recipes r on (saves.recipe_id = r.id) inner join recipe_links rl on(r.id=rl.recipe_id) where saves.user_id = $1', [user_id])
-//         .then(result => {
-//             res.json(result);
-//         })
-//         .catch(next);
-// });
-
-//save recipe for later
-// app.post('/api/save_recipe', (req, res, next) => {
-//     db.one('insert into recipes_saves values ($1, $2, $3) returning user_id', [req.body.recipe_id, req.body.user_id, req.body.type])
-//     .then(results => {
-//         res.json({
-//             success: true
-//         });
-//     })
-//     .catch(next);
-// });
-
-//save beer or wine for later
-// app.post('/api/save_drink', (req, res, next) => {
-//     var query = req.body.drink === 'beer' ? 'insert into beer_saves values ($1, $2, $3) returning user_id' : 'insert into wine_saves values ($1, $2, $3) returning user_id';
-//     db.one(query, [req.body.drink_id, req.body.user_id, req.body.type])
-//     .then(results => {
-//         res.json({
-//             success: true
-//         });
-//     })
-//     .catch(next);
-// });
 
 /****************************************/
 /* <-----  BEER API STARTS HERE  -----> */
@@ -133,25 +91,6 @@ app.get('/api/beer/specific/:id', (req,res,next) => {
         })
         .catch(next);
 });
-// POST /api/beer/criteriaSearch
-// Retrieve a set of beers that match the provided criteria
-// CRITERIA    => ?Comma?-separated property names
-// CONSTRAINTS => ?Comma?-separated property values
-// app.post('/api/beer/criteriaSearch', (req,res,next) => {
-//     let criteria = req.body.criteria;
-//     let constraints = req.body.contraints;
-// });
-
-// GET /api/beer/saved/:userID
-// Retrieve the set of beers saved by a specific user (denoted by userID)
-// app.get('/api/beer/saved/:userID', (req,res,next) => {
-//     let user_id = req.params.userID;
-//     db.any('select b.id as beer_id, b.name as beer_name, brewery_db_id, cast(abv as float), cast(ibu as float), label_image_link_medium, label_image_link_icon, brewery_id, brewery_db_breweryid, br.name as brewery_name,br.link as brewery_link, br.icon_image_link as brewery_icon, br.medium_image_link as brewery_medium, br.description as brewery_desc, br.zip as zip, style_id as internal_style_id, brewery_db_styleid::int as style_id, s.name as style_name from beer_saves saves inner join beers b on (saves.beer_id = b.id) inner join beer_links bl on(b.id = bl.beer_id) inner join breweries_beers bb on(b.id=bb.beer_id) inner join breweries br on(bb.brewery_id = br.id) inner join beers_styles bs on(b.id=bs.beer_id) inner join styles s on(bs.style_id = s.id) where saves.user_id = $1', [user_id])
-//         .then(result => {
-//             res.json(result);
-//         })
-//         .catch(next);
-// });
 
 
 /****************************************/
@@ -179,25 +118,6 @@ app.get('/api/wine/specific/:id', (req,res,next) => {
         .catch(next);
 });
 
-// POST /api/wine/criteriaSearch
-// Retrieve a set of wines that match the provided criteria
-// CRITERIA    => ?Comma?-separated property names
-// CONSTRAINTS => ?Comma?-separated property values
-// app.post('/api/wine/criteriaSearch', (req,res,next) => {
-//     let criteria = req.body.criteria;
-//     let constraints = req.body.contraints;
-// });
-
-// GET /api/wine/saved/:userID
-// Retrieve the set of wines saved by a specific user (denoted by userID)
-// app.get('/api/wine/saved/:userID', (req,res,next) => {
-//     let user_id = req.params.userID;
-//     db.any('select w.id as id, w.name as name, wl.snooth_code as snooth_code, wl.region as region, cast (wl.price as float) as price, wl.vintage::int as vintage, wl.type as type, wl.link as link, wl.image_link as image_link, v.name as varietal, v.id as varietal_id, wi.name as winery, wi.id as winery_id, wi.winery_snooth_id as winery_snooth_id from wine_saves saves inner join wines w on (saves.wine_id = w.id) inner join wines_varietals wv on (w.id = wv.wine_id) inner join varietals v on (wv.varietal_id = v.id) inner join wines_wineries ww on (w.id = ww.wine_id) inner join wineries wi on (ww.winery_id = wi.id) inner join wine_links wl on (w.id = wl.wine_id) where saves.user_id = $1', [user_id])
-//         .then(result => {
-//             res.json(result);
-//         })
-//         .catch(next);
-// });
 
 /*************************************************/
 /* <-----  PARKS/WEATHER API STARTS HERE  -----> */
@@ -217,14 +137,6 @@ app.get('/api/parks_and_weather/:zip', (req,res,next) => {
         .catch(next);
 });
 
-// app.get('/api/park/saved/:userID', (req,res,next) => {
-//     let user_id = req.params.userID;
-//     db.any('select p.id as park_id, p.name as name, p.google_id, p.place_id, pl.address, pl.icon, pl.rating, pl.reference, po.location_lat, po.location_lon, pv.viewport_ne_lat, pv.viewport_ne_lon, pv.viewport_sw_lat, pv.viewport_sw_lon from parks_saves saves inner join parks p on (saves.park_id = p.id) inner join park_links pl on (p.id = pl.park_id) inner join park_locations po on (p.id = po.park_id) inner join park_viewports pv on (p.id = pv.park_id) where saves.user_id = $1', [user_id])
-//         .then(result => {
-//             res.json(result);
-//         })
-//         .catch(next);
-// });
 
 /****************************************/
 /****************************************/
@@ -545,6 +457,12 @@ function validate_login(attempted) {
       } else {
         reject('Invalid login attempt');
       }
+    })
+    .then(result => {
+        return Promise.all([
+            result.token,
+            db.one('select')
+        ])
     })
     .then((result) => {
       return {

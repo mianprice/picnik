@@ -67,7 +67,7 @@ class AppLayout extends React.Component {
         );
         return(
             <div>
-                <div className="navbar">
+                <div className="navbar emph">
                     <IndexLink to="/" className="app_title">picnik</IndexLink>
                     {nav_options}
                 </div>
