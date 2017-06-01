@@ -29,7 +29,7 @@ class Food extends React.Component {
                     <div className="recipe-buttons" onClick={() => this.props.selectRecipe(item)}>Add to My Picnik</div>}
 
                     <a href={"http://www.yummly.co/recipe/" + item.yummly_id} target="_blank"><div className="recipe-buttons">View Recipe</div></a>
-                    <div className="check_mark"><i className={item.class} alt="check mark"/></div>
+                    <div className={item.class}><div alt="food pairing match box"/>{item.class.includes("user-preferred-recipe-good") ? "Good Match" : item.class.includes("user-preferred-recipe-great") ? "Great Match" : item.class.includes("user-preferred-recipe-excellent") ? "Excellent Match" : ""}</div>
                 </div>
             );
         });

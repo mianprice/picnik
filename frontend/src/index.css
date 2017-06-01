@@ -581,19 +581,21 @@ body {
 }
 
 .user-preferred-recipe-good {
-    color: yellow;
+    background-color: yellow;
+    display: inline-block;
+    padding: 5px;
 }
 
 .user-preferred-recipe-great {
-    color: lightgreen;
+    background-color: lightgreen;
+    display: inline-block;
+    padding: 5px;
 }
 
 .user-preferred-recipe-excellent {
-    color: green;
-}
-
-.user-preferred-recipe-poor {
-    color: darkblue;
+    background-color: green;
+    display: inline-block;
+    padding: 5px;
 }
 
 .saved_items {
