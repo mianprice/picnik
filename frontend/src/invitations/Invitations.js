@@ -38,8 +38,9 @@ class Invitations extends React.Component {
             </div>
         );
         let picnik = this.props.planning;
+        let page_body;
         if (this.props.login.token) {
-            return (
+            page_body = (
                 <div className='invitations-content'>
                     <div className="invitations-picnik-summary">
                         <div className="saved-picnik">
@@ -92,8 +93,9 @@ class Invitations extends React.Component {
                 </div>
             );
         } else {
-            return invitationResponse;
+            page_body = invitationResponse;
         }
+        return page_body;
     }
 }
 
