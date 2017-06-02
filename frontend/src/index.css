@@ -404,10 +404,6 @@ body {
     text-align: center;
 }
 
-.signup .signup_button {
-    background-color: lightgrey;
-}
-
 /************/
 /*LOGIN PAGE*/
 /************/
@@ -997,4 +993,8 @@ body {
     cursor: pointer;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.map_button {
+    background-color: lightgrey;
 }

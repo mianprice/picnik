@@ -89,18 +89,18 @@ class Map extends React.Component {
                             <option value="PM">PM</option>
                         </select>
                     </div>
-                    <div className="signup_button_selected" onClick={event => this.props.enterTime(this.props.map.selected_hour,this.props.map.selected_minute,this.props.map.selected_ampm)}>Choose Time</div>
+                    <div className="signup_button map_button" onClick={event => this.props.enterTime(this.props.map.selected_hour,this.props.map.selected_minute,this.props.map.selected_ampm)}>Choose Time</div>
                 </div>
             </div>
         ) : "";
         let zipEntry = this.props.map.weather_ready || this.props.map.parks_ready ? (
             <div className="zip-entry">
-                <div className="signup_button_selected" onClick={(event) => {this.props.resetZip()}}>Search a different location</div>
+                <div className="signup_button map_button" onClick={(event) => {this.props.resetZip()}}>Search a different location</div>
             </div>
         ) : (
             <div className="zip-entry">
                 <input type="text" id="search_zip" value={this.props.map.search_zip} placeholder="Enter ZIP code here:" onChange={(event) =>  {this.props.changeZip(event.target.value)}} />
-                <div className="signup_button_selected" onClick={(event) => {this.props.getParksAndWeather(this.props.map.search_zip);}}>Search</div>
+                <div className="signup_button map_button" onClick={(event) => {this.props.getParksAndWeather(this.props.map.search_zip);}}>Search</div>
             </div>
         );
         return (
