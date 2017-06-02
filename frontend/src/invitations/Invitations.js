@@ -96,7 +96,7 @@ class Invitations extends React.Component {
         } else {
             page_body = invitationResponse
         }
-        return page_body;
+        return invitationSendPage;
     }
 }
 
