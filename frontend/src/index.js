@@ -54,21 +54,21 @@ class AppLayout extends React.Component {
     render() {
         let nav_options = this.props.state.login.token ? (
             <div className="link_set">
-                <Link className="nav_link" to="/profile">My Picniks</Link>
+                <Link style={{color: "black"}} className="nav_link" to="/profile">My Picniks</Link>
                 <div className="nav_link" onClick={(event) => {this.logout()}}>Logout</div>
-                <Link className="nav_link" to="/planning">Planner</Link>
+                <Link style={{color: "black"}} className="nav_link" to="/planning">Planner</Link>
             </div>
         ) : (
             <div className="link_set">
-                <Link className="nav_link" to="/login">Login</Link>
-                <Link className="nav_link" to="/signup">Signup</Link>
-                <Link className="nav_link" to="/planning">Planning</Link>
+                <Link style={{color: "black"}} className="nav_link" to="/login">Login</Link>
+                <Link style={{color: "black"}} className="nav_link" to="/signup">Signup</Link>
+                <Link style={{color: "black"}} className="nav_link" to="/planning">Planning</Link>
             </div>
         );
         return(
             <div>
                 <div className="navbar emph">
-                    <IndexLink to="/" className="app_title">picnik</IndexLink>
+                    <IndexLink style={{color: "black"}} to="/" className="app_title">picnik</IndexLink>
                     {nav_options}
                 </div>
                 <div>

@@ -920,6 +920,7 @@ body {
 }
 
 .guest-display {
+    margin: 5px 0;
     width: 100%;
     /*margin-left: 5%;*/
     /*margin-right: 10%;*/
