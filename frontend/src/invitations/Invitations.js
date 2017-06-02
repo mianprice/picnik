@@ -46,7 +46,7 @@ class Invitations extends React.Component {
                             Park: {(picnik.park) ? (picnik.park.name) : ""}<br/><br/>
                             Address: {(picnik.park) ? (picnik.park.address) : ""}<br/><br/>
                         </div>
-                        <div>
+                        <div className="saved-picnik-details">
                             <div>Recipes:</div>
                             <div className="saved-picnik-recipe-details">
                                 {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
@@ -57,7 +57,7 @@ class Invitations extends React.Component {
                                 }) : "No recipes were selected for this picnik."}
                             </div>
                         </div>
-                        <div>
+                        <div className="saved-picnik-details">
                             <div>Beers:</div>
                             {(picnik.beers && picnik.beers.length > 0) ? picnik.beers.map((beer, index) => {
                                 return <div className="saved-picnik-beer-details">
@@ -67,7 +67,7 @@ class Invitations extends React.Component {
                             }) : (<div className="saved-picnik-beer-details">No beers were selected for this picnik.</div>)}
                         </div>
 
-                        <div>
+                        <div className="saved-picnik-details">
                             <div>Wines:</div> {(picnik.wines && picnik.wines.length > 0) ? picnik.wines.map((wine, index) => {
                                 return <div className="saved-picnik-wine-details">
                                              {wine.name}

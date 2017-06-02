@@ -857,12 +857,14 @@ body {
     /*background-color: pink;*/
     display: flex;
     justify-content: center;
-    align-items: stretch;
+    /*align-items: stretch;*/
     flex-wrap: wrap;
     margin-top: 20px;
+    padding: 10px;
 }
 
 .invitations-content-title {
+    width: 100%;
     text-align: center;
     font-size: 1.25em;
     width: 95%;
@@ -870,9 +872,9 @@ body {
 
 .invitation-submit-button {
     padding: 10px;
-    margin: 5px;
+    /*margin: 5px;*/
     border-radius: 5px;
-    width: 30%;
+    width: 100%;
     background-color: darkgreen;
     color: white;
     text-align: center;
@@ -964,10 +966,10 @@ body {
 .saved-picnik {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     font-size: 1em;
     background-color: #DBDCD6;
-    margin: 10px;
+    /*margin: 10px;*/
 }
 
 /*.saved-picnik*/
@@ -982,7 +984,7 @@ body {
 
 .saved-picnik-recipe-details {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
     width: 25%;
     padding: 5px;
