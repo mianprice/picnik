@@ -1055,6 +1055,6 @@ body {
 }
 
 .invite-response-text {
-    font-size: 3em;
+    /*font-size: 2em;*/
     color: #f95759;
 }
