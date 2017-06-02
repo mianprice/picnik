@@ -45,7 +45,7 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
                 // let r = (result.id)
                 console.log('invitations');
                 dispatch(addPicnikID(result.id));
-                redirect('/invitations', 'none');
+                dispatch(redirect('/invitations', 'none'));
             })
             .catch(error => {
                 console.log(error);

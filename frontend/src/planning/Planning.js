@@ -95,7 +95,7 @@ class Planning extends React.Component {
                         <div className="save-picnik-buttons-container">
                             <div className="save-picnik-button">
                                 <Link className="plan-submit-buttons" to='/invitations'>
-                                    <div onClick={(event) => {this.props.savePicnik(this.props.planning.recipes, this.props.planning.beers, this.props.planning.wines, this.props.planning.park, this.props.planning.date_of, this.props.planning.time_of, this.props.login);this.props.setRedirect('/invitations');}}>Save Your Picnik and Invite Your Friends</div>
+                                    <div onClick={(event) => {this.props.savePicnik(this.props.planning.recipes, this.props.planning.beers, this.props.planning.wines, this.props.planning.park, this.props.planning.date_of, this.props.planning.time_of, this.props.login);}}>Save Your Picnik and Invite Your Friends</div>
                                 </Link>
                             </div>
                         </div>
