@@ -911,6 +911,7 @@ body {
     background-color: darkgreen;
     color: white;
     text-align: center;
+    margin-top: 15px;
 }
 
 .add-to-guest-list-button:hover {
