@@ -920,15 +920,15 @@ body {
 }
 
 .guest-display {
-    width: 35%;
-    margin-left: 5%;
-    margin-right: 10%;
+    width: 100%;
+    /*margin-left: 5%;*/
+    /*margin-right: 10%;*/
     /*background-color: lightgrey;*/
     display: flex;
     justify-content: center;
-    align-items: stretch;
+    align-content: space-between;
     flex-wrap: wrap;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 
 .invitations-guest-list-section, .invitations-display-section {

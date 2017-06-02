@@ -12,7 +12,6 @@ class Invitations extends React.Component {
         let invitation_set = (
             <div className='invitations-display-section'>
                 <div className='invitations-content-title'>Guest List</div>
-                <div className="add-to-guest-list-button" onClick={event => this.props.refreshGuestList(this.props.planning.id, this.props.login)}>Refresh</div>
                 {this.props.invitations.guest_list.length > 0 ? this.props.invitations.guest_list.map((guest, index) => {
                     let responseString, responseIcon;
                     if (guest.response == 2) {
@@ -34,6 +33,7 @@ class Invitations extends React.Component {
                             </div>
                     );
                 }) : ""}
+                <div className="add-to-guest-list-button" onClick={event => this.props.refreshGuestList(this.props.planning.id, this.props.login)}>Refresh</div>
             </div>
         )
         let picnik = this.props.planning;
@@ -42,19 +42,16 @@ class Invitations extends React.Component {
                 <div className="invitations-picnik-summary">
                     <div className="saved-picnik">
                         <div className="saved-picnik-details">
-                            Date: {picnik.date_of}<br/><br/>
-                            Time: {picnik.time_of}<br/><br/>
-                            Park: {(picnik.park) ? (picnik.park.name) : ""}<br/><br/>
-                            Address: {(picnik.park) ? (picnik.park.address) : ""}<br/><br/>
+                            <div>Date: {picnik.date_of}</div>
+                            <div>Time: {picnik.time_of}</div>
+                            <div>Park: {(picnik.park) ? (picnik.park.name) : ""}</div>
+                            <div>Address: {(picnik.park) ? (picnik.park.address) : ""}</div>
                         </div>
                         <div className="saved-picnik-details">
                             <div>Recipes:</div>
                             <div className="saved-picnik-recipe-details">
                                 {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
-                                    return <div>
-                                                {recipe.name}
-
-                                            </div>
+                                    return <div>{recipe.name}</div>
                                 }) : "No recipes were selected for this picnik."}
                             </div>
                         </div>
