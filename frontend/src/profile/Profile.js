@@ -31,8 +31,8 @@ class Profile extends React.Component {
                         <div className="saved-picnik-details">
                             Date: {picnik.date_of}<br/><br/>
                             Time: {picnik.time_of}<br/><br/>
-                            Park: {picnik.park[0].name}<br/><br/>
-                            Address: {picnik.park[0].address}<br/><br/>
+                            Park: {(picnik.park && picnik.park[0]) ? (picnik.park[0].name) : ""}<br/><br/>
+                            Address: {(picnik.park && picnik.park[0]) ? (picnik.park[0].address) : ""}<br/><br/>
                         </div>
                             Recipes: {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
                                 return <div className="saved-picnik-recipe-details" key={index}>
@@ -40,14 +40,14 @@ class Profile extends React.Component {
 
                                         </div>
                             }) : "No recipes were selected for this picnik."}
-                        {picnik.beers.length > 0 ? picnik.beers.map((beer, index) => {
+                        {(picnik.beers && picnik.beers[0] && picnik.beers[0].length > 0) ? picnik.beers[0].map((beer, index) => {
                             return <div className="saved-picnik-beer-details" key={index}>
                                         Beers: <br/><br/> {beer.beer_name}
 
                                     </div>
                         }) : "No beers were selected for this picnik."}
 
-                        {picnik.wines.length > 0 ? picnik.wines.map((wine, index) => {
+                        {(picnik.wines && picnik.wines[0] && picnik.wines[0].length > 0) ? picnik.wines[0].map((wine, index) => {
                             return <div className="saved-picnik-wine-details" key={index}>
                                         Wines: <br/><br/>{wine.name}
                                     </div>
