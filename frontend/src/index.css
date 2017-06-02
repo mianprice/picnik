@@ -942,6 +942,7 @@ body {
     overflow-y: scroll;
     /*margin: 10px;*/
     padding: 10px;
+    height:50vh
 }
 
 .invitations-guest-list-section > div {
@@ -988,6 +989,7 @@ body {
 }
 
 .saved-picnik {
+    height: 30vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
