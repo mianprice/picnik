@@ -1,27 +1,30 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as actions from './Signup.actions';
+import {Router, Route, hashHistory, Link, IndexLink, IndexRoute} from 'react-router';
 
 class Signup extends React.Component {
   render() {
       let taste_profile_array = ["None", "Little", "Some", "Lots"];
-      let cuisine_profile_array = [
-          "Mexican", "Italian", "Mediterranean", "Thai", "Barbeque", "American", "Japanese", "Chinese"];
       // let wine_profile_array = ["Chardonnay", "Cabernet", "Malbec", "Riesling", "Rose"];
       let beer_profile_array = ["IPA", "Stout", "Wheat", "Pilsner","Saison",  "Belgian", "Sours", "Porter", "Lager"];
       let displayArray = [
           (
               <div className="signup_section">
                   <div className="signup_section_title">Basic Info</div>
-                  <div>Email: <input type="text" id="email" value={this.props.signup.email} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <div>Username: <input type="text" id="user_name" value={this.props.signup.username} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <div>Password: <input type="text" id="password" value={this.props.signup.password} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <div>Confirm Password: <input type="text" id="password_confirm" value={this.props.signup.password_confirm} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <div>First Name: <input type="text" id="first_name" value={this.props.signup.first} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <div>Last Name: <input type="text" id="last_name" value={this.props.signup.last} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <div>Are you over the age of 21?
-                      <div className="signup_button" onClick={() => this.props.updateBasicSignup('of_age', true)}>Yes</div>
-                      <div className="signup_button" onClick={() => this.props.updateBasicSignup('of_age', false)}>No</div>
+                  <div className="signup_section_form">
+                  <label>Email</label>
+                  <div><input type="text" id="email" value={this.props.signup.email} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                  <label>Username</label>
+                  <div><input type="text" id="user_name" value={this.props.signup.username} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                  <label>Password</label>
+                  <div><input type="password" id="password" value={this.props.signup.password} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                  <label>Confrim Password</label>
+                  <div><input type="password" id="password_confirm" value={this.props.signup.password_confirm} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                  <label>First Name</label>
+                  <div><input type="text" id="first_name" value={this.props.signup.first} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                  <label>Last Name</label>
+                  <div><input type="text" id="last_name" value={this.props.signup.last} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
                   </div>
                   <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
 
@@ -63,25 +66,15 @@ class Signup extends React.Component {
                         )}
                     </div>
                 </div>
-                <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
                 <div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
+                <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
+
 
               </div>
           ),
-          (
-              <div className="signup_section">
-                  <div className="signup_section_title">Cuisine</div>
-                      {cuisine_profile_array.map((item, index) =>
-                          <div key={index} className={this.props.signup.cuisine_profile[item.toLowerCase()] === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setCuisine(item.toLowerCase())}>{item}</div>
-                      )}
+          (   <div className="signup_section">
+              <div className="wine_section">
 
-                    <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
-                    <div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
-
-              </div>
-          ),
-          (
-              <div className="signup_section wine_section">
                 <div className="wine_instructions">
                 Here we suggest keeping your options open. Sometimes a properly paired wine 			can really change your mind, but if you really don’t like Reds, or can’t stand Sparkling 		wine, we won’t judge, Simply select the wines you don’t want us to show you.
                 </div>
@@ -141,23 +134,25 @@ class Signup extends React.Component {
                   ex. cava, champagne, prosecco, …
                   </div>
                 </div>
-
-
-                <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
-
               </div>
+              <div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
+              <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
+              </div>
+
           ),
           (
-              <div className="signup_section"><div className="signup_section_title">Beer</div>
+            <div className="signup_section">
+              <div className="beer-signup-section-container"><div className="signup_section_title">Beer</div>
                   {beer_profile_array.map((item, index) =>
                       <div key={index} className={this.props.signup.beer_profile[item.toLowerCase()] === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setBeer(item.toLowerCase())}>{item}</div>
                   )}
                   {/* CAN'T MAP OVER THE BEER BELOW BECAUSE ITS NAME IN THE STATE IS DIFFERENT THAN IT APPEARS IN THE VIEW */}
                 <div className={this.props.signup.beer_profile.pale_ale === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setBeer('pale_ale')}>Pale Ale</div>
 
-                <div className="signup_submit_button" onClick={(event) => {this.props.completeSignup(this.props.signup)}}>Submit</div><div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
-
               </div>
+              <div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
+              <div className="signup_submit_button" onClick={(event) => {this.props.completeSignup(this.props.signup); hashHistory.push('/planning')}}>Submit</div>
+            </div>
           )
       ];
     return (
@@ -165,9 +160,8 @@ class Signup extends React.Component {
             <div className="signup_progress">
                 <div className={this.props.signup.current_section > 0 ? "sec_done progress_section" : (this.props.signup.current_section === 0 ? "sec_now progress_section" : "sec_future progress_section")}>Basic Info</div>
                 <div className={this.props.signup.current_section > 1 ? "sec_done progress_section" : (this.props.signup.current_section === 1 ? "sec_now progress_section" : "sec_future progress_section")}>Tastes</div>
-                <div className={this.props.signup.current_section > 2 ? "sec_done progress_section" : (this.props.signup.current_section === 2 ? "sec_now progress_section" : "sec_future progress_section")}>Cuisines</div>
-                <div className={this.props.signup.current_section > 3 ? "sec_done progress_section" : (this.props.signup.current_section === 3 ? "sec_now progress_section" : "sec_future progress_section")}>Wines</div>
-                <div className={this.props.signup.current_section > 4 ? "sec_done progress_section" : (this.props.signup.current_section === 4 ? "sec_now progress_section" : "sec_future progress_section")}>Beers</div>
+                <div className={this.props.signup.current_section > 2 ? "sec_done progress_section" : (this.props.signup.current_section === 2 ? "sec_now progress_section" : "sec_future progress_section")}>Wines</div>
+                <div className={this.props.signup.current_section > 3 ? "sec_done progress_section" : (this.props.signup.current_section === 3 ? "sec_now progress_section" : "sec_future progress_section")}>Beers</div>
             </div>
             {displayArray[this.props.signup.current_section]}
         </div>

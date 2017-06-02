@@ -417,6 +417,32 @@ body {
     /*margin: auto;*/
 }
 
+.signup_section_form {
+  width: 100vw;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.signup_section_form {
+  width: 50%;
+  margin: 0 25%;
+  padding: 5px;
+  background-color: white;
+}
+.signup_section_form > input,label {
+    width: 50%;
+    margin: 0 25%;
+    padding: 5px;
+}
+
+.signup_section_form > label {
+    margin-top: 10px;
+}
+
 .login > input,label {
     width: 50%;
     margin: 0 25%;
@@ -491,6 +517,11 @@ body {
     background-color: #FA8486;
 }
 
+.wine_section {
+  width: 50%;
+  margin: 2% 25% 2% 25%;
+}
+
 /**************/
 /*PROFILE PAGE*/
 /**************/
@@ -518,16 +549,12 @@ body {
 
 .signup_button {
     padding: 5px;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    background-color: #f95759;
-    border-radius: 5px;
-    margin-bottom: 5px;
     margin: 5px;
-    font-size: 1.1em;
+    border-radius: 5px;
+    background-color: darkgrey;
+    color: white;
     cursor: pointer;
+    width: 100%;
 }
 
 .signup_button:hover {
@@ -536,11 +563,17 @@ body {
 
 
 .signup_button_selected {
-    padding: 5px;
-    margin: 5px;
-    border-radius: 5px;
-    background-color: darkgrey;
-    color: white;
+  padding: 5px;
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  background-color: #f95759;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin: 5px;
+  font-size: 1.1em;
+  cursor: pointer;
+  width: 100%;
 }
 
 .signup_button_selected:hover {
@@ -562,21 +595,26 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background-color: #DBDCD6;
     margin: 3px;
 }
 
 .signup_submit_button {
     padding: 10px;
-    margin: 5px 0;
+    margin: 5px;
     border-radius: 5px;
-    width: 90%;
-    background-color: darkgreen;
+    width: 20%;
+    background-color:  #f95759;
     color: white;
 }
 
+.signup_group {
+  width: 20%;
+  margin-right: 40%;
+  margin-left: 40%;
+}
+
 .signup_submit_button:hover {
-    background-color: lightgreen;
+    background-color: lightgrey;
     cursor: pointer;
 }
 
@@ -584,9 +622,19 @@ body {
     padding: 10px;
     margin: 5px 0;
     border-radius: 5px;
-    width: 90%;
-    background-color: darkorange;
+    width: 20%;
+    background-color: #FA8486;
     color: white;
+    cursor: pointer;
+}
+
+.beer-signup-section-container {
+  width: 30%;
+  margin: 10px 35% 5px 35%;
+}
+
+.signup_skip_button:hover {
+  background-color: lightgrey;
 }
 
 .signup_progress {
@@ -597,27 +645,24 @@ body {
     align-items: center;
 }
 
-.signup_progress div:hover {
-    background-color: yellow;
-    cursor: pointer;
-}
+
 
 .progress_section {
     padding: 5px;
 }
 
 .sec_done {
-    background-color: rgb(10, 59, 0);
+    background-color: #f95759;
     color: white;
 }
 
 .sec_now {
     background-color: transparent;
-    color: black;
+    color: #f95759;
 }
 
 .sec_future {
-    background-color: rgb(0, 85, 91);
+    background-color: #f95759;
     color: white;
 }
 
