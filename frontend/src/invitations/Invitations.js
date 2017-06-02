@@ -34,7 +34,7 @@ class Invitations extends React.Component {
 
         let invitationResponse = (
             <div className="invite-response">
-                <div className="invite-response-text">{this.props.params.invite_response === 'true' ? "Thanks for your response!  Contact the host of your Picnik if you have any further questions." : "Thanks for your response.  Maybe next time!"}
+                <div className="invite-response-text">{this.props.params.invite_response === 'true' ? "Thanks for your response!  Contact the host of your Picnik if you have any further questions." : "Thanks for your response.  Maybe next time!"}</div>
             </div>
         );
         let picnik = this.props.planning;
@@ -92,9 +92,9 @@ class Invitations extends React.Component {
         );
         let page_body;
         if (this.props.login.token === undefined) {
-            page_body = invitationSendPage;
+            page_body = invitationSendPage
         } else {
-            page_body = invitationResponse;
+            page_body = invitationResponse
         }
         return page_body;
     }
