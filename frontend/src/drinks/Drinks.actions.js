@@ -13,7 +13,7 @@ export const saveForLater = (beer_or_wine_item, user_id) => {
     }
     let asyncAction = (dispatch) => {
         $.ajax({
-            url: "http://localhost:4000/api/save_drink",
+            url: "http://picnik.ianprice.co/api/save_drink",
             method: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
@@ -147,7 +147,7 @@ const displayMoreBeers = (results) => {
 export const beerPairingMegaFunction = (beer_prefs_from_signup_state, selected_recipe) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/beer",
+            url: "http://picnik.ianprice.co/api/beer",
             method: "GET",
             dataType: 'JSON'
         })
@@ -256,7 +256,7 @@ const winePairingEngine = (selected_recipe) => {
 export const winePairingMegaFunction = (wines_filtered_based_on_prefs, selected_recipe) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/wine",
+            url: "http://picnik.ianprice.co/api/wine",
             method: "GET",
             dataType: 'JSON'
         })
@@ -283,7 +283,7 @@ export const winePairingMegaFunction = (wines_filtered_based_on_prefs, selected_
 export const getBeers = (beer_prefs_from_signup_state) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/beer",
+            url: "http://picnik.ianprice.co/api/beer",
             method: "GET",
             dataType: 'JSON'
         })
@@ -333,7 +333,7 @@ export const getMoreBeers = (beer_prefs_from_signup_state) => {
 export const getWines = (wine_prefs_from_signup_state) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/wine",
+            url: "http://picnik.ianprice.co/api/wine",
             method: "GET",
             dataType: 'JSON'
         })
@@ -358,7 +358,7 @@ export const getWines = (wine_prefs_from_signup_state) => {
 export const getMoreWines = (wine_prefs_from_signup_state) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/wine",
+            url: "http://picnik.ianprice.co/api/wine",
             method: "GET",
             dataType: 'JSON'
         })

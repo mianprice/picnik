@@ -19,7 +19,7 @@ export const getRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from_sig
 
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/recipe",
+            url: "http://picnik.ianprice.co/api/recipe",
             method: "GET",
             dataType: 'JSON'
         })
@@ -77,7 +77,7 @@ export const getMoreRecipes = (taste_prefs_from_signup_state, cuisine_prefs_from
 
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/recipe",
+            url: "http://picnik.ianprice.co/api/recipe",
             method: "GET",
             dataType: 'JSON'
         })
@@ -140,7 +140,7 @@ export const removeRecipe = (recipe) => { //we pass the entire recipe object int
 export const saveForLater = (recipe_id, user_id) => {
     let asyncAction = (dispatch) => {
         $.ajax({
-            url: "http://localhost:4000/api/save_recipe",
+            url: "http://picnik.ianprice.co/api/save_recipe",
             method: "POST",
             dataType: 'JSON',
             contentType: 'application/json',

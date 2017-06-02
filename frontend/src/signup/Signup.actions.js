@@ -68,7 +68,7 @@ export const completeSignup = (signup) => {
         console.log(signup);
         $.ajax({
             method: 'POST',
-            url: 'http://localhost:4000/api/user/signup',
+            url: 'http://picnik.ianprice.co/api/user/signup',
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify({
