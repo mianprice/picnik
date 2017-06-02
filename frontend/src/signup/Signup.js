@@ -52,7 +52,7 @@ class Signup extends React.Component {
                             {taste_profile_array.map((item, index) =>
                                 <div key={index} className={this.props.signup.taste_profile.sour_taste === index ? "signup_button_selected signup_profile_button" : "signup_button signup_profile_button"} onClick={() => this.props.setTaste('sour_taste', index)}>{item}</div>
                             )}
-                        </div>
+                    </div>
                     <div className="signup_section"><div className="signup_section_title">Salty</div>
                         {taste_profile_array.map((item, index) =>
                             <div key={index} className={this.props.signup.taste_profile.salty === index ? "signup_button_selected signup_profile_button" : "signup_button signup_profile_button"} onClick={() => this.props.setTaste('salty', index)}>{item}</div>
@@ -66,8 +66,6 @@ class Signup extends React.Component {
                 </div>
                 <div className="signup_skip_button" onClick={(event) => {this.props.lastSignupSection()}}>Last</div>
                 <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
-
-
               </div>
           ),
           (   <div className="signup_section">
