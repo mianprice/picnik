@@ -834,9 +834,10 @@ body {
     height: 80vh;
     justify-content: center;
     align-items: center;
+    align-content: flex-start;
     flex-wrap: wrap;
     padding: 5%;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     text-align: center;
 }
 
