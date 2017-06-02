@@ -148,7 +148,7 @@ app.get('/api/invite/:invite_id/:response', (req,res,next) => {
     let response = req.params.response === 'accept' ? 2 : 3;
     db.none('update invites set response = $1 where id = $2', [response, invite_id])
         .then(() => {
-            let redirect_url = response === 2 ? 'http://localhost:3000/#/view_picnik' : 'https://www.google.com';
+            let redirect_url = response === 2 ? 'http://picnik.ianprice.co/#/view_picnik' : 'https://www.google.com';
             res.redirect(redirect_url);
         })
         .catch(next);
