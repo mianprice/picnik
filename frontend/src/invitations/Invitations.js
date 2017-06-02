@@ -81,9 +81,9 @@ class Invitations extends React.Component {
                     <div className='invitations-content-title'>Invite Guests</div>
                     <div className="invitations-guest-list-section">
                         <div className='invitations-content-title'>Enter Guests</div>
-                        <div>Name of Guest: <input type="text" value={this.props.invitations.invite_name} onChange={(event) => this.props.enterInvites(event.target.value, this.props.invitations.invite_email, 0)}/></div>
+                        <div><div>Name of Guest: </div><input type="text" value={this.props.invitations.invite_name} onChange={(event) => this.props.enterInvites(event.target.value, this.props.invitations.invite_email, 0)}/></div>
 
-                        <div>Email: <input type='text' value={this.props.invitations.invite_email} onChange={(event) => this.props.enterInvites(this.props.invitations.invite_name, event.target.value, 0)}/></div>
+                        <div><div>Email: </div><input type='text' value={this.props.invitations.invite_email} onChange={(event) => this.props.enterInvites(this.props.invitations.invite_name, event.target.value, 0)}/></div>
 
                         <div className='add-to-guest-list-button' onClick={() => this.props.sendInvite(this.props.planning.id, this.props.invitations.invite_name, this.props.invitations.invite_email, this.props.login)}>Send Invite</div>
                     </div>

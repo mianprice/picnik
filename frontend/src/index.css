@@ -831,7 +831,7 @@ body {
 
 .invitations-content {
     display: flex;
-    height: 90vh;
+    height: 80vh;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -935,7 +935,7 @@ body {
     background-color: lightgrey;
     display: flex;
     justify-content: center;
-    align-items: space-between;
+    align-items: flex-start;
     flex-wrap: wrap;
     overflow-y: scroll;
     /*margin: 10px;*/
