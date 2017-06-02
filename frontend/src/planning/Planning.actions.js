@@ -23,13 +23,6 @@ const redirect = (link, next) => {
     };
 };
 
-const where = (place) => {
-    return {
-        type: 'show-where',
-        place
-    };
-};
-
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
     let asyncAction = function(dispatch) {
         if (login.token !== undefined) {
@@ -50,7 +43,6 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
             })
             .then(result => {
                 // let r = (result.id)
-                dispatch(where('ajax sent'));
                 dispatch(addPicnikID(result.id));
                 dispatch(redirect('/invitations', 'none'));
             })
@@ -59,7 +51,6 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
             });
         } else {
             // dispatch(where('token: ' + login.token.length.toString()));
-            dispatch(where('ajax skipped'));
             dispatch(redirect('/login','/invitations'));
         }
     };

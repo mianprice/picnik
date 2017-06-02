@@ -11,58 +11,56 @@ class Signup extends React.Component {
       let displayArray = [
           (
               <div className="signup_section">
-                  <div className="signup_section_title">Basic Info</div>
                   <div className="signup_section_form">
-                  <label>Email</label>
-                  <div><input type="text" id="email" value={this.props.signup.email} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <label>Username</label>
-                  <div><input type="text" id="user_name" value={this.props.signup.username} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <label>Password</label>
-                  <div><input type="password" id="password" value={this.props.signup.password} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <label>Confrim Password</label>
-                  <div><input type="password" id="password_confirm" value={this.props.signup.password_confirm} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <label>First Name</label>
-                  <div><input type="text" id="first_name" value={this.props.signup.first} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
-                  <label>Last Name</label>
-                  <div><input type="text" id="last_name" value={this.props.signup.last} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <label>Email</label>
+                      <div className="signup-text-input"><input type="text" id="email" value={this.props.signup.email} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <label>Username</label>
+                      <div className="signup-text-input"><input type="text" id="user_name" value={this.props.signup.username} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <label>Password</label>
+                      <div className="signup-text-input"><input type="password" id="password" value={this.props.signup.password} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <label>Confrim Password</label>
+                      <div className="signup-text-input"><input type="password" id="password_confirm" value={this.props.signup.password_confirm} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <label>First Name</label>
+                      <div className="signup-text-input"><input type="text" id="first_name" value={this.props.signup.first} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <label>Last Name</label>
+                      <div className="signup-text-input"><input type="text" id="last_name" value={this.props.signup.last} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
                   </div>
                   <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
 
               </div>
           ),
           (
-              <div className="signup_section"><div className="signup_section_title">TASTE</div>
                 <div className="signup_group">
                     <div className="signup_section">
                         <div className="signup_section_title">Spicy</div>
                             {taste_profile_array.map((item, index) =>
-                                <div key={index} className={this.props.signup.taste_profile.piquant === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('piquant', index)}>{item}</div>
+                                <div key={index} className={this.props.signup.taste_profile.piquant === index ? "signup_button_selected signup_profile_button" : "signup_button signup_profile_button"} onClick={() => this.props.setTaste('piquant', index)}>{item}</div>
                             )}
                     </div>
                     <div className="signup_section"><div className="signup_section_title">Sweet</div>
                         {taste_profile_array.map((item, index) =>
-                            <div key={index} className={this.props.signup.taste_profile.sweet === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sweet', index)}>{item}</div>
+                            <div key={index} className={this.props.signup.taste_profile.sweet === index ? "signup_button_selected signup_profile_button" : "signup_button signup_profile_button"} onClick={() => this.props.setTaste('sweet', index)}>{item}</div>
                         )}
                     </div>
                     <div className="signup_section"><div className="signup_section_title">Savory</div>
                         {taste_profile_array.map((item, index) =>
-                            <div key={index} className={this.props.signup.taste_profile.meaty === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('meaty', index)}>{item}</div>
+                            <div key={index} className={this.props.signup.taste_profile.meaty === index ? "signup_button_selected signup_profile_button" : "signup_button signup_profile_button"} onClick={() => this.props.setTaste('meaty', index)}>{item}</div>
                         )}
                     </div>
                     <div className="signup_section">
                         <div className="signup_section_title">Sour</div>
                             {taste_profile_array.map((item, index) =>
-                                <div key={index} className={this.props.signup.taste_profile.sour_taste === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('sour_taste', index)}>{item}</div>
+                                <div key={index} className={this.props.signup.taste_profile.sour_taste === index ? "signup_button_selected signup_profile_button" : "signup_button signup_profile_button"} onClick={() => this.props.setTaste('sour_taste', index)}>{item}</div>
                             )}
                         </div>
                     <div className="signup_section"><div className="signup_section_title">Salty</div>
                         {taste_profile_array.map((item, index) =>
-                            <div key={index} className={this.props.signup.taste_profile.salty === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('salty', index)}>{item}</div>
+                            <div key={index} className={this.props.signup.taste_profile.salty === index ? "signup_button_selected signup_profile_button" : "signup_button signup_profile_button"} onClick={() => this.props.setTaste('salty', index)}>{item}</div>
                         )}
                     </div>
                     <div className="signup_section"><div className="signup_section_title">Bitter</div>
                         {taste_profile_array.map((item, index) =>
-                            <div key={index} className={this.props.signup.taste_profile.bitter === index ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setTaste('bitter', index)}>{item}</div>
+                            <div key={index} className={this.props.signup.taste_profile.bitter === index ? "signup_button_selected signup_profile_button" : "signup_button signup_profile_button"} onClick={() => this.props.setTaste('bitter', index)}>{item}</div>
                         )}
                     </div>
                 </div>
@@ -142,7 +140,7 @@ class Signup extends React.Component {
           ),
           (
             <div className="signup_section">
-              <div className="beer-signup-section-container"><div className="signup_section_title">Beer</div>
+              <div className="beer-signup-section-container">
                   {beer_profile_array.map((item, index) =>
                       <div key={index} className={this.props.signup.beer_profile[item.toLowerCase()] === false ? "signup_button_selected" : "signup_button"} onClick={() => this.props.setBeer(item.toLowerCase())}>{item}</div>
                   )}
