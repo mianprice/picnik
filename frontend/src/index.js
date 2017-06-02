@@ -94,6 +94,7 @@ ReactDOM.render(
           <Route path='/login' component={LoginContainer}/>
           <Route path='/profile' component={ProfileContainer}/>
           <Route path='/planning' component={PlanningContainer}/>
+          <Route path='/invitations' component={InvitationsContainer}/>
           <Route path='/invitations/:invite_response' component={InvitationsContainer}/>
       </Route>
     </Router>
