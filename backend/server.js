@@ -386,7 +386,7 @@ app.post('/api/send_invite', (req,res,next) => {
         let recipeString = recipes.length > 0 ? ('<h3>Food</h3><br>' + recipes.map(recipe => `<a href="http://google.com">${recipe.name}</a>`).join('<br>') + '<br><br>') : '';
         let beerString = beers.length > 0 ? ('<h3>Beer</h3><br>' + beers.map(beer => `<a href="http://google.com">${beer.name}</a>`).join('<br>') + '<br><br>') : '';
         let wineString = wines.length > 0 ? ('<h3>Wine</h3><br>' + wines.map(wine => `<a href="http://google.com">${wine.name}</a>`).join('<br>') + '<br><br>') : '';
-        let responseString = `<a href="http://localhost:4000/api/invite/${invite.id}/accept">Accept</a><br><br><a href="http://localhost:4000/api/invite/${invite.id}/decline">Decline</a>`
+        let responseString = `<a href="http://picnik.ianprice.co/api/invite/${invite.id}/accept">Accept</a><br><br><a href="http://picnik.ianprice.co/api/invite/${invite.id}/decline">Decline</a>`
         let body = dateAndTimeString + parkString + recipeString + beerString + wineString + responseString;
 
         // Create mail options specific to this invite

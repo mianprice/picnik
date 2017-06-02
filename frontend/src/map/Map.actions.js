@@ -39,7 +39,7 @@ export const getParksAndWeather = (zip) => {
     let asyncAction = function(dispatch) {
         $.ajax({
             method: 'GET',
-            url: 'http://localhost:4000/api/parks_and_weather/' + zip.toString(),
+            url: 'http://picnik.ianprice.co/api/parks_and_weather/' + zip.toString(),
             dataType: 'json'
         })
         .then(result => dispatch(showParksAndWeather(result)))

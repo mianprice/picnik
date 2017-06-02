@@ -10,7 +10,7 @@ const addPicnikID = (id) => {
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/picnik/save",
+            url: "http://picnik.ianprice.co/api/picnik/save",
             method: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
@@ -116,7 +116,7 @@ const displayBeers = (results) => {
 export const beerPairingMegaFunction = (beers_filtered_based_on_prefs, selected_recipe) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/beer",
+            url: "http://picnik.ianprice.co/api/beer",
             method: "GET",
             dataType: 'JSON'
         })
@@ -189,7 +189,7 @@ const displayWines = (results) => {
 export const winePairingMegaFunction = (wines_filtered_based_on_prefs, selected_recipe) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/wine",
+            url: "http://picnik.ianprice.co/api/wine",
             method: "GET",
             dataType: 'JSON'
         })

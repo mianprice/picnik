@@ -61,7 +61,7 @@ const showGuestList = (picnik_guests) => {
 export const refreshGuestList = (picnik_id, login) => {
     let asyncAction = (dispatch) => {
         $.ajax({
-            url: "http://localhost:4000/api/get_invites",
+            url: "http://picnik.ianprice.co/api/get_invites",
             method: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
@@ -82,7 +82,7 @@ export const refreshGuestList = (picnik_id, login) => {
 export const sendInvite = (picnik_id, name, email, login) => {
     let asyncAction = (dispatch) => {
         $.ajax({
-            url: "http://localhost:4000/api/send_invite",
+            url: "http://picnik.ianprice.co/api/send_invite",
             method: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
