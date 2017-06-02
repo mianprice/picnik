@@ -1,6 +1,8 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as actions from './Login.actions';
+import {hashHistory} from 'react-router';
+
 
 class Login extends React.Component {
   render() {
