@@ -91,7 +91,7 @@ class Invitations extends React.Component {
             </div>
         );
         let page_body;
-        if (this.props.login.token) {
+        if (this.props.login.token.length > 0) {
             page_body = invitationSendPage
         } else {
             page_body = invitationResponse
