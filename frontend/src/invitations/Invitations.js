@@ -39,34 +39,42 @@ class Invitations extends React.Component {
         return(
             <div className='invitations-content'>
                 <div className="invitations-picnik-summary">
-                <div className="saved-picnik">
-                    <div className="saved-picnik-details">
-                        Date: {picnik.date_of}<br/><br/>
-                        Time: {picnik.time_of}<br/><br/>
-                        Park: {(picnik.park) ? (picnik.park.name) : ""}<br/><br/>
-                        Address: {(picnik.park) ? (picnik.park.address) : ""}<br/><br/>
+                    <div className="saved-picnik">
+                        <div className="saved-picnik-details">
+                            Date: {picnik.date_of}<br/><br/>
+                            Time: {picnik.time_of}<br/><br/>
+                            Park: {(picnik.park) ? (picnik.park.name) : ""}<br/><br/>
+                            Address: {(picnik.park) ? (picnik.park.address) : ""}<br/><br/>
+                        </div>
+                        <div>
+                            <div>Recipes:</div>
+                            <div className="saved-picnik-recipe-details">
+                                {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
+                                    return <div>
+                                                {recipe.name}
+
+                                            </div>
+                                }) : "No recipes were selected for this picnik."}
+                            </div>
+                        </div>
+                        <div>
+                            <div>Beers:</div>
+                            {(picnik.beers && picnik.beers.length > 0) ? picnik.beers.map((beer, index) => {
+                                return <div className="saved-picnik-beer-details">
+                                             <br/><br/> {beer.beer_name}
+
+                                        </div>
+                            }) : "No beers were selected for this picnik."}
+                        </div>
+
+                        <div>
+                            <div>Wines:</div> {(picnik.wines && picnik.wines.length > 0) ? picnik.wines.map((wine, index) => {
+                                return <div className="saved-picnik-wine-details">
+                                             <br/><br/>{wine.name}
+                                        </div>
+                            }) : "No wines were selected for this picnik."}
+                        </div>
                     </div>
-                    Recipes:<div className="saved-picnik-recipe-details">
-                        {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
-                            return <div>
-                                        {recipe.name}
-
-                                    </div>
-                        }) : "No recipes were selected for this picnik."}
-                    </div>
-                    Beers:{(picnik.beers && picnik.beers.length > 0) ? picnik.beers.map((beer, index) => {
-                        return <div className="saved-picnik-beer-details">
-                                     <br/><br/> {beer.beer_name}
-
-                                </div>
-                    }) : "No beers were selected for this picnik."}
-
-                    Wines: {(picnik.wines && picnik.wines.length > 0) ? picnik.wines.map((wine, index) => {
-                        return <div className="saved-picnik-wine-details">
-                                     <br/><br/>{wine.name}
-                                </div>
-                    }) : "No wines were selected for this picnik."}
-                </div>
                 </div>
                 <div className="invitations-entry">
                     <div className='invitations-content-title'>Invite Guests</div>

@@ -840,18 +840,20 @@ body {
 .invitations-picnik-summary {
     width: 90%;
     margin-bottom: 20px;
-    background-color: yellow;
+    /*background-color: yellow;*/
 }
 
-.invitations-picnik-summary div {
+/*.invitations-picnik-summary div {
     margin: 10px;
     background-color: lightgrey;
-}
+}*/
 
 .invitations-entry {
-    width: 90%;
+    width: 35%;
+    margin-left: 10%;
+    margin-right: 5%;
     margin-bottom: 20px;
-    background-color: pink;
+    /*background-color: pink;*/
     display: flex;
     justify-content: center;
     align-items: stretch;
@@ -910,8 +912,10 @@ body {
 }
 
 .guest-display {
-    width: 90%;
-    background-color: lightgrey;
+    width: 35%;
+    margin-left: 5%;
+    margin-right: 10%;
+    /*background-color: lightgrey;*/
     display: flex;
     justify-content: center;
     align-items: stretch;
