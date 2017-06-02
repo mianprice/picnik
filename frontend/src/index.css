@@ -835,6 +835,7 @@ body {
     align-items: center;
     flex-wrap: wrap;
     margin-top: 20px;
+    text-align: center;
 }
 
 .invitations-picnik-summary {
@@ -969,25 +970,35 @@ body {
     margin: 10px;
 }
 
+/*.saved-picnik*/
+
 .saved-picnik-details {
+    display: flex;
+    justify-content: center;
     flex-direction: column;
     width: 25%;
     padding: 5px;
 }
 
 .saved-picnik-recipe-details {
+    display: flex;
+    justify-content: center;
     flex-direction: column;
     width: 25%;
     padding: 5px;
 }
 
 .saved-picnik-beer-details {
+    display: flex;
+    justify-content: center;
     flex-direction: column;
     width: 25%;
     padding: 5px;
 }
 
 .saved-picnik-wine-details {
+    display: flex;
+    justify-content: center;
     flex-direction: column;
     width: 25%;
     padding: 5px;

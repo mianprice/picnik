@@ -61,18 +61,18 @@ class Invitations extends React.Component {
                             <div>Beers:</div>
                             {(picnik.beers && picnik.beers.length > 0) ? picnik.beers.map((beer, index) => {
                                 return <div className="saved-picnik-beer-details">
-                                             <br/><br/> {beer.beer_name}
+                                             {beer.beer_name}
 
                                         </div>
-                            }) : "No beers were selected for this picnik."}
+                            }) : (<div className="saved-picnik-beer-details">No beers were selected for this picnik.</div>)}
                         </div>
 
                         <div>
                             <div>Wines:</div> {(picnik.wines && picnik.wines.length > 0) ? picnik.wines.map((wine, index) => {
                                 return <div className="saved-picnik-wine-details">
-                                             <br/><br/>{wine.name}
+                                             {wine.name}
                                         </div>
-                            }) : "No wines were selected for this picnik."}
+                            }) : (<div className="saved-picnik-wine-details">No wines were selected for this picnik.</div>)}
                         </div>
                     </div>
                 </div>
