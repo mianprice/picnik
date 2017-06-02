@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {hashHistory} from 'react-router';
 
 const addPicnikID = (id) => {
     return {
