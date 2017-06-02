@@ -69,7 +69,7 @@ const pageError = (err) => {
     };
 };
 
-export function sendLogin(login, redirect) {
+export function sendLogin(login) {
     let asyncAction = function(dispatch) {
         $.ajax({
             method: "POST",
@@ -81,7 +81,7 @@ export function sendLogin(login, redirect) {
             })
         })
         .then(data => {
-            dispatch(loginComplete(data, redirect));
+            dispatch(loginComplete(data, login.redirect_link));
             dispatch(loadPrefs(data));
         })
         .catch(error => dispatch(pageError(error)));
