@@ -7,29 +7,45 @@ const addPicnikID = (id) => {
     };
 };
 
+export const setRedirect = (location) => {
+    return {
+        type: 'set-redirect',
+        link: location
+    };
+};
+
+const redirect = (link) => {
+    hashHistory.push(link);
+};
+
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
     let asyncAction = function(dispatch) {
-        $.ajax({
-            url: "http://picnik.ianprice.co/api/picnik/save",
-            method: "POST",
-            dataType: 'JSON',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                beers,
-                wines,
-                recipes,
-                park,
-                date_of,
-                time_of,
-                login
+        if (login.token) {
+            $.ajax({
+                url: "http://picnik.ianprice.co/api/picnik/save",
+                method: "POST",
+                dataType: 'JSON',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    beers,
+                    wines,
+                    recipes,
+                    park,
+                    date_of,
+                    time_of,
+                    login
+                })
             })
-        })
-        .then(result => {
-            dispatch(addPicnikID(result.id));
-        })
-        .catch(error => {
-            console.log(error);
-        });
+            .then(result => {
+                dispatch(addPicnikID(result.id));
+                dispatch(redirect('/invitations'));
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        } else {
+            dispatch(redirect('/login'));
+        }
     };
     return asyncAction;
 };

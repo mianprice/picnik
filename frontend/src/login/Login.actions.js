@@ -9,8 +9,12 @@ export function updateValue(id, value) {
     };
 };
 
-const loginComplete = (data) => {
-    hashHistory.push('/');
+const loginComplete = (data, redirect) => {
+    if (redirect !== 'none') {
+        hashHistory.push(redirect);
+    } else {
+        hashHistory.push('/');
+    }
     return {
         type: 'login-complete',
         payload: data
@@ -65,7 +69,7 @@ const pageError = (err) => {
     };
 };
 
-export function sendLogin(login) {
+export function sendLogin(login, redirect) {
     let asyncAction = function(dispatch) {
         $.ajax({
             method: "POST",
@@ -77,7 +81,7 @@ export function sendLogin(login) {
             })
         })
         .then(data => {
-            dispatch(loginComplete(data));
+            dispatch(loginComplete(data, redirect));
             dispatch(loadPrefs(data));
         })
         .catch(error => dispatch(pageError(error)));
