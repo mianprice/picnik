@@ -17,7 +17,7 @@ class Food extends React.Component {
                         <div className="recipe-title">
                             {item.name}
                             <div className={item.class}>
-                            <div alt="food pairing match box"/>{item.class.includes("user-preferred-recipe-good") ? "Good Match" : item.class.includes("user-preferred-recipe-great") ? "Great Match" : item.class.includes("user-preferred-recipe-excellent") ? "Excellent Match" : ""}</div>
+                            <div alt="food pairing match box"/>{item.class.includes("user-preferred-recipe-good") ? "A decent match." : item.class.includes("user-preferred-recipe-great") ? "A pretty good match." : item.class.includes("user-preferred-recipe-excellent") ? "This one's a perfect match." : ""}</div>
                         </div>
                             {item.cuisines.map((cuisines, index) => {
                                 return <div key={index} className="recipe-cuisines">
