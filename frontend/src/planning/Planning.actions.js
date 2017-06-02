@@ -58,7 +58,7 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
                 console.log(error);
             });
         } else {
-            dispatch(where('token: ' + login.token.length.toString()));
+            // dispatch(where('token: ' + login.token.length.toString()));
             dispatch(where('ajax skipped'));
             dispatch(redirect('/login','/invitations'));
         }
