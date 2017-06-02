@@ -275,7 +275,7 @@ body {
 }
 
 .beer-choices, .wine-choices, .recipe-choices {
-    margin: 20% 0 0 10%;
+    margin: 10px 0 0 0;
 }
 
 .park-choice {
