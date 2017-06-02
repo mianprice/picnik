@@ -900,7 +900,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: .75em;
+    font-size: 1em;
     background-color: #DBDCD6;
     margin: 10px;
 }

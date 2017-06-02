@@ -34,22 +34,24 @@ class Profile extends React.Component {
                             Park: {(picnik.park && picnik.park[0]) ? (picnik.park[0].name) : ""}<br/><br/>
                             Address: {(picnik.park && picnik.park[0]) ? (picnik.park[0].address) : ""}<br/><br/>
                         </div>
-                            Recipes: {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
-                                return <div className="saved-picnik-recipe-details" key={index}>
+                        Recipes:<div className="saved-picnik-recipe-details">
+                            {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
+                                return <div key={index}>
                                             {recipe.name}
 
                                         </div>
                             }) : "No recipes were selected for this picnik."}
-                        {(picnik.beers && picnik.beers[0] && picnik.beers[0].length > 0) ? picnik.beers[0].map((beer, index) => {
+                        </div>
+                        Beers:{(picnik.beers && picnik.beers[0] && picnik.beers[0].length > 0) ? picnik.beers[0].map((beer, index) => {
                             return <div className="saved-picnik-beer-details" key={index}>
-                                        Beers: <br/><br/> {beer.beer_name}
+                                         <br/><br/> {beer.beer_name}
 
                                     </div>
                         }) : "No beers were selected for this picnik."}
 
-                        {(picnik.wines && picnik.wines[0] && picnik.wines[0].length > 0) ? picnik.wines[0].map((wine, index) => {
+                        Wines: {(picnik.wines && picnik.wines[0] && picnik.wines[0].length > 0) ? picnik.wines[0].map((wine, index) => {
                             return <div className="saved-picnik-wine-details" key={index}>
-                                        Wines: <br/><br/>{wine.name}
+                                         <br/><br/>{wine.name}
                                     </div>
                         }) : "No wines were selected for this picnik."}
 
