@@ -19,35 +19,39 @@ class Planning extends React.Component {
       let currentBasket;
       if (this.props.planning.currentBasket === 'recipes') {
           currentBasket = (<div className="recipe-choices">
-              {this.props.planning.recipes.map((recipe, index) => {
+              {this.props.planning.recipes.length > 0 ? this.props.planning.recipes.map((recipe, index) => {
                   return <div key={index}>
                             <div className="choice" >{recipe.name}</div>
-                            <div className='drink-buttons' onClick={() => {this.props.beerPairingMegaFunction(this.props.signup,recipe); this.props.winePairingMegaFunction(this.props.signup, recipe)}}>Show Pairing Options</div>
-                            <div className='drink-buttons' onClick={() => this.props.removeRecipe(recipe)}>Remove from Picnik Basket</div>
+
+                            <div className='recipe-basket-buttons' onClick={() => this.props.removeRecipe(recipe)}>Remove from Basket</div>
+
+                            {this.props.planning.currentPage === 'drinks' ? <div className='recipe-basket-buttons' onClick={() => {this.props.beerPairingMegaFunction(this.props.signup,recipe); this.props.winePairingMegaFunction(this.props.signup, recipe)}}>Show Pairing Options</div> : ""}
                         </div>
-              })}
+              }) : "What's a picnik without some food?"}
           </div>);
       } else if (this.props.planning.currentBasket === 'beers') {
           currentBasket = (<div className="beer-choices">
-              {this.props.planning.beers.map((beer, index) => {
+              {this.props.planning.beers.length > 0 ? this.props.planning.beers.map((beer, index) => {
                   return <div className="choice" key={index}>
                               {beer.beer_name}
-                              <div className="drink-buttons" onClick={() => {this.props.removeBeer(beer)}}>Remove from Picnik</div>
+                              <div className="recipe-basket-buttons" onClick={() => {this.props.removeBeer(beer)}}>Remove from Basket</div>
                           </div>
-              })}
+              }) : "What about some beer?"}
           </div>);
       } else if (this.props.planning.currentBasket === 'wines') {
           currentBasket = (<div className="wine-choices">
-              {this.props.planning.wines.map((wine, index) => {
+              {this.props.planning.wines.length > 0 ? this.props.planning.wines.map((wine, index) => {
                   return <div className="choice" key={index}>
                                 {wine.name}
-                                <div className="drink-buttons" onClick={() => {this.props.removeWine(wine)}}>Remove from Picnik</div>
+                                <div className="recipe-basket-buttons" onClick={() => {this.props.removeWine(wine)}}>Remove from Basket</div>
                         </div>
-              })}
+              }) : "Add some wine?"}
           </div>);
       } else {
           currentBasket = (<div className="choice park-choice">
-              <div>{(this.props.planning.park && this.props.planning.park.name) || "No park chosen yet."}</div>
+              Day: <div>{this.props.planning.date_of ? this.props.planning.date_of : 'Pick a day for your picnik.'}</div><br/>
+              Time: <div>{this.props.planning.time_of ? this.props.planning.time_of : 'Enter a time to meet.'}</div><br/>
+              Park: <div>{(this.props.planning.park && this.props.planning.park.name) || "Choose a park."}</div><br/>
           </div>);
       }
     return (
@@ -90,10 +94,7 @@ class Planning extends React.Component {
                         </div>
                         <div className="save-picnik-buttons-container">
                             <div className="save-picnik-button">
-                                <Link className="plan-submit-buttons" to='/invitations'><div onClick={(event) => this.props.savePicnik(this.props.planning.recipes, this.props.planning.beers, this.props.planning.wines, this.props.planning.park, this.props.planning.date_of, this.props.planning.time_of, this.props.login)}>Save Your Picnik for Later</div></Link>
-                            </div>
-                            <div className="save-picnik-button">
-                                <Link className="plan-submit-buttons" to='/invitations'><div onClick={(event) => this.props.savePicnik(this.props.planning.recipes, this.props.planning.beers, this.props.planning.wines, this.props.planning.park, this.props.planning.date_of, this.props.planning.time_of, this.props.login)}>Save Your Picnik and Invite Your Friends</div></Link>
+                                <Link className="plan-submit-buttons" to='/invitations'><div onClick={(event) => this.props.login.token ? this.props.savePicnik(this.props.planning.recipes, this.props.planning.beers, this.props.planning.wines, this.props.planning.park, this.props.planning.date_of, this.props.planning.time_of, this.props.login) : hashHistory.push('/login')}>Save Your Picnik and Invite Your Friends</div></Link>
                             </div>
                         </div>
                 </div>

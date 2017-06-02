@@ -54,6 +54,9 @@ class Map extends React.Component {
                                 <div className="day_button signup_section" onClick={(event) => this.props.setDay(dateString)}>
                                     <div>{day}: </div>
                                     <img src={`http://openweathermap.org/img/w/${element.weather[0].icon}.png`} />
+                                    <div>
+                                        {Math.round((element.temp.day * (9/5)) - 459.67)}°
+                                    </div>
                                 </div>
                             </div>
                         );

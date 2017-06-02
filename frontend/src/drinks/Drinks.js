@@ -19,18 +19,20 @@ class Drinks extends React.Component {
             ) : "";
             return (
                 <div key={index} className="beer-and-wine">
-                    <div >
-                        {item.beer_name}<br/>
-                        {item.brewery_name}<br/>
-                        {item.style_name}
+                    <div className="drink-images">
+                        {label}
                     </div>
-                    {label}
-
-                    {beer_set.includes(item.beer_id) ?
-                    <div className="drink-buttons" onClick={() => {this.props.removeBeer(item)}}>Remove from Picnik</div>
-                    :
-                    <div className="drink-buttons" onClick={() => this.props.selectBeer(item)}>Add to Picnik</div>}
-
+                    <div className="chooser-drink-info-container">
+                        <div className='drink-titles'>{item.beer_name}</div><br/><br/>
+                        {item.style_name}<br/><br/>
+                        {item.brewery_name}
+                    </div>
+                    <div className="drink-buttons-container">
+                        {beer_set.includes(item.beer_id) ?
+                        <div className="drink-buttons" onClick={() => {this.props.removeBeer(item)}}>Remove from Picnik</div>
+                        :
+                        <div className="drink-buttons" onClick={() => this.props.selectBeer(item)}>Add to Picnik</div>}
+                    </div>
                     <div className="check_mark">{item.class === "beer paired-beer" ? <i className="fa fa-fw fa-beer" alt="beer pint"  /> : null}</div>
 
                 </div>
@@ -42,18 +44,18 @@ class Drinks extends React.Component {
         let wine_view = this.props.drinks.wine_set.map((item, idx) => {
             return (
                 <div className={item.class} className="beer-and-wine" key={idx}>
-                    <div>
-                        {item.name}<br/>
-                        {item.varietal}<br/>
-                        {item.winery}<br/>
+                    <div className="drink-images"><img src={item.image_link} alt={item.name} /></div>
+                    <div className="chooser-drink-info-container">
+                        <div className='drink-titles'>{item.name}</div><br/><br/>
+                        {item.varietal}<br/><br/>
+                        {item.winery}<br/><br/>
                     </div>
-                    <img src={item.image_link} alt={item.name} />
-
-                    {wine_set.includes(item.wine_id) ?
-                    <div className="drink-buttons" onClick={() => {this.props.removeWine(item)}}>Remove from Picnik</div>
-                    :
-                    <div className="drink-buttons" onClick={() => this.props.selectWine(item)}>Add to Picnik</div>}
-
+                    <div className="drink-buttons-container">
+                        {wine_set.includes(item.wine_id) ?
+                        <div><div className="drink-buttons" onClick={() => {this.props.removeWine(item)}}>Remove from Picnik</div></div>
+                        :
+                        <div><div className="drink-buttons" onClick={() => this.props.selectWine(item)}>Add to Picnik</div></div>}
+                    </div>
                     <div className="check_mark">{item.class === "wine paired-wine" ? <i className="fa fa-fw fa-glass"  alt="glass"  /> : null}</div>
 
                 </div>
@@ -64,11 +66,11 @@ class Drinks extends React.Component {
                 <div className="drinks-wrapper">
                     <div className="beers">
                         {beer_view}
-                    <div className="drink-buttons" onClick={() => this.props.getMoreBeers(this.props.signup.beer_profile)}>Load More Beers</div>
+                    <div className="load-more-buttons" onClick={() => this.props.getMoreBeers(this.props.signup.beer_profile)}>Load More Beers</div>
                     </div>
                     <div className="wines">
                         {wine_view}
-                    <div className="drink-buttons" onClick={() => this.props.getMoreWines(this.props.signup.wine_profile)}>Load More Wines</div>
+                    <div className="load-more-buttons" onClick={() => this.props.getMoreWines(this.props.signup.wine_profile)}>Load More Wines</div>
                     </div>
                 </div>
             </div>
