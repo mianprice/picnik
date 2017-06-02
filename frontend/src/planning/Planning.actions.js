@@ -39,13 +39,14 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
             })
             .then(result => {
                 dispatch(addPicnikID(result.id));
-                dispatch(redirect('/invitations'));
+                redirect('/invitations');
             })
             .catch(error => {
                 console.log(error);
             });
         } else {
-            dispatch(redirect('/login'));
+            dispatch(setRedirect('/invitations'));
+            redirect('/login');
         }
     };
     return asyncAction;
