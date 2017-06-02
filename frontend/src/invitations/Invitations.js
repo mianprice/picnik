@@ -35,45 +35,38 @@ class Invitations extends React.Component {
                 }) : ""}
             </div>
         )
+        let picnik = this.props.planning;
         return(
             <div className='invitations-content'>
                 <div className="invitations-picnik-summary">
-                    <div className='invitations-content-title'>Picnik Summary</div>
-                    <div>Recipes</div>
-                        <div>{this.props.planning.recipes.length > 0 ? this.props.planning.recipes.map((recipe, index) => (
-                            <div key={index}>
-                                <img src={recipe.image_url} alt={recipe.name}/>
-                                <div>{recipe.name}</div>
-                                <a href={"http://www.yummly.co/recipe/" + recipe.yummly_id} target="_blank"><div className="recipe-buttons">View Recipe</div></a>
-                            </div>
-                        )) : ''}</div>
-                    <div>Park</div>
-                    <div>
-                            <div>{this.props.planning.park.name}</div>
-                            <div>{this.props.planning.park.address}</div>
+                <div className="saved-picnik" key={index}>
+                    <div className="saved-picnik-details">
+                        Date: {picnik.date_of}<br/><br/>
+                        Time: {picnik.time_of}<br/><br/>
+                        Park: {(picnik.park) ? (picnik.park.name) : ""}<br/><br/>
+                        Address: {(picnik.park) ? (picnik.park.address) : ""}<br/><br/>
                     </div>
-                    <div>Beers</div>
-                    <div>{this.props.planning.beers.length > 0 ? this.props.planning.beers.map((beer, index) => (
-                        <div key={index}>
-                            <img src={beer.label_image_link_icon} alt={beer.beer_name}/>
-                            <div>{beer.beer_name}</div>
-                            <div>{beer.brewery_name}</div>
-                            <div>{beer.style_name}</div>
-                        </div>
-                    )) : ''}</div>
-                    <div>Wines</div>
-                        <div>{this.props.planning.wines.length > 0 ? this.props.planning.wines.map((wine, index) => (
-                            <div key={index}>
-                                <img src={wine.image_link} alt={wine.name}/>
-                                <div>{wine.name}</div>
-                                <div>{wine.winery}</div>
-                                <div>{wine.varietal}</div>
-                            </div>
-                        )) : ''}</div>
-                    <div>Date</div>
-                    <div>{this.props.planning.date_of}</div>
-                    <div>Weather</div>
-                    <div>{this.props.planning.time_of}</div>
+                    Recipes:<div className="saved-picnik-recipe-details">
+                        {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
+                            return <div key={index}>
+                                        {recipe.name}
+
+                                    </div>
+                        }) : "No recipes were selected for this picnik."}
+                    </div>
+                    Beers:{(picnik.beers && picnik.beers.length > 0) ? picnik.beers.map((beer, index) => {
+                        return <div className="saved-picnik-beer-details" key={index}>
+                                     <br/><br/> {beer.beer_name}
+
+                                </div>
+                    }) : "No beers were selected for this picnik."}
+
+                    Wines: {(picnik.wines && picnik.wines.length > 0) ? picnik.wines.map((wine, index) => {
+                        return <div className="saved-picnik-wine-details" key={index}>
+                                     <br/><br/>{wine.name}
+                                </div>
+                    }) : "No wines were selected for this picnik."}
+                </div>
                 </div>
                 <div className="invitations-entry">
                     <div className='invitations-content-title'>Invite Guests</div>
