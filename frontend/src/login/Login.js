@@ -1,6 +1,8 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 import * as actions from './Login.actions';
+import {hashHistory} from 'react-router';
+
 
 class Login extends React.Component {
   render() {
@@ -11,6 +13,7 @@ class Login extends React.Component {
             <label>Password</label>
             <input type="password" onChange={(event) => this.props.updateValue(event.target.id, event.target.value)} id="password" value={this.props.login.password}/>
             <div onClick={(event) => this.props.sendLogin(this.props.login)}>Login</div>
+            <div onClick={(event) => hashHistory.push('/signup')}>Login</div>
         </div>
       );
   }

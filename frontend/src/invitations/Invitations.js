@@ -4,7 +4,9 @@ import * as actions from './Invitations.actions';
 
 class Invitations extends React.Component {
     componentDidMount() {
-        this.props.refreshGuestList(this.props.planning.id, this.props.login);
+        if (this.props.login.token !== undefined) {
+            this.props.refreshGuestList(this.props.planning.id, this.props.login);
+        }
     }
     render() {
         let invitation_set = (

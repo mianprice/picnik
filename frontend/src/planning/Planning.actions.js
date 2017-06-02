@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {hashHistory} from 'react-router';
 
 const addPicnikID = (id) => {
     return {
@@ -7,29 +8,60 @@ const addPicnikID = (id) => {
     };
 };
 
+// export const setRedirect = (location) => {
+//     return {
+//         type: 'set-redirect',
+//         link: location
+//     };
+// };
+
+const redirect = (link, next) => {
+    hashHistory.push(link);
+    return {
+        type: 'set-redirect',
+        link: next
+    };
+};
+
+const where = (place) => {
+    return {
+        type: 'show-where',
+        place
+    };
+};
+
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
     let asyncAction = function(dispatch) {
-        $.ajax({
-            url: "http://localhost:4000/api/picnik/save",
-            method: "POST",
-            dataType: 'JSON',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                beers,
-                wines,
-                recipes,
-                park,
-                date_of,
-                time_of,
-                login
+        if (login.token !== undefined) {
+            $.ajax({
+                url: "http://picnik.ianprice.co/api/picnik/save",
+                method: "POST",
+                dataType: 'JSON',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    beers,
+                    wines,
+                    recipes,
+                    park,
+                    date_of,
+                    time_of,
+                    login
+                })
             })
-        })
-        .then(result => {
-            dispatch(addPicnikID(result.id));
-        })
-        .catch(error => {
-            console.log(error);
-        });
+            .then(result => {
+                // let r = (result.id)
+                dispatch(where('ajax sent'));
+                dispatch(addPicnikID(result.id));
+                dispatch(redirect('/invitations', 'none'));
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        } else {
+            // dispatch(where('token: ' + login.token.length.toString()));
+            dispatch(where('ajax skipped'));
+            dispatch(redirect('/login','/invitations'));
+        }
     };
     return asyncAction;
 };
@@ -116,7 +148,7 @@ const displayBeers = (results) => {
 export const beerPairingMegaFunction = (beers_filtered_based_on_prefs, selected_recipe) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/beer",
+            url: "http://picnik.ianprice.co/api/beer",
             method: "GET",
             dataType: 'JSON'
         })
@@ -189,7 +221,7 @@ const displayWines = (results) => {
 export const winePairingMegaFunction = (wines_filtered_based_on_prefs, selected_recipe) => {
     let asyncAction = function(dispatch) {
         $.ajax({
-            url: "http://localhost:4000/api/wine",
+            url: "http://picnik.ianprice.co/api/wine",
             method: "GET",
             dataType: 'JSON'
         })

@@ -279,7 +279,7 @@ body {
 }
 
 .park-choice {
-    margin: 20% 0 0 30%;
+    margin: 60px;
     font-size: 1.5em;
 }
 
@@ -501,19 +501,39 @@ body {
     line-height: 2em;
 }
 
-.home-buttons {
-    background-color: #f95759;
-    margin-bottom: 5px;
+.home-buttons-get-started {
+    background-color:rgba(249, 87, 89, .8);
+    display: inline-block;
+    width: 250px;
+    color: white;
     position: absolute;
     top: 50px;
-    left: 100px;
+    left: 200px;
+    padding: 5px;
+    line-height: 2em;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.home-buttons div {
-
+.home-buttons-plan-now {
+    background-color:rgba(249, 87, 89, .8);
+    display: inline-block;
+    width: 250px;
+    color: white;
+    position: absolute;
+    top: 50px;
+    left: 500px;
+    padding: 5px;
+    line-height: 2em;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.home-buttons:hover {
+.home-buttons-plan-now:hover {
+    background-color: #FA8486;
+}
+
+.home-buttons-get-started:hover {
     background-color: #FA8486;
 }
 
@@ -924,7 +944,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: .75em;
+    font-size: 1em;
     background-color: #DBDCD6;
     margin: 10px;
 }

@@ -9,8 +9,12 @@ export function updateValue(id, value) {
     };
 };
 
-const loginComplete = (data) => {
-    hashHistory.push('/');
+const loginComplete = (data, redirect) => {
+    if (redirect !== 'none') {
+        hashHistory.push(redirect);
+    } else {
+        hashHistory.push('/');
+    }
     return {
         type: 'login-complete',
         payload: data
@@ -69,7 +73,7 @@ export function sendLogin(login) {
     let asyncAction = function(dispatch) {
         $.ajax({
             method: "POST",
-            url: "http://localhost:4000/api/user/login",
+            url: "http://picnik.ianprice.co/api/user/login",
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
@@ -77,7 +81,7 @@ export function sendLogin(login) {
             })
         })
         .then(data => {
-            dispatch(loginComplete(data));
+            dispatch(loginComplete(data, login.redirect_link));
             dispatch(loadPrefs(data));
         })
         .catch(error => dispatch(pageError(error)));
