@@ -32,7 +32,7 @@ const where = (place) => {
 
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
     let asyncAction = function(dispatch) {
-        if (login.token) {
+        if (login.token.length > 0) {
             $.ajax({
                 url: "http://picnik.ianprice.co/api/picnik/save",
                 method: "POST",
@@ -58,6 +58,7 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
                 console.log(error);
             });
         } else {
+            dispatch(where('token: ', login.token.length));
             dispatch(where('ajax skipped'));
             dispatch(redirect('/login','/invitations'));
         }
