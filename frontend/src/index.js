@@ -54,21 +54,21 @@ class AppLayout extends React.Component {
     render() {
         let nav_options = this.props.state.login.token ? (
             <div className="link_set">
-                <Link style={{color: "black"}} className="nav_link" to="/profile">My Picniks</Link>
+                <Link className="nav_link" to="/profile">My Picniks</Link>
                 <div className="nav_link" onClick={(event) => {this.logout()}}>Logout</div>
-                <Link style={{color: "black"}} className="nav_link" to="/planning">Planner</Link>
+                <Link className="nav_link" to="/planning">Planner</Link>
             </div>
         ) : (
             <div className="link_set">
-                <Link style={{color: "black"}} className="nav_link" to="/login">Login</Link>
-                <Link style={{color: "black"}} className="nav_link" to="/signup">Signup</Link>
-                <Link style={{color: "black"}} className="nav_link" to="/planning">Planning</Link>
+                <Link className="nav_link" to="/login">Login</Link>
+                <Link className="nav_link" to="/signup">Signup</Link>
+                <Link className="nav_link" to="/planning">Planning</Link>
             </div>
         );
         return(
             <div>
                 <div className="navbar emph">
-                    <IndexLink style={{color: "black"}} to="/" className="app_title">picnik</IndexLink>
+                    <IndexLink to="/" className="app_title">picnik</IndexLink>
                     {nav_options}
                 </div>
                 <div>
@@ -94,7 +94,7 @@ ReactDOM.render(
           <Route path='/login' component={LoginContainer}/>
           <Route path='/profile' component={ProfileContainer}/>
           <Route path='/planning' component={PlanningContainer}/>
-          <Route path='/invitations' component={InvitationsContainer}/>
+          <Route path='/invitations/:invite_response' component={InvitationsContainer}/>
       </Route>
     </Router>
   </ReactRedux.Provider>,
