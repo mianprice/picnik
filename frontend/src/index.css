@@ -937,12 +937,15 @@ body {
     background-color: lightgrey;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-content: flex-start;
     flex-wrap: wrap;
     overflow-y: scroll;
     /*margin: 10px;*/
     padding: 10px;
-    height:50vh
+}
+
+.invitations-display-section {
+    height: 40vh;
 }
 
 .invitations-guest-list-section > div {
