@@ -8,15 +8,19 @@ const addPicnikID = (id) => {
     };
 };
 
-export const setRedirect = (location) => {
+// export const setRedirect = (location) => {
+//     return {
+//         type: 'set-redirect',
+//         link: location
+//     };
+// };
+
+const redirect = (link, next) => {
+    hashHistory.push(link);
     return {
         type: 'set-redirect',
-        link: location
+        link: next
     };
-};
-
-const redirect = (link) => {
-    hashHistory.push(link);
 };
 
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
@@ -38,15 +42,16 @@ export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login)
                 })
             })
             .then(result => {
+                // let r = (result.id)
+                console.log('invitations');
                 dispatch(addPicnikID(result.id));
-                redirect('/invitations');
+                redirect('/invitations', 'none');
             })
             .catch(error => {
                 console.log(error);
             });
         } else {
-            dispatch(setRedirect('/invitations'));
-            redirect('/login');
+            dispatch(redirect('/login','/invitations'));
         }
     };
     return asyncAction;
