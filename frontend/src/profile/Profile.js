@@ -31,8 +31,8 @@ class Profile extends React.Component {
                         <div className="saved-picnik-details">
                             Date: {picnik.date_of}<br/><br/>
                             Time: {picnik.time_of}<br/><br/>
-                            Park: {picnik.park.name}<br/><br/>
-                            Address: {picnik.park.address}<br/><br/>
+                            Park: {picnik.park[0].name}<br/><br/>
+                            Address: {picnik.park[0].address}<br/><br/>
                         </div>
                             Recipes: {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
                                 return <div className="saved-picnik-recipe-details" key={index}>
