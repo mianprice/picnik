@@ -861,7 +861,7 @@ body {
     /*align-items: stretch;*/
     flex-wrap: wrap;
     margin-top: 20px;
-    padding: 10px;
+    /*padding: 10px;*/
 }
 
 .invitations-content-title {
@@ -929,7 +929,7 @@ body {
 .invitations-guest-list-section, .invitations-display-section {
     width: 45%;
     background-color: grey;
-    margin: 10px;
+    /*margin: 10px;*/
     padding: 10px;
 }
 
