@@ -13,23 +13,18 @@ class Invitations extends React.Component {
             <div className='invitations-display-section'>
                 <div className='invitations-content-title'>Guest List</div>
                 {this.props.invitations.guest_list.length > 0 ? this.props.invitations.guest_list.map((guest, index) => {
-                    let responseString, responseIcon;
+                    let responseIcon;
                     if (guest.response == 2) {
-                        responseString = "";
                         responseIcon = <i className="fa fa-fw fa-check" />;
                     } else if (guest.response == 3) {
-                        responseString = "";
                         responseIcon = <i className="fa fa-fw fa-times" />;
                     } else {
-                        responseString = "";
                         responseIcon = <i className="fa fa-fw fa-question" />;
                     }
                     return (
                             <div className='guest-display' key={index}>
-                                <div>{guest.name}</div>
+                                <div>{guest.name} {responseIcon}</div>
                                 <div>{guest.email}</div>
-                                <div>{responseString}</div>
-                                <div>{responseIcon}</div>
                             </div>
                     );
                 }) : ""}

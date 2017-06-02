@@ -931,6 +931,10 @@ body {
     /*margin-top: 20px;*/
 }
 
+.guest-display > div {
+    width: 100%;
+}
+
 .invitations-guest-list-section, .invitations-display-section {
     margin-top: 10px;
     width: 45%;
@@ -1003,10 +1007,15 @@ body {
 
 .saved-picnik-details {
     display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+    align-content: space-between;
+    justify-content: center;
+    /*flex-direction: column;*/
     width: 25%;
     padding: 5px;
+}
+
+.saved-picnik-details > div {
+    width: 100%;
 }
 
 .saved-picnik-recipe-details {
