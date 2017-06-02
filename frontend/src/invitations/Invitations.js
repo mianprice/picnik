@@ -39,7 +39,7 @@ class Invitations extends React.Component {
         return(
             <div className='invitations-content'>
                 <div className="invitations-picnik-summary">
-                <div className="saved-picnik" key={index}>
+                <div className="saved-picnik">
                     <div className="saved-picnik-details">
                         Date: {picnik.date_of}<br/><br/>
                         Time: {picnik.time_of}<br/><br/>
@@ -48,21 +48,21 @@ class Invitations extends React.Component {
                     </div>
                     Recipes:<div className="saved-picnik-recipe-details">
                         {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
-                            return <div key={index}>
+                            return <div>
                                         {recipe.name}
 
                                     </div>
                         }) : "No recipes were selected for this picnik."}
                     </div>
                     Beers:{(picnik.beers && picnik.beers.length > 0) ? picnik.beers.map((beer, index) => {
-                        return <div className="saved-picnik-beer-details" key={index}>
+                        return <div className="saved-picnik-beer-details">
                                      <br/><br/> {beer.beer_name}
 
                                 </div>
                     }) : "No beers were selected for this picnik."}
 
                     Wines: {(picnik.wines && picnik.wines.length > 0) ? picnik.wines.map((wine, index) => {
-                        return <div className="saved-picnik-wine-details" key={index}>
+                        return <div className="saved-picnik-wine-details">
                                      <br/><br/>{wine.name}
                                 </div>
                     }) : "No wines were selected for this picnik."}
