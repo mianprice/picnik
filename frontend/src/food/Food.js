@@ -24,7 +24,7 @@ class Food extends React.Component {
                         </div>
                     </div>
                         <div className="recipe-cuisines-container">
-                            Cuisine: {item.cuisines.map((cuisines, index) => {
+                            Cuisine: <br/><br/>{item.cuisines.map((cuisines, index) => {
                                 return <div key={index} className="recipe-cuisines">
                                              {cuisines.name}
                                         </div>
