@@ -30,60 +30,70 @@ class Invitations extends React.Component {
                 }) : ""}
                 <div className="add-to-guest-list-button" onClick={event => this.props.refreshGuestList(this.props.planning.id, this.props.login)}>Refresh</div>
             </div>
-        )
-        let picnik = this.props.planning;
-        return(
-            <div className='invitations-content'>
-                <div className="invitations-picnik-summary">
-                    <div className="saved-picnik">
-                        <div className="saved-picnik-details">
-                            <div>Date: {picnik.date_of}</div>
-                            <div>Time: {picnik.time_of}</div>
-                            <div>Park: {(picnik.park) ? (picnik.park.name) : ""}</div>
-                            <div>Address: {(picnik.park) ? (picnik.park.address) : ""}</div>
-                        </div>
-                        <div className="saved-picnik-details">
-                            <div>Recipes:</div>
-                            <div className="saved-picnik-recipe-details">
-                                {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
-                                    return <div>{recipe.name}</div>
-                                }) : "No recipes were selected for this picnik."}
-                            </div>
-                        </div>
-                        <div className="saved-picnik-details">
-                            <div>Beers:</div>
-                            {(picnik.beers && picnik.beers.length > 0) ? picnik.beers.map((beer, index) => {
-                                return <div className="saved-picnik-beer-details">
-                                             {beer.beer_name}
+        );
 
-                                        </div>
-                            }) : (<div className="saved-picnik-beer-details">No beers were selected for this picnik.</div>)}
-                        </div>
-
-                        <div className="saved-picnik-details">
-                            <div>Wines:</div> {(picnik.wines && picnik.wines.length > 0) ? picnik.wines.map((wine, index) => {
-                                return <div className="saved-picnik-wine-details">
-                                             {wine.name}
-                                        </div>
-                            }) : (<div className="saved-picnik-wine-details">No wines were selected for this picnik.</div>)}
-                        </div>
-                    </div>
-                </div>
-                <div className="invitations-entry">
-                    <div className='invitations-content-title'>Invite Guests</div>
-                    <div className="invitations-guest-list-section">
-                        <div className='invitations-content-title'>Enter Guests</div>
-                        <div>
-                            <div><div>Name of Guest: </div><input type="text" value={this.props.invitations.invite_name} onChange={(event) => this.props.enterInvites(event.target.value, this.props.invitations.invite_email)}/></div>
-                            <div><div>Email: </div><input type='text' value={this.props.invitations.invite_email} onChange={(event) => this.props.enterInvites(this.props.invitations.invite_name, event.target.value)}/></div>
-                        </div>
-
-                        <div className='add-to-guest-list-button' onClick={() => this.props.sendInvite(this.props.planning.id, this.props.invitations.invite_name, this.props.invitations.invite_email, this.props.login)}>Send Invite</div>
-                    </div>
-                    {invitation_set}
-                </div>
+        let invitationResponse = (
+            <div className="invite-response">
+                <div className="invite-response-text">{this.props.params.invite_response === 'true' ? "Thanks for your response!  Contact the host of your Picnik if you have any further questions." : "Thanks for your response.  Maybe next time!"}
             </div>
         );
+        let picnik = this.props.planning;
+        if (this.props.login.token) {
+            return (
+                <div className='invitations-content'>
+                    <div className="invitations-picnik-summary">
+                        <div className="saved-picnik">
+                            <div className="saved-picnik-details">
+                                <div>Date: {picnik.date_of}</div>
+                                <div>Time: {picnik.time_of}</div>
+                                <div>Park: {(picnik.park) ? (picnik.park.name) : ""}</div>
+                                <div>Address: {(picnik.park) ? (picnik.park.address) : ""}</div>
+                            </div>
+                            <div className="saved-picnik-details">
+                                <div>Recipes:</div>
+                                <div className="saved-picnik-recipe-details">
+                                    {picnik.recipes.length > 0 ? picnik.recipes.map((recipe, index) => {
+                                        return <div>{recipe.name}</div>
+                                    }) : "No recipes were selected for this picnik."}
+                                </div>
+                            </div>
+                            <div className="saved-picnik-details">
+                                <div>Beers:</div>
+                                {(picnik.beers && picnik.beers.length > 0) ? picnik.beers.map((beer, index) => {
+                                    return <div className="saved-picnik-beer-details">
+                                                 {beer.beer_name}
+
+                                            </div>
+                                }) : (<div className="saved-picnik-beer-details">No beers were selected for this picnik.</div>)}
+                            </div>
+
+                            <div className="saved-picnik-details">
+                                <div>Wines:</div> {(picnik.wines && picnik.wines.length > 0) ? picnik.wines.map((wine, index) => {
+                                    return <div className="saved-picnik-wine-details">
+                                                 {wine.name}
+                                            </div>
+                                }) : (<div className="saved-picnik-wine-details">No wines were selected for this picnik.</div>)}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="invitations-entry">
+                        <div className='invitations-content-title'>Invite Guests</div>
+                        <div className="invitations-guest-list-section">
+                            <div className='invitations-content-title'>Enter Guests</div>
+                            <div>
+                                <div><div>Name of Guest: </div><input type="text" value={this.props.invitations.invite_name} onChange={(event) => this.props.enterInvites(event.target.value, this.props.invitations.invite_email)}/></div>
+                                <div><div>Email: </div><input type='text' value={this.props.invitations.invite_email} onChange={(event) => this.props.enterInvites(this.props.invitations.invite_name, event.target.value)}/></div>
+                            </div>
+
+                            <div className='add-to-guest-list-button' onClick={() => this.props.sendInvite(this.props.planning.id, this.props.invitations.invite_name, this.props.invitations.invite_email, this.props.login)}>Send Invite</div>
+                        </div>
+                        {invitation_set}
+                    </div>
+                </div>
+            );
+        } else {
+            return invitationResponse;
+        }
     }
 }
 

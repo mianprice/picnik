@@ -1045,3 +1045,16 @@ body {
 .map_button {
     background-color: lightgrey;
 }
+
+.invite-response {
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.invite-response-text {
+    font-size: 3em;
+    color: #f95759;
+}
