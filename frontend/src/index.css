@@ -223,6 +223,8 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     display: flex;
+    justify-content:center;
+    text-align: center;
     flex-wrap: wrap;
     font-size: .85em;
 }
@@ -399,6 +401,10 @@ body {
 .signup {
     /*background-color: lightblue;*/
     text-align: center;
+}
+
+.signup .signup_button {
+    background-color: lightgrey;
 }
 
 /************/
