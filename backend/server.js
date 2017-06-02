@@ -383,9 +383,9 @@ app.post('/api/send_invite', (req,res,next) => {
         let greeting = `<h1>${name}, ${user.first_name} has invited you to a Picnik!</h1><br><br>`;
         let dateAndTimeString = `<p>Date: ${picnik.date_of}<br>Time: ${picnik.time_of}</p><br><br>`
         let parkString = `<p>Park: ${park.name}<br>Address: ${park.address}</p><br><br>`;
-        let recipeString = recipes.length > 0 ? ('<h3>Food</h3><br>' + recipes.map(recipe => `<a href="http://google.com">${recipe.name}</a>`).join('<br>') + '<br><br>') : '';
-        let beerString = beers.length > 0 ? ('<h3>Beer</h3><br>' + beers.map(beer => `<a href="http://google.com">${beer.name}</a>`).join('<br>') + '<br><br>') : '';
-        let wineString = wines.length > 0 ? ('<h3>Wine</h3><br>' + wines.map(wine => `<a href="http://google.com">${wine.name}</a>`).join('<br>') + '<br><br>') : '';
+        let recipeString = recipes.length > 0 ? ('<h3>Food</h3><p>' + recipes.map(recipe => `<span>${recipe.name}</span>`).join('<br>') + '</p><br>') : '';
+        let beerString = beers.length > 0 ? ('<h3>Beer</h3><p>' + beers.map(beer => `<span>${beer.name}</span>`).join('<br>') + '</p><br>') : '';
+        let wineString = wines.length > 0 ? ('<h3>Wine</h3><p>' + wines.map(wine => `<span>${wine.name}</span>`).join('<br>') + '</p><br>') : '';
         let responseString = `<a href="http://picnik.ianprice.co/api/invite/${invite.id}/accept">Accept</a><br><br><a href="http://picnik.ianprice.co/api/invite/${invite.id}/decline">Decline</a>`
         let body = dateAndTimeString + parkString + recipeString + beerString + wineString + responseString;
 
