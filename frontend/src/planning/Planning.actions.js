@@ -24,8 +24,10 @@ const redirect = (link, next) => {
 };
 
 const where = (place) => {
-    type: 'show-where',
-    place
+    return {
+        type: 'show-where',
+        place
+    };
 };
 
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
