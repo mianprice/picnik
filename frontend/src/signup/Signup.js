@@ -13,17 +13,17 @@ class Signup extends React.Component {
               <div className="signup_section">
                   <div className="signup_section_form">
                       <label>Email</label>
-                      <div className="signup-text-input"><input type="text" id="email" value={this.props.signup.email} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <div><input className="signup-text-input" type="text" id="email" value={this.props.signup.email} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
                       <label>Username</label>
-                      <div className="signup-text-input"><input type="text" id="user_name" value={this.props.signup.username} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <div><input className="signup-text-input" type="text" id="user_name" value={this.props.signup.username} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
                       <label>Password</label>
-                      <div className="signup-text-input"><input type="password" id="password" value={this.props.signup.password} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <div><input className="signup-text-input" type="password" id="password" value={this.props.signup.password} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
                       <label>Confrim Password</label>
-                      <div className="signup-text-input"><input type="password" id="password_confirm" value={this.props.signup.password_confirm} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <div><input className="signup-text-input" type="password" id="password_confirm" value={this.props.signup.password_confirm} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
                       <label>First Name</label>
-                      <div className="signup-text-input"><input type="text" id="first_name" value={this.props.signup.first} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <div><input className="signup-text-input" type="text" id="first_name" value={this.props.signup.first} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
                       <label>Last Name</label>
-                      <div className="signup-text-input"><input type="text" id="last_name" value={this.props.signup.last} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
+                      <div><input className="signup-text-input" type="text" id="last_name" value={this.props.signup.last} onChange={(event) => {this.props.updateBasicSignup(event.target.id,event.target.value)}}/></div>
                   </div>
                   <div className="signup_submit_button" onClick={(event) => {this.props.nextSignupSection()}}>Next</div>
 
@@ -77,7 +77,7 @@ class Signup extends React.Component {
               <div className="wine_section">
 
                 <div className="wine_instructions">
-                    "Here we suggest keeping your options open. Sometimes a properly paired wine can really change your mind, but if you really don’t like Reds, or can’t stand Sparkling wine, we won’t judge, Simply select the wines you DON'T want us to show you."
+                    "Here we suggest keeping your options open. Sometimes a properly paired wine can really change your mind, but if you really don’t like Reds, or can’t stand Sparkling wine, we won’t judge, Simply click the types of wine you DON'T want to see."
                 </div>
                 <div className="wine_category">
                   <div className={this.props.signup.wine_profile.dry_whites === false ? " signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('dry_whites')}>Dry Whites</div>

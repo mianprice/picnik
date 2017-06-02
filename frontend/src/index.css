@@ -428,14 +428,14 @@ body {
 }
 
 .signup_section_form {
-  width: 50%;
-  margin: 0 25%;
+  width: 40%;
+  margin: 0 30%;
   padding: 5px;
   background-color: white;
 }
 .signup_section_form > input,label {
-    width: 50%;
-    margin: 0 25%;
+    text-align: center;
+    width: 100%;
     padding: 5px;
 }
 
@@ -538,8 +538,8 @@ body {
 }
 
 .wine_section {
-  width: 50%;
-  margin: 2% 25% 2% 25%;
+  width: 40%;
+  margin: 2% 30% 2% 30%;
 }
 
 /**************/
@@ -571,7 +571,7 @@ body {
     padding: 5px;
     margin: 5px;
     border-radius: 5px;
-    background-color: darkgrey;
+    background-color: green;
     color: white;
     cursor: pointer;
     width: 100%;
@@ -587,7 +587,7 @@ body {
   color: white;
   text-decoration: none;
   font-size: 12px;
-  background-color: #f95759;
+  background-color: red;
   border-radius: 5px;
   margin-bottom: 5px;
   margin: 5px;
@@ -665,6 +665,10 @@ body {
   background-color: lightgrey;
 }
 
+.wine_category {
+    margin-top: 5px;
+}
+
 .signup_progress {
     width: 100%;
     display: flex;
@@ -673,7 +677,7 @@ body {
 }
 
 .signup_profile_button {
-    width: 25%;
+    width: 20%;
 }
 
 .progress_section {
