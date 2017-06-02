@@ -618,6 +618,10 @@ body {
     margin: 3px;
 }
 
+.signup_section_profile_group {
+    width: 150%;
+}
+
 .signup-text-input {
     width: 100%;
 }
@@ -662,7 +666,7 @@ body {
 }
 
 .signup_progress {
-    width: 200%;
+    width: 80%;
     margin: 0 10%;
     display: flex;
     justify-content: center;
@@ -675,6 +679,7 @@ body {
 
 .progress_section {
     padding: 5px;
+    width: 25%;
 }
 
 .sec_done {
