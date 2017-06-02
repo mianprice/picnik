@@ -32,7 +32,7 @@ const where = (place) => {
 
 export const savePicnik = (recipes, beers, wines, park, date_of, time_of, login) => {
     let asyncAction = function(dispatch) {
-        if (login.token.length > 0) {
+        if (login.token !== undefined) {
             $.ajax({
                 url: "http://picnik.ianprice.co/api/picnik/save",
                 method: "POST",
