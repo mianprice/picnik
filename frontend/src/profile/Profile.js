@@ -40,14 +40,14 @@ class Profile extends React.Component {
 
                                         </div>
                             }) : "No recipes were selected for this picnik."}
-                        {picnik.beers.length > 0 ? picnik.beers.map((beer, index) => {
+                        {(picnik.beers && picnik.beers[0]) && (picnik.beers[0].length > 0) ? picnik.beers.map((beer, index) => {
                             return <div className="saved-picnik-beer-details" key={index}>
                                         Beers: <br/><br/> {beer.beer_name}
 
                                     </div>
                         }) : "No beers were selected for this picnik."}
 
-                        {picnik.wines.length > 0 ? picnik.wines.map((wine, index) => {
+                        {(picnik.wines && picnik.wines[0]) && (picnik.wines[0].length > 0) ? picnik.wines.map((wine, index) => {
                             return <div className="saved-picnik-wine-details" key={index}>
                                         Wines: <br/><br/>{wine.name}
                                     </div>
