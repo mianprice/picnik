@@ -851,13 +851,13 @@ body {
 }*/
 
 .invitations-entry {
-    width: 45%;
+    width: 100%;
     /*margin-left: 10%;*/
     /*margin-right: 5%;*/
     /*margin-bottom: 20px;*/
     /*background-color: pink;*/
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     /*align-items: stretch;*/
     flex-wrap: wrap;
     margin-top: 20px;
@@ -903,7 +903,7 @@ body {
     padding: 10px;
     margin: 5px;
     border-radius: 5px;
-    width: 30%;
+    width: 60%;
     background-color: darkgreen;
     color: white;
     text-align: center;

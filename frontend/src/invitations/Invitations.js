@@ -11,7 +11,7 @@ class Invitations extends React.Component {
     render() {
         let invitation_set = (
             <div className='invitations-display-section'>
-                <div className='invitations-content-title'>Guest List<div className="signup_button" onClick={event => this.props.refreshGuestList(this.props.planning.id, this.props.login)}>Refresh</div></div>
+                <div className='invitations-content-title'>Guest List<div className="add-to-guest-list-button" onClick={event => this.props.refreshGuestList(this.props.planning.id, this.props.login)}>Refresh</div></div>
                 {this.props.invitations.guest_list.length > 0 ? this.props.invitations.guest_list.map((guest, index) => {
                     let responseString, responseIcon;
                     if (guest.response == 2) {
@@ -78,17 +78,16 @@ class Invitations extends React.Component {
                 </div>
                 <div className="invitations-entry">
                     <div className='invitations-content-title'>Invite Guests</div>
-                        <div className="invitations-guest-list-section">
-                            <div className='invitations-content-title'>Enter Guests</div>
-                            <div>Name of Guest: <input type="text" value={this.props.invitations.invite_name} onChange={(event) => this.props.enterInvites(event.target.value, this.props.invitations.invite_email, 0)}/></div>
+                    <div className="invitations-guest-list-section">
+                        <div className='invitations-content-title'>Enter Guests</div>
+                        <div>Name of Guest: <input type="text" value={this.props.invitations.invite_name} onChange={(event) => this.props.enterInvites(event.target.value, this.props.invitations.invite_email, 0)}/></div>
 
-                            <div>Email: <input type='text' value={this.props.invitations.invite_email} onChange={(event) => this.props.enterInvites(this.props.invitations.invite_name, event.target.value, 0)}/></div>
+                        <div>Email: <input type='text' value={this.props.invitations.invite_email} onChange={(event) => this.props.enterInvites(this.props.invitations.invite_name, event.target.value, 0)}/></div>
 
-                            <div className='add-to-guest-list-button' onClick={() => this.props.sendInvite(this.props.planning.id, this.props.invitations.invite_name, this.props.invitations.invite_email, this.props.login)}>Send Invite</div>
-                        </div>
-
+                        <div className='add-to-guest-list-button' onClick={() => this.props.sendInvite(this.props.planning.id, this.props.invitations.invite_name, this.props.invitations.invite_email, this.props.login)}>Send Invite</div>
+                    </div>
+                    {invitation_set}
                 </div>
-                {invitation_set}
             </div>
         );
     }
