@@ -13,37 +13,43 @@ class Food extends React.Component {
         let match_set = this.props.food.recipe_set.map((item, index) => {
             return (
                 <div className="recipe" key={index}>
-                    <div>
-                        <div className="recipe-title">
-                            {item.name}
-                            <div className={item.class}>
-                            <div alt="food pairing match box"/>{item.class.includes("user-preferred-recipe-good") ? "A decent match." : item.class.includes("user-preferred-recipe-great") ? "A pretty good match." : item.class.includes("user-preferred-recipe-excellent") ? "This one's a perfect match." : ""}</div>
+                        <div className="recipe-image">
+                            <img src={item.image_url} alt={item.name}/>
                         </div>
-                            {item.cuisines.map((cuisines, index) => {
+                    <div className="recipe-title">
+                        <div>{item.name}</div>
+                        <div className={item.class}>
+                            <div alt="food pairing match box">{item.class.includes("user-preferred-recipe-good") ? "A decent match." : item.class.includes("user-preferred-recipe-great") ? "A pretty good match." : item.class.includes("user-preferred-recipe-excellent") ? "This one's a perfect match." : ""}
+                            </div>
+                        </div>
+                    </div>
+                        <div className="recipe-cuisines-container">
+                            Cuisine: {item.cuisines.map((cuisines, index) => {
                                 return <div key={index} className="recipe-cuisines">
-                                            {cuisines.name}
+                                             {cuisines.name}
                                         </div>
                             })}
-                    </div>
-                    <img src={item.image_url} alt={item.name}/>
+                        </div>
                     <div className="recipe-ingredients">
-                        {item.ingredients.map(item => {
+                        Ingredients: {item.ingredients.map(item => {
                             return item.name + ", ";
                         })}
                     </div>
-                    {recipe_set.includes(item.recipe_id) ?
-                    <div className="recipe-buttons" onClick={() => {this.props.removeRecipe(item)}}>Remove from Picnik</div>
-                    :
-                    <div className="recipe-buttons" onClick={() => this.props.selectRecipe(item)}>Add to My Picnik</div>}
+                    <div className="picnik-chooser-recipe-buttons">
+                        {recipe_set.includes(item.recipe_id) ?
+                        <div className="recipe-buttons" onClick={() => {this.props.removeRecipe(item)}}>Remove from Basket</div>
+                        :
+                        <div><div className="recipe-buttons" onClick={() => this.props.selectRecipe(item)}>Add to Basket</div></div>}
 
-                    <a href={"http://www.yummly.co/recipe/" + item.yummly_id} target="_blank"><div className="recipe-buttons">View Recipe</div></a>
+                        <a href={"http://www.yummly.co/recipe/" + item.yummly_id} target="_blank"><div className="recipe-buttons">View Recipe</div></a>
+                    </div>
                 </div>
             );
         });
         return (
             <div className="plan_part">
             {match_set}
-            <div className="drink-buttons" onClick={() => this.props.getMoreRecipes(this.props.signup.taste_profile, this.props.signup.cuisine_profile)}>Load More Recipes</div>
+            <div className="load-more-buttons" onClick={() => this.props.getMoreRecipes(this.props.signup.taste_profile, this.props.signup.cuisine_profile)}>Load More Recipes</div>
             </div>
         );
     }

@@ -274,6 +274,15 @@ body {
     font-size: 1.25em;
 }
 
+.beer-choices, .wine-choices, .recipe-choices {
+    margin: 20% 0 0 10%;
+}
+
+.park-choice {
+    margin: 20% 0 0 30%;
+    font-size: 1.5em;
+}
+
 .wines {
     grid-row: span 1;
     grid-column: span 1;
@@ -282,8 +291,31 @@ body {
 }
 
 .beer-and-wine {
-    background-color: #FFF0F0;
+    background-color: #DBDCD6;
     margin: 10px;
+    display: flex;
+    padding: 10px;
+    font-size: .8em;
+}
+
+.chooser-drink-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    padding: 10px;
+}
+
+.drink-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33%;
+}
+
+.drink-titles {
+    font-size: 1.25em;
+    font-weight: bolder;
 }
 
 /*MAP PLANNING*/
@@ -298,8 +330,13 @@ body {
 .zip-entry {
     grid-row: span 1;
     grid-column: span 2;
-    /*background-color: mistyrose;*/
+    margin-top: 10px;
     overflow: hidden;
+}
+
+#search_zip {
+    width: 200px;
+    height: 20px;
 }
 
 .date-picker {
@@ -315,6 +352,7 @@ body {
     /*background-color: deepskyblue;*/
     overflow-y: scroll;
     overflow-x: hidden;
+    font-size: .75em;
 }
 
 .park {
@@ -340,17 +378,17 @@ body {
 }
 
 .park-button {
-    line-height: 2.5em;
+    line-height: 2em;
     text-align: center;
-    height: 40px;
-    width: 100px;
-    /*background-color: grey;*/
-    padding: 5px;
-    border-radius: 10px;
+    background-color: #f95759;
+    padding: 3px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
 }
 
 .park-button:hover {
-    /*background-color: darkgrey;*/
+    background-color: #FA8486;
 }
 
 /*************/
@@ -461,15 +499,22 @@ body {
 
 .signup_button {
     padding: 5px;
-    margin: 5px;
-    border-radius: 5px;
-    background-color: black;
     color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    background-color: #f95759;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    margin: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
 }
 
 .signup_button:hover {
-    cursor: pointer;
+    background-color: #FA8486;
 }
+
 
 .signup_button_selected {
     padding: 5px;
@@ -564,8 +609,29 @@ body {
 }
 
 .recipe {
-    background-color: #FFF0F0;
+    background-color: #DBDCD6;
     margin: 10px;
+    display: flex;
+    padding: 10px;
+}
+
+.recipe-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 12%;
+}
+
+.recipe-title {
+    width: 22%;
+}
+
+.food-pairing-match-box {
+    display: block;
+}
+
+.picnik-chooser-recipe-buttons {
+    width: 10%;
 }
 
 .recipe-buttons {
@@ -578,14 +644,10 @@ body {
     border-radius: 5px;
     margin-bottom: 5px;
     margin: 5px;
+    width: 50px;
 }
 
-.recipe-buttons:hover {
-    background-color: #FA8486;
-    cursor: pointer;
-}
-
-.drink-buttons {
+.recipe-basket-buttons {
     padding: 5px;
     color: white;
     text-decoration: none;
@@ -595,7 +657,40 @@ body {
     border-radius: 5px;
     margin-bottom: 5px;
     margin: 5px;
+    cursor: pointer;
 }
+
+.recipe-buttons:hover {
+    background-color: #FA8486;
+    cursor: pointer;
+}
+
+.recipe-ingredients {
+    width: 40%;
+}
+
+.recipe-cuisines-container {
+    width: 16%;
+}
+
+.drink-buttons {
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 10px;
+    background-color: #f95759;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 35px;
+}
+
+.drink-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10%;
+}
+
 
 .drink-buttons:hover {
     background-color: #FA8486;
@@ -603,16 +698,34 @@ body {
 }
 
 .check_mark {
-    width: 20px;
+    width: 3%;
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 2px;
+    margin-left: 10px;
+    margin-top: 5px;
 }
 
 .cuisine-matched-recipe {
     color: yellow;
 }
 
+.load-more-buttons {
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    background-color: #f95759;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    margin: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+}
 
+.load-more-buttons:hover {
+    background-color: #FA8486;
+}
 
 .invitations-content {
     display: flex;
@@ -738,4 +851,10 @@ body {
 
 .saved_items_title {
     font-size: 1.25em;
+}
+
+.day_button {
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
