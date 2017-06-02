@@ -89,7 +89,7 @@ class Signup extends React.Component {
                 <div className="wine_category">
                   <div className={this.props.signup.wine_profile.sweet_whites === false ? " signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('sweet_whites')}>Sweet Whites</div>
                   <div className="wine_category_description">
-                  While sweet, these wines are also generally balanced. The natural sugars from the grapes help to balance the higher than average acidity or bitterness present in these wines. </br>
+                  While sweet, these wines are also generally balanced. The natural sugars from the grapes help to balance the higher than average acidity or bitterness present in these wines. <br/>
                   examples: Chenin Blanc, Riesling , Torrontés, …
                   </div>
                 </div>
@@ -97,7 +97,7 @@ class Signup extends React.Component {
                 <div className="wine_category">
                   <div className={this.props.signup.wine_profile.rich_whites === false ? " signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('rich_whites')}>Rich Whites</div>
                   <div className="wine_category_description">
-                    Fuller in body and sometimes oaky, these wines tend to be a bit heavier on the palate than their Dry counterparts. </br>
+                    Fuller in body and sometimes oaky, these wines tend to be a bit heavier on the palate than their Dry counterparts. <br/>
                     ex. Chardonnay, Sémillon, Viogner, …
                   </div>
                 </div>
@@ -105,7 +105,7 @@ class Signup extends React.Component {
                 <div className="wine_category">
                   <div className={this.props.signup.wine_profile.light_reds === false ? " signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('light_reds')}>Light Reds</div>
                   <div className="wine_category_description">
-                    Subtle and lighter in body compared to other red wines, lower tannins and bright acidity make these wines very drinkable. </br>
+                    Subtle and lighter in body compared to other red wines, lower tannins and bright acidity make these wines very drinkable. <br/>
                     ex. Pinot Noir, Gamay, Brachetto, …
                   </div>
                 </div>
@@ -113,7 +113,7 @@ class Signup extends React.Component {
                 <div className="wine_category">
                   <div className={this.props.signup.wine_profile.medium_reds === false ? " signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('medium_reds')}>Medium Reds</div>
                   <div className="wine_category_description">
-                    Medium in body with a broad spectrum of flavor profiles, these are some of the most food friendly wines. </br>
+                    Medium in body with a broad spectrum of flavor profiles, these are some of the most food friendly wines. <br/>
                     ex. Merlot, Sangiovese, Barbera, …
                   </div>
                 </div>
@@ -121,7 +121,7 @@ class Signup extends React.Component {
                 <div className="wine_category">
                   <div className={this.props.signup.wine_profile.bold_reds === false ? " signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('bold_reds')}>Bold Reds</div>
                   <div className="wine_category_description">
-                    High in tannins and bold in flavor, these wines can hold their own when paired with very flavorful dishes. </br>
+                    High in tannins and bold in flavor, these wines can hold their own when paired with very flavorful dishes. <br/>
                     ex. Cabernet Sauvignon, Malbec, Syrah, …
                   </div>
                 </div>
@@ -129,7 +129,7 @@ class Signup extends React.Component {
                 <div className="wine_category">
                   <div className={this.props.signup.wine_profile.sparkling === false ? " signup_button_selected" : "signup_button"} onClick={() => this.props.setWine('sparkling')}>Sparkling</div>
                   <div className="wine_category_description">
-                    Ranging from dry to sweet, sparkling wines are good for a variety of occasions and cuisines. </br>
+                    Ranging from dry to sweet, sparkling wines are good for a variety of occasions and cuisines. <br/>
                     ex. Cava, Champagne, Prosecco, …
                   </div>
                 </div>
