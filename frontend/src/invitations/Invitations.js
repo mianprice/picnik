@@ -11,7 +11,8 @@ class Invitations extends React.Component {
     render() {
         let invitation_set = (
             <div className='invitations-display-section'>
-                <div className='invitations-content-title'>Guest List<div className="add-to-guest-list-button" onClick={event => this.props.refreshGuestList(this.props.planning.id, this.props.login)}>Refresh</div></div>
+                <div className='invitations-content-title'>Guest List</div>
+                <div className="add-to-guest-list-button" onClick={event => this.props.refreshGuestList(this.props.planning.id, this.props.login)}>Refresh</div>
                 {this.props.invitations.guest_list.length > 0 ? this.props.invitations.guest_list.map((guest, index) => {
                     let responseString, responseIcon;
                     if (guest.response == 2) {

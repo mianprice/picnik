@@ -927,10 +927,20 @@ body {
 }
 
 .invitations-guest-list-section, .invitations-display-section {
+    margin-top: 10px;
     width: 45%;
-    background-color: grey;
+    background-color: lightgrey;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     /*margin: 10px;*/
     padding: 10px;
+}
+
+.invitations-guest-list-section > div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .user-preferred-recipe-good {
