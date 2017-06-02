@@ -852,6 +852,7 @@ body {
 
 .invitations-entry {
     width: 100%;
+    height: 90vh;
     /*margin-left: 10%;*/
     /*margin-right: 5%;*/
     /*margin-bottom: 20px;*/
@@ -932,15 +933,24 @@ body {
     background-color: lightgrey;
     display: flex;
     justify-content: center;
+    align-items: space-between;
     flex-wrap: wrap;
+    overflow-y: scroll;
     /*margin: 10px;*/
     padding: 10px;
 }
 
 .invitations-guest-list-section > div {
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 3px;
+}
+
+.invitations-guest-list-section > div > div,input {
+    width: 60%;
+    margin-top: 1px;
 }
 
 .user-preferred-recipe-good {
