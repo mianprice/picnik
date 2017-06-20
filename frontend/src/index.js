@@ -21,6 +21,8 @@ import FoodReducer from './food/Food.reducer.js';
 import MapReducer from './map/Map.reducer.js';
 import InvitationsReducer from './invitations/Invitations.reducer.js';
 import InvitationsContainer from './invitations/Invitations.js';
+import ResponsesReducer from './responses/Responses.reducer.js';
+import ResponsesContainer from './responses/Responses.js';
 import './index.css';
 
 const reducer = Redux.combineReducers({
@@ -32,7 +34,8 @@ const reducer = Redux.combineReducers({
     drinks: DrinksReducer,
     food: FoodReducer,
     map: MapReducer,
-    invitations: InvitationsReducer
+    invitations: InvitationsReducer,
+    responses: ResponsesReducer
 })
 
 const store = Redux.createStore(
@@ -94,9 +97,8 @@ ReactDOM.render(
           <Route path='/login' component={LoginContainer}/>
           <Route path='/profile' component={ProfileContainer}/>
           <Route path='/planning' component={PlanningContainer}/>
-          <Route path='/invitations' component={InvitationsContainer}>
-            <Route path='/:invite_response' component={InvitationsContainer}/>
-          </Route>
+          <Route path='/invitations' component={InvitationsContainer}/>
+          <Route path='/response' component={ResponsesContainer}/>
       </Route>
     </Router>
   </ReactRedux.Provider>,
