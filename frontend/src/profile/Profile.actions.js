@@ -22,7 +22,7 @@ const displayPicniks = (data) => {
 export const displayPicniksActionCreator = (login) => {
     let asyncAction = (dispatch) => {
         $.ajax({
-            url: "http://picnik.ianprice.co/api/saved_picniks",
+            url: "http://localhost:4000/api/saved_picniks",
             method: "POST",
             dataType: 'JSON',
             contentType: 'application/json',

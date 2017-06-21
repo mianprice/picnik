@@ -98,7 +98,7 @@ ReactDOM.render(
           <Route path='/profile' component={ProfileContainer}/>
           <Route path='/planning' component={PlanningContainer}/>
           <Route path='/invitations' component={InvitationsContainer}/>
-          <Route path='/response' component={ResponsesContainer}/>
+          <Route path='/response/:invite_id/:response_type' component={ResponsesContainer}/>
       </Route>
     </Router>
   </ReactRedux.Provider>,

@@ -148,7 +148,7 @@ app.get('/api/invite/:invite_id/:response', (req,res,next) => {
     let response = req.params.response === 'accept' ? 2 : 3;
     db.none('update invites set response = $1 where id = $2', [response, invite_id])
         .then(() => {
-            let redirect_url = response === 2 ? 'http://picnik.ianprice.co/#/invitations/true' : 'http://picnik.ianprice.co/#/invitations/false';
+            let redirect_url = response === 2 ? 'http://localhost:3000/#/invitations/true' : 'http://localhost:3000/#/invitations/false';
             res.redirect(redirect_url);
         })
         .catch(next);
@@ -386,7 +386,7 @@ app.post('/api/send_invite', (req,res,next) => {
         let recipeString = recipes.length > 0 ? ('<h3>Food</h3><p>' + recipes.map(recipe => `<span>${recipe.name}</span>`).join('<br>') + '</p><br>') : '';
         let beerString = beers.length > 0 ? ('<h3>Beer</h3><p>' + beers.map(beer => `<span>${beer.name}</span>`).join('<br>') + '</p><br>') : '';
         let wineString = wines.length > 0 ? ('<h3>Wine</h3><p>' + wines.map(wine => `<span>${wine.name}</span>`).join('<br>') + '</p><br>') : '';
-        let responseString = `<a href="http://picnik.ianprice.co/api/invite/${invite.id}/accept">Accept</a><br><br><a href="http://picnik.ianprice.co/api/invite/${invite.id}/decline">Decline</a>`
+        let responseString = `<a href="http://localhost:3000/#/response/${invite.id}/accept">Accept</a><br><br><a href="http://localhost:3000/#/response/${invite.id}/decline">Decline</a>`
         let body = dateAndTimeString + parkString + recipeString + beerString + wineString + responseString;
 
         // Create mail options specific to this invite
